@@ -1,0 +1,54 @@
+.stores_wrapper {
+  margin-top: 10px;
+}
+header {
+  font-weight: 700;
+  text-transform: capitalize;
+  background: #33b5e5;
+  color: #fff;
+  padding: 5px 10px;
+}
+
+.stores_wrapper ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+}
+
+.stores_wrapper li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color on hover */
+.stores_wrapper li a:hover {
+  background-color: rgb(150, 150, 150);
+  color: white;
+}
+
+.table {
+  background: #ffffff;
+}
+
+.table-info > th {
+  background-color: #33b5e5;
+  color: #ffffff;
+}
+
+.search_actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+button {
+  width: 240px;
+  margin-bottom: 10px;
+}
+
+.list_btn > div {
+  text-align: right;
+}
