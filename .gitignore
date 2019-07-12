@@ -3,5 +3,10 @@
 node_modules
 public
 package-lock.json
-.env
+.env.development
+.env.staging
+.env.production
+.env.*
+
+
 
