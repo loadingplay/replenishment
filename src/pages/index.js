@@ -8,9 +8,6 @@ export default class index extends Component {
 
 
   render() {
-
-    console.log('CURRENT LOCATION:', this.props.location.href);
-    
     return (
       <Layout>
         <SEO />
