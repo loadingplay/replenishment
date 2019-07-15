@@ -1,6 +1,5 @@
 export default {
     getToken(data){
-        console.log(data);
 
         let formBody = [];
         for (let property in data) {
@@ -10,9 +9,8 @@ export default {
         }
         formBody = formBody.join("&");
         
-        console.log(formBody);
 
-        fetch('https://accounts.loadingplay.com/oauth2/token', {
+        return fetch('https://accounts.loadingplay.com/oauth2/token', {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -21,7 +19,21 @@ export default {
         }).then(function (response) {
             return response.json();
         }).then(function (responseData) {
-            console.log(responseData);
+            return responseData
+        });
+    },
+
+    getUser(token){
+        return fetch('https://accounts.loadingplay.com/users/me', {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            'Authorization': 'Bearer ' + token,
+            }
+        }).then(function (response) {
+            return response.json();
+        }).then(function (responseData) {
+            return responseData
         });
     }
 }

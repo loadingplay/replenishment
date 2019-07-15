@@ -7,9 +7,7 @@ export default class code extends Component {
     componentDidMount(){
         let params = this.props.location.href.split("?")[1].split("&");
         let code = params[1].match(/code=(.*)/)[1];
-        console.log('CODE:',code);
-        console.log('monto');
-
+        
         let objToken = {
             code: code,
             grant_type: "authorization_code",
@@ -18,8 +16,13 @@ export default class code extends Component {
             redirect_uri: process.env.REDIRECT_URI
         }
 
-        loginService.getToken(objToken);
-        //navigate(`/dashboard/`)
+        loginService.getToken(objToken).then((data) => {
+            let token = data.access_token
+            loginService.getUser(token).then((data) => {
+                console.log(data);
+                navigate(`/dashboard/`)
+            })
+        });
     }
 
     render() {
