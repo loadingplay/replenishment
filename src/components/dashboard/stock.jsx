@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './stores.css'
+import authService from '../../services/authService';
 
 export default class stock extends Component {
   render() {
@@ -48,6 +49,11 @@ export default class stock extends Component {
             <div>
               <button type="button" className="btn btn-primary">
                 generar guia de despacho
+              </button>
+            </div>
+            <div>
+              <button type="button" className="btn btn-danger" onClick={authService.logout}>
+                cerrar sesión
               </button>
             </div>
           </div>

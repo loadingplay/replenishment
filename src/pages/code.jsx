@@ -6,6 +6,7 @@ import useLocalStorage from '../hooks/useLocalStorage'
 const code = (props) => {
 
     const [token, setToken] = useLocalStorage('token', token);
+    const [expiresAt, setExpiresAt] = useLocalStorage('expiresAt', expiresAt);
 
     useEffect(() => {
         // code to run on component mount
@@ -21,11 +22,13 @@ const code = (props) => {
         }
 
         loginService.getToken(objToken).then((data) => {
-            let token = data.access_token
-            setToken(token)
+            let token = data.access_token;
+            let expiresAt = data.expires_in;
+            setToken(token);
+            setExpiresAt(expiresAt);
             loginService.getUser(token).then((data) => {
                 console.log(data);
-                navigate(`/dashboard/`)
+                navigate(`/dashboard`)
             })
         });
       }, [])
