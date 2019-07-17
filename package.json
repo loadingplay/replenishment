@@ -13,6 +13,7 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "dependencies": {
+    "eslint-plugin-react-hooks": "^1.6.1",
     "gatsby": "^2.13.4",
     "gatsby-image": "^2.2.4",
     "gatsby-plugin-sharp": "^2.2.3",
