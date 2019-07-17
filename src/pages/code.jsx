@@ -3,10 +3,6 @@ import { navigate } from 'gatsby'
 import loginService from '../services/loginService'
 import useLocalStorage from '../hooks/useLocalStorage'
 
-function saveToken(token){
-    useLocalStorage('token', token); // Hook
-}
-
 const code = (props) => {
 
     const [token, setToken] = useLocalStorage('token', token);
