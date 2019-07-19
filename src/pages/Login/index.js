@@ -20,7 +20,6 @@ export default class index extends Component {
             <div className="logo">
               <Img
                 fixed={logo.childImageSharp.fixed}
-                alt="Gatsby Docs are awesome"
               />
               <h2>Replenishment System</h2>
             </div>

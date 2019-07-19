@@ -52,3 +52,8 @@ button {
 .list_btn > div {
   text-align: right;
 }
+
+.stores_wrapper_button {
+  margin-top: 10px;
+  width: 200px;
+}
