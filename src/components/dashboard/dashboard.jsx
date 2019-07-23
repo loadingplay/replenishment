@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component , useState  } from 'react'
 import Stores from './stores.jsx'
 import Stock from './stock.jsx'
 import './dashboard.css'
 
-export default class dashboard extends Component {
-  render() {
+const dashboard = (props) =>  {
+
+    const [cellarId, setCellarId] = useState(0);
+
     return (
       <div className="container dashboard_wrapper">
         <div className="dashboard_title">
@@ -13,14 +15,15 @@ export default class dashboard extends Component {
         <div className="dashboard_elements">
           <div>
             <div className="subtitle">1. Seleccion de tienda</div>
-            <Stores />
+            <Stores  cellarId={cellarId} setCellarId={setCellarId}/>
           </div>
           <div>
             <div className="subtitle">2. Pedidos</div>
-            <Stock />
+            <Stock cellarId={cellarId} setCellarId={setCellarId}/>
           </div>
         </div>
       </div>
     )
-  }
 }
+
+export default dashboard;

@@ -1,9 +1,23 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import './stores.css'
 import authService from '../../services/authService';
+import stockService from '../../services/stockService';
 
-export default class stock extends Component {
-  render() {
+const stock = (props) => {
+    const [data, dataSet] = useState([]);
+
+    async function fetchData() {
+      let token = authService.getCurrentToken();
+      let allStocks = await stockService.getStockByCellarId(props.cellarId, token);
+      dataSet(allStocks.data.products);
+    }
+  
+    useEffect(() => {
+      fetchData();
+    }, [props.cellarId])
+    
+    console.log(data);
+    
     return (
       <section className="stores_wrapper">
         <table className="table table-hover table-borderless">
@@ -18,16 +32,18 @@ export default class stock extends Component {
             </tr>
           </thead>
           <tbody>
+            {data ? data.map((item, i) =>
+              <tr key={i}>
+                <th scope="row">{item.product_sku}</th>
+                <td></td>
+                <td>{item.balance_units}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            ) : <tr><td>Buscando...</td></tr>}
             <tr>
               <th scope="row">sku1</th>
-              <td>producto 1</td>
-              <td>10</td>
-              <td>5</td>
-              <td></td>
-              <td>picker</td>
-            </tr>
-            <tr>
-              <th scope="row">sku2</th>
               <td>producto 1</td>
               <td>10</td>
               <td>5</td>
@@ -60,5 +76,6 @@ export default class stock extends Component {
         </section>
       </section>
     )
-  }
 }
+
+export default stock;
