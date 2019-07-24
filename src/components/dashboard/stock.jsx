@@ -1,20 +1,40 @@
 import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom';
+import Paginator from 'react-hooks-paginator';
 import './stores.css'
 import authService from '../../services/authService';
 import stockService from '../../services/stockService';
 
 const stock = (props) => {
+    const [fullData, fullDataSet] = useState([]);
     const [data, dataSet] = useState([]);
+    const [offset, setOffset] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentData, setCurrentData] = useState([]);
+    const pageLimit = 10;
 
-    async function fetchData() {
+    async function fetchGlobalData(){
       let token = authService.getCurrentToken();
       let allStocks = await stockService.getStockByCellarId(props.cellarId, token);
-      dataSet(allStocks.data.products);
+      fullDataSet(allStocks.data.products)
+    }
+
+    async function fetchPagedData() {
+      let token = authService.getCurrentToken();
+      console.log('Pagina Actual', currentPage)
+      let stocksPaged = await stockService.getStockByCellarIdPaged(props.cellarId, token, currentPage);
+      dataSet(stocksPaged.data.products);
     }
   
     useEffect(() => {
-      fetchData();
+      fetchGlobalData()
+      fetchPagedData();
     }, [props.cellarId])
+
+    useEffect(() => {
+      fetchPagedData();
+      setCurrentData(data.slice(offset, offset + pageLimit));
+    }, [offset, data]);
     
     console.log(data);
     
@@ -32,7 +52,7 @@ const stock = (props) => {
             </tr>
           </thead>
           <tbody>
-            {data ? data.map((item, i) =>
+            {data.length !== 0 ? data.map((item, i) =>
               <tr key={i}>
                 <th scope="row">{item.product_sku}</th>
                 <td></td>
@@ -42,16 +62,15 @@ const stock = (props) => {
                 <td></td>
               </tr>
             ) : <tr><td>Buscando...</td></tr>}
-            <tr>
-              <th scope="row">sku1</th>
-              <td>producto 1</td>
-              <td>10</td>
-              <td>5</td>
-              <td></td>
-              <td>picker</td>
-            </tr>
           </tbody>
         </table>
+        <Paginator
+          totalRecords={fullData.length}
+          pageLimit={4}
+          setOffset={setOffset}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
         <section className="search_actions">
           <div>
             <input type="text" placeholder="ingrese sku" />
