@@ -1,5 +1,5 @@
 export default {
-    getToken(data){
+    getToken(data) {
 
         let formBody = [];
         for (let property in data) {
