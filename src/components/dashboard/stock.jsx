@@ -6,37 +6,30 @@ import authService from '../../services/authService';
 import stockService from '../../services/stockService';
 
 const stock = (props) => {
-    const [fullData, fullDataSet] = useState([]);
     const [data, dataSet] = useState([]);
     const [offset, setOffset] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const pageLimit = 10;
 
-    async function fetchGlobalData(){
-      let token = authService.getCurrentToken();
-      let allStocks = await stockService.getStockByCellarId(props.cellarId, token);
-      fullDataSet(allStocks.data.products)
-    }
-
     async function fetchPagedData() {
       let token = authService.getCurrentToken();
       console.log('Pagina Actual', currentPage)
-      let stocksPaged = await stockService.getStockByCellarIdPaged(props.cellarId, token, currentPage);
-      dataSet(stocksPaged.data.products);
+      console.log('Id actual', props.cellarId)
+      let stocksPaged = await stockService.getSuggestedProducts(props.cellarId, token);
+      console.log(stocksPaged);
+      dataSet(stocksPaged.data.replenishments);
     }
   
     useEffect(() => {
-      fetchGlobalData()
       fetchPagedData();
     }, [props.cellarId])
 
     useEffect(() => {
-      fetchPagedData();
-      setCurrentData(data.slice(offset, offset + pageLimit));
+      setCurrentData(data ? data.slice(offset, offset + pageLimit) : 0);
     }, [offset, data]);
     
-    console.log(data);
+    console.log(currentData);
     
     return (
       <section className="stores_wrapper">
@@ -52,21 +45,22 @@ const stock = (props) => {
             </tr>
           </thead>
           <tbody>
-            {data.length !== 0 ? data.map((item, i) =>
+            {currentData ? currentData.map((item, i) =>
               <tr key={i}>
-                <th scope="row">{item.product_sku}</th>
+                <th scope="row">{item.sku}</th>
+                <td>{item.site_name}</td>
                 <td></td>
-                <td>{item.balance_units}</td>
                 <td></td>
-                <td></td>
+                <td>{item.suggested ? 'Sí' : 'No'}</td>
                 <td></td>
               </tr>
             ) : <tr><td>Buscando...</td></tr>}
           </tbody>
         </table>
         <Paginator
-          totalRecords={fullData.length}
+          totalRecords={data ? data.length : 1}
           pageLimit={4}
+          pageNeighbours={1}
           setOffset={setOffset}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

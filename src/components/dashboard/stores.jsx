@@ -6,9 +6,7 @@ import cellarService from '../../services/cellarService'
 const stores = (props) => {
 
   const [data, dataSet] = useState([]);
-  const [cellarChecked, setCellarChecked] = useState(false);
   
-
   async function fetchData() {
     let token = authService.getCurrentToken();
     let allCellars = await cellarService.getAllCellar(token);
@@ -20,10 +18,7 @@ const stores = (props) => {
   }, [])
 
 
-  function handleCheckCellar(event) {
-    const value = event.target.value;
-    const checked = event.currentTarget.checked;
-    setCellarChecked(checked)
+  function handleClickCellar(value) {
     props.setCellarId(value)
   }
 
@@ -38,7 +33,7 @@ const stores = (props) => {
         <tbody>
           {data.cellars ? data.cellars.map((item, i) =>
             <tr key={i}>
-              <td><input type="checkbox" name="cellar" value={item.id} defaultChecked={cellarChecked} onChange={handleCheckCellar}></input> {item.name}</td>
+              <td><input type="button" name="cellar" className="btn btn-default" value={item.name} onClick={() => handleClickCellar(item.id)}/></td>
             </tr>
           ) : <tr><td>Buscando...</td></tr>}
         </tbody>

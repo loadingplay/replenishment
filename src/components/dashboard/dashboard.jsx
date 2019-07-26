@@ -1,9 +1,9 @@
-import React, { Component , useState  } from 'react'
+import React, { useState  } from 'react'
 import Stores from './stores.jsx'
 import Stock from './stock.jsx'
 import './dashboard.css'
 
-const dashboard = (props) =>  {
+const dashboard = () =>  {
 
     const [cellarId, setCellarId] = useState(0);
 
