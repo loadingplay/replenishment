@@ -10,29 +10,50 @@ const stock = (props) => {
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
-  const [sku, setSku] = useState('');
   const token = authService.getCurrentToken();
   const pageLimit = 10;
 
-  async function fetchPagedData() {
-    let stocksPaged = await stockService.getSuggestedProducts(props.cellarId, token);
-    dataSet(stocksPaged.data.replenishments);
+  async function fetchSuggestedData() {
+    let stocksSuggested = await stockService.getSuggestedProducts(props.cellarId, token);
+    let data = stocksSuggested.data.replenishments
+    data ? data.sort((a, b) => (a.suggested > b.suggested) ? 1 : -1) : '';
+    dataSet(data);
+  }
+
+  async function fetchStockData(){
+    let getStock = await stockService.getStockByCellarId(props.cellarId, token)
+    let dataProducts = getStock.data.products;
+    dataProducts ? dataProducts.map((item, i) => {
+      currentData ? currentData.map((e, i) => {
+        if(e.sku === item.product_sku){
+          e.balance_units = item.balance_units
+          e.in_stock = item.in_stock
+        }
+        return e;
+      }) : '';
+      return currentData;
+    }) : '';
   }
 
   useEffect(() => {
-    fetchPagedData();
+    fetchSuggestedData();
   }, [props.cellarId])
 
   useEffect(() => {
-    setCurrentData(data ? data.slice(offset, offset + pageLimit) : 0);
-  }, [offset, data]);
+    fetchStockData();
+  }, [props.cellarId])
+
+  useEffect(() => {
+    setCurrentData(data ? data.slice(offset, offset + pageLimit) : []);
+    fetchStockData();
+  }, [offset, data, props.cellarId]);
 
   async function handleSearch(evt) {
-    console.log(evt.target.value);
     let sku = evt.target.value;
     let currentInventory = await stockService.getCurrentInventory(props.cellarId, token, sku);
     console.log(currentInventory);
   }
+
 
   return (
     <section className="stores_wrapper">
@@ -52,9 +73,9 @@ const stock = (props) => {
             <tr key={i}>
               <th scope="row">{item.sku}</th>
               <td>{item.site_name}</td>
-              <td></td>
-              <td></td>
-              <td>{item.suggested ? 'Sí' : 'No'}</td>
+              <td>{item.in_stock ? 'Sí' : 'No'}</td>
+              <td>{item.balance_units ? item.balance_units : 0}</td>
+              <td>{item.suggested}</td>
               <td></td>
             </tr>
           ) : <tr><td>Buscando...</td></tr>}
