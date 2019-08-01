@@ -4,6 +4,26 @@ import Stock from './stock.jsx'
 import './dashboard.css'
 
 export default class dashboard extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      "access_token": "",
+      "selected_cellar_id": 0
+    };
+  }
+
+  handleSelectedCellar = (cellar_id) => {
+    this.setState({
+      "selected_cellar_id": cellar_id
+    });
+  }
+
+  componentDidMount = () => {
+    let access_token = window.localStorage.getItem("access_token");
+    this.setState({access_token});
+  }
+
   render() {
     return (
       <div className="container dashboard_wrapper">
@@ -13,11 +33,17 @@ export default class dashboard extends Component {
         <div className="dashboard_elements">
           <div>
             <div className="subtitle">1. Seleccion de tienda</div>
-            <Stores />
+            <Stores
+              access_token={this.state.access_token}
+              cellarSelected={this.handleSelectedCellar}
+            />
           </div>
           <div>
             <div className="subtitle">2. Pedidos</div>
-            <Stock />
+            <Stock
+              selected_cellar={this.state.selected_cellar_id}
+              access_token={this.state.access_token}
+            />
           </div>
         </div>
       </div>

@@ -34,6 +34,10 @@ header {
   background: #ffffff;
 }
 
+tr.stores_selected {
+  background: rgba(0,0,0,.075);
+}
+
 .table-info > th {
   background-color: #33b5e5;
   color: #ffffff;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { graphql, navigate, Link } from 'gatsby'
+import { graphql, navigate } from 'gatsby'
 import Img from 'gatsby-image'
 import Layout from '../components/layout/layout.jsx'
 import SEO from '../components/seo/seo.jsx'
@@ -9,6 +9,15 @@ export default class index extends Component {
     e.preventDefault()
     navigate(`/dashboard/`)
   }
+
+  handleLoginClick = () => {
+    document.location.href = "https://accounts.loadingplay.com/oauth2/auth?" +
+      "redirect_uri=http://localhost:8000/code&" +
+      "site_name=replenishment-local&" +
+      "client_id=437&" +
+      "response_type=code";
+  }
+
   render() {
     let {
       data: { logo },
@@ -26,21 +35,7 @@ export default class index extends Component {
               <h2>replenishment</h2>
             </div>
 
-            <form onSubmit={this._checkCredentials}>
-              <input type="email" placeholder="email" autoFocus required />
-              <input type="password" placeholder="Password" required />
-              <button>Login</button>
-            </form>
-          </div>
-          <div className="google_login">
-            <button onClick={this._checkCredentials}>
-              <span>
-                Sign in with <strong>Google</strong>
-              </span>
-            </button>
-          </div>
-          <div className="cta">
-            <Link to="/dashboard">Forgot your password?</Link>
+            <button onClick={this.handleLoginClick} >Login</button>
           </div>
         </div>
       </Layout>
