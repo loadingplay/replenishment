@@ -1,30 +1,7 @@
 import React, { Component } from 'react'
 import './stores.css'
-
-const StockLoader = window.StockLoader;
-
-// fix loader for react compatibility
-window.Loader.prototype.performRequest = function (cellarid, skus_chunk) {
-  var loader = this;
-  if (loader.instances > loader.max_instances) {
-    setTimeout(function () {
-      loader.performRequest(cellarid, skus_chunk);
-    }, 100);
-    return
-  }
-  this.instances += 1;
-  fetch("https://apibodegas.loadingplay.com/v1/cellar/" + cellarid + "/product/?sku_list=" + skus_chunk.join(","),
-  {
-    headers: {
-      "Authorization": "Bearer " + this.access_token
-    }
-  })
-  .then((response) => response.json())
-  .then((response) => {
-    loader.instances -= 1;
-    loader.callback(cellarid, response.products);
-  });
-};
+import ReactPaginate from 'react-paginate';
+import StockLoader from '../services/stock_loader';
 
 // implement stock class
 export default class stock extends Component {
@@ -36,11 +13,11 @@ export default class stock extends Component {
     };
   }
 
-  loadInventory = async (cellar_id) => {
+  loadInventory = async (cellar_id, page) => {
     let response, json_data;
 
     response = await fetch(
-      `https://replenishments.loadingplay.com/replenishment?cellar_id=${cellar_id}`,
+      `https://replenishments.loadingplay.com/replenishment?items=10&page=${page}&cellar_id=${cellar_id}`,
       {
         "headers": {
           "Authorization": `Bearer ${this.props.access_token}`
@@ -55,9 +32,13 @@ export default class stock extends Component {
   }
 
   loadStoreInventory = (cellar_id, products) => {
+    // early termination
+    if (products === undefined) return;
+
     let skus = products.map((item) => {
       return item.sku;
     });
+
     StockLoader(this.props.access_token)
     .load([cellar_id], skus)
     .done((cellar_id, products) => {
@@ -73,14 +54,18 @@ export default class stock extends Component {
 
       this.setState({
         products: new_products
-      })
+      });
     });
 
   }
 
+  handlePageClick = (e) => {
+    this.loadInventory(this.props.selected_cellar, e.selected + 1);
+  }
+
   componentWillReceiveProps = (newProps) => {
     if (newProps.selected_cellar !== 0) {
-      this.loadInventory(newProps.selected_cellar);
+      this.loadInventory(newProps.selected_cellar, 1);
     }
   }
 
@@ -100,6 +85,7 @@ export default class stock extends Component {
           </thead>
           <tbody>
             {
+              this.state.products !== undefined ?
               this.state.products.map((item, index) => {
                 return (
                   <tr key={index} >
@@ -116,10 +102,23 @@ export default class stock extends Component {
                     <td></td>
                   </tr>
                 );
-              })
+              }) : <tr><td>Cargando...</td></tr>
             }
           </tbody>
         </table>
+        <ReactPaginate
+          previousLabel={'anterior'}
+          nextLabel={'siguiente'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={this.state.pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={this.handlePageClick}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
+        />
         <section className="search_actions">
           <div>
             <input type="text" placeholder="ingrese sku" />
