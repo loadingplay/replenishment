@@ -25,8 +25,8 @@ export default class index extends Component {
     return (
       <Layout>
         <SEO />
-        <div className="form-module">
-          <div className="form">
+        <div className="row">
+          <div className="col-md-12">
             <div className="logo">
               <Img
                 fixed={logo.childImageSharp.fixed}

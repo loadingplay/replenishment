@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './stores.css'
 import ReactPaginate from 'react-paginate';
 import StockLoader from '../services/stock_loader';
 
@@ -9,12 +8,13 @@ export default class stock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: []
+      products: null
     };
   }
 
   loadInventory = async (cellar_id, page) => {
     let response, json_data;
+    this.setState({ products: null });
 
     response = await fetch(
       `https://replenishments.loadingplay.com/replenishment?items=10&page=${page}&cellar_id=${cellar_id}`,
@@ -24,9 +24,15 @@ export default class stock extends Component {
         }
       });
     json_data = await response.json();
-    this.setState({
-      products: json_data.replenishments
-    });
+    console.log(json_data)
+    if (json_data.status === "error") {
+    }
+    else
+    {
+      this.setState({
+        products: json_data.replenishments
+      });
+    }
 
     this.loadStoreInventory(cellar_id, json_data.replenishments);
   }
@@ -70,8 +76,44 @@ export default class stock extends Component {
   }
 
   render() {
+
+    let products;
+
+    if (!this.props.selected_cellar)
+    {
+      products = (<tr><td colSpan="6" >Seleccione una bodega</td></tr>);
+    }
+    else if (!this.state.products)
+    {
+      products = (<tr><td colSpan="6" >Cargando...</td></tr>);
+    }
+    else if (this.state.products.length === 0)
+    {
+      products = (<tr><td colSpan="6" >No hay productos sugeridos en esta tienda</td></tr>);
+    }
+    else
+    {
+      products = this.state.products.map((item, index) => {
+        return (
+          <tr key={index} >
+            <th scope="row">{item.sku}</th>
+            <td></td>
+            <td></td>
+            <td>
+              {
+                item.current_inventory === undefined ?
+                'cargando...':item.current_inventory
+              }
+            </td>
+            <td>{item.suggested}</td>
+            <td></td>
+          </tr>
+        );
+      });
+    }
+
     return (
-      <section className="stores_wrapper">
+      <section className="stores_wrapper col-12">
         <table className="table table-hover table-borderless">
           <thead>
             <tr className="table-info">
@@ -84,26 +126,7 @@ export default class stock extends Component {
             </tr>
           </thead>
           <tbody>
-            {
-              this.state.products !== undefined ?
-              this.state.products.map((item, index) => {
-                return (
-                  <tr key={index} >
-                    <th scope="row">{item.sku}</th>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      {
-                        item.current_inventory === undefined ?
-                        'cargando...':item.current_inventory
-                      }
-                    </td>
-                    <td>{item.suggested}</td>
-                    <td></td>
-                  </tr>
-                );
-              }) : <tr><td>Cargando...</td></tr>
-            }
+            { products }
           </tbody>
         </table>
         <ReactPaginate

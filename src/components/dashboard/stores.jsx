@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import './stores.css'
 
 export default class stores extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      cellars: [],
+      cellars: null,
       selected_id: 0
     };
   }
@@ -31,7 +30,7 @@ export default class stores extends Component {
   }
 
   render() {
-    let items = this.state.cellars.map((item, index) => {
+    let items = this.state.cellars ? this.state.cellars.map((item, index) => {
       return (
         <tr
           key={index}
@@ -46,7 +45,7 @@ export default class stores extends Component {
             {item.name}
           </td>
         </tr>);
-    });
+    }) : (<tr><td>Cargando...</td></tr>);
 
     return (
       <section className="stores_wrapper">
