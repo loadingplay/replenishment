@@ -61,7 +61,7 @@ export default class stock extends Component {
       if (!this.state.products) return;
       let new_products = this.state.products.map((item, index) => {
         let inventory = products.find((element) => {
-          return item.sku === element.product_sku
+          return item.sku === element.product_sku;
         });
         if (item.current_inventory === undefined) {
           item.current_inventory = inventory !== undefined ? inventory.balance_units:undefined;
