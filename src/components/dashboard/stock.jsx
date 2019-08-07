@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate';
-import StockLoader from '../services/stock_loader';
+import StockLoader from '../services/stock';
+import StoreLoader from '../services/stores';
 import "./stock.css";
 
 // implement stock class
@@ -14,18 +15,8 @@ export default class stock extends Component {
     };
   }
 
-  loadInventory = async (cellar_id, page) => {
-    let response, json_data;
-    this.setState({ products: null });
-
-    response = await fetch(
-      `https://replenishments.loadingplay.com/replenishment?items=100&page=${page}&cellar_id=${cellar_id}`,
-      {
-        "headers": {
-          "Authorization": `Bearer ${this.props.access_token}`
-        }
-      });
-    json_data = await response.json();
+  handleNewStatus = (json_data) => {
+    // handle status
     if (json_data.status === "error") {
       this.setState({
         error_message: json_data.message
@@ -38,8 +29,22 @@ export default class stock extends Component {
         error_message: ""
       });
     }
+  }
 
-    this.loadStoreInventory(cellar_id, json_data.replenishments);
+  loadInventory = async (cellar_id, page) => {
+    let store_loader,
+      json_data;
+
+    // reset status
+    this.setState({ products: null });
+    store_loader = new StoreLoader(this.props.access_token);
+    json_data = await store_loader.loadStoreList(page, cellar_id);
+
+    this.handleNewStatus(json_data);
+
+    // load current inventory
+    if (json_data.replenishments)
+      this.loadStoreInventory(cellar_id, json_data.replenishments);
   }
 
   loadStoreInventory = (cellar_id, products) => {
@@ -81,8 +86,7 @@ export default class stock extends Component {
     }
   }
 
-  render() {
-
+  renderProductList = () => {
     let products;
 
     if (!this.props.selected_cellar)
@@ -122,6 +126,11 @@ export default class stock extends Component {
       });
     }
 
+    return products;
+  }
+
+  render() {
+
     return (
       <section className="stores_wrapper col-12">
         <table className="table table-hover table-borderless">
@@ -136,7 +145,7 @@ export default class stock extends Component {
             </tr>
           </thead>
           <tbody>
-            { products }
+            { this.renderProductList() }
           </tbody>
         </table>
         <ReactPaginate
@@ -155,6 +164,8 @@ export default class stock extends Component {
           previousLinkClassName="page-link"
           nextClassName="page-item"
           nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
           activeClassName={'active'}
         />
         <section className="search_actions">

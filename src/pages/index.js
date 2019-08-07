@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { graphql, navigate } from 'gatsby'
 import Img from 'gatsby-image'
 import Layout from '../components/layout/layout.jsx'
-import SEO from '../components/seo/seo.jsx'
 
 export default class index extends Component {
   _checkCredentials = e => {
@@ -24,7 +23,6 @@ export default class index extends Component {
     } = this.props
     return (
       <Layout>
-        <SEO />
         <div className="row">
           <div className="col-md-12">
             <div className="logo">
