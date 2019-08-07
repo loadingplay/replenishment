@@ -38,7 +38,6 @@ componentDidMount = () => {
   fetch(`https://accounts.loadingplay.com/oauth2/token${this.jsonToQueryString(data)}`)
   .then((response) => response.json())
   .then((json_data) => {
-    console.log(json_data);
 
     if (json_data.hasOwnProperty("error")) {
       document.location.href = "/"
