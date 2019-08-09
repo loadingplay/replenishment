@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import StoreLoader from "../services/stores";
+import './stores.css'
 
 export default class stores extends Component {
 
@@ -11,14 +13,12 @@ export default class stores extends Component {
   }
 
   loadCellars = async (token) => {
-    let response, json_data;
+    let store_api,
+      json_data;
 
-    response = await fetch("https://apibodegas.loadingplay.com/v1/cellar", {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-    json_data = await response.json();
+    store_api = new StoreLoader(token);
+    json_data = await store_api.loadCellars();
+
     this.setState({
       "cellars": json_data.cellars
     });

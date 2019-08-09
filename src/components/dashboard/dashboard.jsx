@@ -53,6 +53,23 @@ export default class dashboard extends Component {
               selected_cellar={this.state.selected_cellar_id}
               access_token={this.state.access_token}
             />
+            <section className="search_actions">
+              <div>
+                <input type="text" placeholder="ingrese sku" />
+              </div>
+              <div className="list_btn">
+                <div>
+                  <button type="button" className="btn btn-success">
+                    imprimir
+                  </button>
+                </div>
+                <div>
+                  <button type="button" className="btn btn-primary">
+                    generar guia de despacho
+                  </button>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>

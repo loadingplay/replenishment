@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate';
 import StockLoader from '../services/stock';
 import StoreLoader from '../services/stores';
+import Picker from './picker';
 import "./stock.css";
 
 // implement stock class
@@ -38,7 +39,7 @@ export default class stock extends Component {
     // reset status
     this.setState({ products: null });
     store_loader = new StoreLoader(this.props.access_token);
-    json_data = await store_loader.loadStoreList(page, cellar_id);
+    json_data = await store_loader.loadProducts(page, cellar_id);
 
     this.handleNewStatus(json_data);
 
@@ -120,7 +121,7 @@ export default class stock extends Component {
               }
             </td>
             <td>{item.suggested}</td>
-            <td></td>
+            <td><Picker sku={item.sku} ></Picker></td>
           </tr>
         );
       });
@@ -168,23 +169,6 @@ export default class stock extends Component {
           breakLinkClassName="page-link"
           activeClassName={'active'}
         />
-        <section className="search_actions">
-          <div>
-            <input type="text" placeholder="ingrese sku" />
-          </div>
-          <div className="list_btn">
-            <div>
-              <button type="button" className="btn btn-success">
-                imprimir
-              </button>
-            </div>
-            <div>
-              <button type="button" className="btn btn-primary">
-                generar guia de despacho
-              </button>
-            </div>
-          </div>
-        </section>
       </section>
     )
   }
