@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate';
 import { StockLoader } from "../../../library/services";
 import { StoreLoader } from "../../../library/services";
-import { Picker } from './picker';
+import { PickerControl } from '../../../library/components/picker';
 import "./stock.css";
 
 // implement stock class
@@ -121,7 +121,7 @@ export class Stock extends Component {
               }
             </td>
             <td>{item.suggested}</td>
-            <td><Picker cellar_id={this.props.selected_cellar} sku={item.sku} ></Picker></td>
+            <td><PickerControl cellar_id={this.props.selected_cellar} sku={item.sku} ></PickerControl></td>
           </tr>
         );
       });

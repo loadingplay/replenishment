@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import { Stores } from './stores'
-import { Stock } from './stock'
+import React, { Component } from 'react';
+import { Stores } from './stores';
+import { Stock } from './stock';
+import { PickerClearButton } from '../../library/components/picker';
 
 export default class dashboard extends Component {
 
@@ -63,9 +64,14 @@ export default class dashboard extends Component {
                 </div>
               </div>
               <div className="col-4 offset-md-4 row">
-                <button type="button" className="btn btn-danger btn-block float-right" >
-                  limpiar picker
-                </button>
+                <PickerClearButton
+                  selected_cellar_id={this.state.selected_cellar_id}
+                  onPickerClear={() => {
+                    this.setState({
+                      selected_cellar_id: this.state.selected_cellar_id
+                    });
+                  }}
+                ></PickerClearButton>
                 <button type="button" className="btn btn-success btn-block float-right">
                   imprimir
                 </button>

@@ -17,7 +17,7 @@ class _PickerStore {
   }
 
   set = (cellar_id, sku, value) => {
-    if (!this.data || !this.data.hasOwnProperty(cellar_id)) {
+    if (!this.data || !this.data.hasOwnProperty(cellar_id) || this.data[cellar_id] === "") {
       this.data[cellar_id] = {};
     }
     this.data[cellar_id][sku] = value;
@@ -30,6 +30,13 @@ class _PickerStore {
     let number = parseInt(this.data[cellar_id][sku]);
     if (isNaN(number)) return 0;
     return number;
+  }
+
+  clear = (cellar_id) => {
+    if (!this.data || !this.data.hasOwnProperty(cellar_id)) return;
+    this.data[cellar_id] = undefined;
+    delete this.data[cellar_id];
+    localStorage.setItem('picker-data', JSON.stringify(this.data));
   }
 
 }

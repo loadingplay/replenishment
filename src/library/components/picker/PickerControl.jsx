@@ -1,7 +1,7 @@
 import React from 'react';
-import { PickerStore } from '../../../library/services';
+import { PickerStore } from '../../services';
 
-export class Picker extends React.Component {
+export class PickerControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {q: PickerStore.get(this.props.cellar_id, this.props.sku)};
