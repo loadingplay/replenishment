@@ -4,11 +4,11 @@ import PickerStore from '../services/picker';
 export default class Picker extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {q: PickerStore.get(this.props.sku)};
+    this.state = {q: PickerStore.get(this.props.cellar_id, this.props.sku)};
   }
 
   handleUpdate = () => {
-    PickerStore.set(this.props.sku, this.state.q);
+    PickerStore.set(this.props.cellar_id, this.props.sku, this.state.q);
   }
 
   handlePlus = () => {

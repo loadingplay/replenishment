@@ -16,13 +16,18 @@ class PickerStore {
     return PickerStore.instance;
   }
 
-  set = (sku, value) => {
-    this.data[sku] = value;
+  set = (cellar_id, sku, value) => {
+    if (!this.data || !this.data.hasOwnProperty(cellar_id)) {
+      this.data[cellar_id] = {};
+    }
+    this.data[cellar_id][sku] = value;
     localStorage.setItem('picker-data', JSON.stringify(this.data));
   }
 
-  get = (sku) => {
-    let number = parseInt(this.data[sku]);
+  get = (cellar_id, sku) => {
+    if (!this.data || !this.data.hasOwnProperty(cellar_id)) return 0;
+
+    let number = parseInt(this.data[cellar_id][sku]);
     if (isNaN(number)) return 0;
     return number;
   }

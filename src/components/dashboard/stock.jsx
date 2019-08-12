@@ -121,7 +121,7 @@ export default class stock extends Component {
               }
             </td>
             <td>{item.suggested}</td>
-            <td><Picker sku={item.sku} ></Picker></td>
+            <td><Picker cellar_id={this.props.selected_cellar} sku={item.sku} ></Picker></td>
           </tr>
         );
       });
