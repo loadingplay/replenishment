@@ -134,13 +134,13 @@ export class Stock extends Component {
 
     return (
       <section className="stores_wrapper col-12">
-        <table className="table table-hover table-borderless">
+        <table className="table table-sm">
           <thead>
             <tr className="table-info">
               <th scope="col">sku</th>
-              <th scope="col">nombre producto</th>
-              <th scope="col">stock en bodega</th>
-              <th scope="col">stock en tienda</th>
+              <th scope="col">nombre</th>
+              <th scope="col">stock bodega</th>
+              <th scope="col">stock tienda</th>
               <th scope="col">sugerido</th>
               <th scope="col">picker</th>
             </tr>
