@@ -1,4 +1,4 @@
-const StockLoader = window.StockLoader;
+export const StockLoader = window.StockLoader;
 
 // fix loader for react compatibility
 window.Loader.prototype.performRequest = function (cellarid, skus_chunk) {
@@ -22,6 +22,3 @@ window.Loader.prototype.performRequest = function (cellarid, skus_chunk) {
     loader.callback(cellarid, response.products);
   });
 };
-
-
-export default StockLoader;

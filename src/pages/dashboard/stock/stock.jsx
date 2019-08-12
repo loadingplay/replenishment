@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate';
-import StockLoader from '../services/stock';
-import StoreLoader from '../services/stores';
-import Picker from './picker';
+import { StockLoader } from "../../../library/services";
+import { StoreLoader } from "../../../library/services";
+import { Picker } from './picker';
 import "./stock.css";
 
 // implement stock class
-export default class stock extends Component {
+export class Stock extends Component {
 
   constructor(props) {
     super(props);

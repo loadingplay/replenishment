@@ -1,6 +1,6 @@
-class PickerStore {
+class _PickerStore {
   constructor() {
-    if(!PickerStore.instance) {
+    if(!_PickerStore.instance) {
       let storage_data;
 
       try {
@@ -10,10 +10,10 @@ class PickerStore {
       }
 
       this.data = storage_data ? storage_data:{};
-      PickerStore.instance = this;
+      _PickerStore.instance = this;
     }
 
-    return PickerStore.instance;
+    return _PickerStore.instance;
   }
 
   set = (cellar_id, sku, value) => {
@@ -34,7 +34,5 @@ class PickerStore {
 
 }
 
-const instance = new PickerStore();
-Object.freeze(instance);
-
-export default instance;
+export const PickerStore = new _PickerStore();
+Object.freeze(PickerStore);

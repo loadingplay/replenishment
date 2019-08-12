@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { graphql, navigate } from 'gatsby'
 import Img from 'gatsby-image'
-import Layout from '../components/layout/layout.jsx'
+import Layout from '../library/components/layout';
 
 export default class index extends Component {
   _checkCredentials = e => {

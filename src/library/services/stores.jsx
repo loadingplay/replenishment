@@ -1,4 +1,4 @@
-export default class StoreLoader {
+export class StoreLoader {
   constructor(access_token) {
     this.access_token = access_token;
   }

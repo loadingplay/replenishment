@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import StoreLoader from "../services/stores";
+import { StoreLoader } from '../../../library/services';
 import './stores.css'
 
-export default class stores extends Component {
+export class Stores extends Component {
 
   constructor(props) {
     super(props);

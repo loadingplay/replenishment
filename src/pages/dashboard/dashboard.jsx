@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Stores from './stores.jsx'
-import Stock from './stock.jsx'
+import { Stores } from './stores'
+import { Stock } from './stock'
 
 export default class dashboard extends Component {
 
@@ -53,21 +53,25 @@ export default class dashboard extends Component {
               selected_cellar={this.state.selected_cellar_id}
               access_token={this.state.access_token}
             />
-            <section className="search_actions">
-              <div>
-                <input type="text" placeholder="ingrese sku" />
+            <section className="search_actions col-12 row">
+              <div className="col-4" >
+                <div className="form-group row">
+                  <label htmlFor="search" className="col-sm-2 col-form-label">SKU</label>
+                  <div className="col-sm-10">
+                    <input type="text" placeholder="ingrese sku" className="form-control" id="search" />
+                  </div>
+                </div>
               </div>
-              <div className="list_btn">
-                <div>
-                  <button type="button" className="btn btn-success">
-                    imprimir
-                  </button>
-                </div>
-                <div>
-                  <button type="button" className="btn btn-primary">
-                    generar guia de despacho
-                  </button>
-                </div>
+              <div className="col-4 offset-md-4 row">
+                <button type="button" className="btn btn-danger btn-block float-right" >
+                  limpiar picker
+                </button>
+                <button type="button" className="btn btn-success btn-block float-right">
+                  imprimir
+                </button>
+                <button type="button" className="btn btn-primary btn-block float-right">
+                  generar guía
+                </button>
               </div>
             </section>
           </div>
