@@ -20,7 +20,10 @@ class _PickerStore {
     if (!this.data || !this.data.hasOwnProperty(cellar_id) || this.data[cellar_id] === "") {
       this.data[cellar_id] = {};
     }
-    this.data[cellar_id][sku] = value;
+    if (value === 0)
+      delete this.data[cellar_id][sku];
+    else
+      this.data[cellar_id][sku] = value;
     localStorage.setItem('picker-data', JSON.stringify(this.data));
   }
 
