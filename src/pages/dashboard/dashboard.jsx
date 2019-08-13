@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+
+import ReactPaginate from 'react-paginate';
+
 import { Stores } from './stores';
 import { Stock } from './stock';
-import { PickerClearButton } from '../../library/components/picker';
+import { PickerClearButton, LogoutButton } from '../../library/components';
+import { GenerateOrderButton } from '../../library/components/order';
 
 export default class dashboard extends Component {
 
@@ -9,7 +13,8 @@ export default class dashboard extends Component {
     super(props);
     this.state = {
       "access_token": "",
-      "selected_cellar_id": 0
+      "selected_cellar_id": 0,
+      "current_page": 0
     };
   }
 
@@ -19,9 +24,17 @@ export default class dashboard extends Component {
     });
   }
 
-  handleLogout = () => {
-    // remove cookie and go to login
-    document.location.href = "https://accounts.loadingplay.com/auth/logout?next=http://localhost:8000"
+  handlePageClick = (e) => {
+    this.setState({
+      current_page: e.selected
+    });
+  }
+
+  handlePickerClear = () => {
+    this.setState({
+      selected_cellar_id: this.state.selected_cellar_id,
+      current_page: 0
+    });
   }
 
   componentDidMount = () => {
@@ -36,6 +49,8 @@ export default class dashboard extends Component {
           <h3 className="dashboard_title col-12">
             Reposición de inventario.
           </h3>
+
+          {/* Stores */}
           <div className="col-2" >
             <div className="subtitle">1. Seleccion de tienda</div>
             <Stores
@@ -43,18 +58,49 @@ export default class dashboard extends Component {
               cellarSelected={this.handleSelectedCellar}
             />
           </div>
+
+          {/* Inventory table */}
           <div className="col-10 row" >
             <div className="subtitle col-6">
               2. Pedidos
             </div>
             <div className="col-6">
-              <a type="button" onClick={this.handleLogout} className="float-right" >Salir</a>
+              <LogoutButton></LogoutButton>
             </div>
             <Stock
-              selected_cellar={this.state.selected_cellar_id}
-              access_token={this.state.access_token}
+              currentPage={this.state.current_page}
+              selectedCellar={this.state.selected_cellar_id}
+              accessToken={this.state.access_token}
             />
-            <section className="search_actions col-12 row">
+
+            {/* Controls */}
+            <section className="controls col-12 row">
+              <div className="col-12" >
+                <ReactPaginate
+                  previousLabel={'anterior'}
+                  nextLabel={'siguiente'}
+                  breakLabel={'...'}
+                  breakClassName={'break-me'}
+                  pageCount={3}
+                  forcePage={this.state.current_page}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={this.handlePageClick}
+                  containerClassName={'pagination'}
+
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+
+                  activeClassName={'active'}
+                />
+              </div>
               <div className="col-4" >
                 <div className="form-group row">
                   <label htmlFor="search" className="col-sm-2 col-form-label">SKU</label>
@@ -66,18 +112,16 @@ export default class dashboard extends Component {
               <div className="col-4 offset-md-4 row">
                 <PickerClearButton
                   selected_cellar_id={this.state.selected_cellar_id}
-                  onPickerClear={() => {
-                    this.setState({
-                      selected_cellar_id: this.state.selected_cellar_id
-                    });
-                  }}
+                  onPickerClear={this.handlePickerClear}
                 ></PickerClearButton>
                 <button type="button" className="btn btn-success btn-block float-right">
                   imprimir
                 </button>
-                <button type="button" className="btn btn-primary btn-block float-right">
-                  generar guía
-                </button>
+                <GenerateOrderButton
+                  selectedCellar={this.state.selected_cellar_id}
+                  accessToken={this.state.access_token}
+                  onOrderGenerated={this.handlePickerClear}
+                ></GenerateOrderButton>
               </div>
             </section>
           </div>

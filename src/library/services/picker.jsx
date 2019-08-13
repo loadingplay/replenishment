@@ -27,6 +27,9 @@ class _PickerStore {
   get = (cellar_id, sku) => {
     if (!this.data || !this.data.hasOwnProperty(cellar_id)) return 0;
 
+    if (sku === undefined)
+      return this.data[cellar_id];
+
     let number = parseInt(this.data[cellar_id][sku]);
     if (isNaN(number)) return 0;
     return number;

@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import ReactPaginate from 'react-paginate';
-import { StockLoader } from "../../../library/services";
-import { StoreLoader } from "../../../library/services";
-import { PickerControl } from '../../../library/components/picker';
+import React, { Component } from 'react';
+
+import { StockLoader, StoreLoader } from "../../../library/services";
+import { PickerControl } from '../../../library/components';
 import "./stock.css";
 
 // implement stock class
@@ -38,7 +37,7 @@ export class Stock extends Component {
 
     // reset status
     this.setState({ products: null });
-    store_loader = new StoreLoader(this.props.access_token);
+    store_loader = new StoreLoader(this.props.accessToken);
     json_data = await store_loader.loadProducts(page, cellar_id);
 
     this.handleNewStatus(json_data);
@@ -56,7 +55,7 @@ export class Stock extends Component {
       return item.sku;
     });
 
-    StockLoader(this.props.access_token)
+    StockLoader(this.props.accessToken)
     .load([cellar_id], skus)
     .done((cellar_id, products) => {
       if (!this.state.products) return;
@@ -77,20 +76,16 @@ export class Stock extends Component {
 
   }
 
-  handlePageClick = (e) => {
-    this.loadInventory(this.props.selected_cellar, e.selected + 1);
-  }
-
   componentWillReceiveProps = (newProps) => {
-    if (newProps.selected_cellar !== 0) {
-      this.loadInventory(newProps.selected_cellar, 1);
+    if (newProps.selectedCellar !== 0) {
+      this.loadInventory(newProps.selectedCellar, newProps.currentPage + 1);
     }
   }
 
   renderProductList = () => {
     let products;
 
-    if (!this.props.selected_cellar)
+    if (!this.props.selectedCellar)
     {
       products = (<tr><td colSpan="6" className="stock-message" >Seleccione una bodega</td></tr>);
     }
@@ -121,7 +116,7 @@ export class Stock extends Component {
               }
             </td>
             <td>{item.suggested}</td>
-            <td><PickerControl cellar_id={this.props.selected_cellar} sku={item.sku} ></PickerControl></td>
+            <td><PickerControl cellar_id={this.props.selectedCellar} sku={item.sku} ></PickerControl></td>
           </tr>
         );
       });
@@ -149,26 +144,6 @@ export class Stock extends Component {
             { this.renderProductList() }
           </tbody>
         </table>
-        <ReactPaginate
-          previousLabel={'anterior'}
-          nextLabel={'siguiente'}
-          breakLabel={'...'}
-          breakClassName={'break-me'}
-          pageCount={this.state.pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          containerClassName={'pagination'}
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
-          breakClassName="page-item"
-          breakLinkClassName="page-link"
-          activeClassName={'active'}
-        />
       </section>
     )
   }
