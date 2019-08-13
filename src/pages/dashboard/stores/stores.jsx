@@ -49,7 +49,7 @@ export class Stores extends Component {
 
     return (
       <section className="stores_wrapper">
-        <table className="table table-hover table-borderless">
+        <table className="table table-hover table-borderless table-sm">
           <thead>
             <tr className="table-info">
               <th scope="col">tiendas</th>
