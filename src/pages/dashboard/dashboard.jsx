@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import Stores from './stores.jsx'
-import Stock from './stock.jsx'
+import React, { Component } from 'react';
+import { Stores } from './stores';
+import { Stock } from './stock';
+import { PickerClearButton } from '../../library/components/picker';
 
 export default class dashboard extends Component {
 
@@ -53,6 +54,32 @@ export default class dashboard extends Component {
               selected_cellar={this.state.selected_cellar_id}
               access_token={this.state.access_token}
             />
+            <section className="search_actions col-12 row">
+              <div className="col-4" >
+                <div className="form-group row">
+                  <label htmlFor="search" className="col-sm-2 col-form-label">SKU</label>
+                  <div className="col-sm-10">
+                    <input type="text" placeholder="ingrese sku" className="form-control" id="search" />
+                  </div>
+                </div>
+              </div>
+              <div className="col-4 offset-md-4 row">
+                <PickerClearButton
+                  selected_cellar_id={this.state.selected_cellar_id}
+                  onPickerClear={() => {
+                    this.setState({
+                      selected_cellar_id: this.state.selected_cellar_id
+                    });
+                  }}
+                ></PickerClearButton>
+                <button type="button" className="btn btn-success btn-block float-right">
+                  imprimir
+                </button>
+                <button type="button" className="btn btn-primary btn-block float-right">
+                  generar guía
+                </button>
+              </div>
+            </section>
           </div>
         </div>
       </div>
