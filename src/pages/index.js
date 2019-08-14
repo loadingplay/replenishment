@@ -11,7 +11,7 @@ export default class index extends Component {
 
   handleLoginClick = () => {
     document.location.href = "https://accounts.loadingplay.com/oauth2/auth?" +
-      "redirect_uri=http://localhost:8000/code&" +
+      "redirect_uri=" + process.env.PROJECT_URL + "/code&" +
       "site_name=replenishment-local&" +
       "client_id=437&" +
       "response_type=code";

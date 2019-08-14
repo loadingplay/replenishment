@@ -30,7 +30,7 @@ export default class dashboard extends Component {
       "grant_type": "authorization_code",
       "client_id": "437",
       "client_secret": "2cd6dff49e2715a7be965dda06e101b5",
-      "redirect_uri": "http://localhost:8000/code"
+      "redirect_uri": process.env.PROJECT_URL + "/code"
     };
 
     fetch(`https://accounts.loadingplay.com/oauth2/token${this.jsonToQueryString(data)}`)
