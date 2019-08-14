@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby build --output-dir ./docs",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
@@ -13,7 +13,7 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "dependencies": {
-    "gatsby": "^2.13.4",
+    "gatsby": "^2.13.63",
     "gatsby-image": "^2.2.4",
     "gatsby-plugin-sharp": "^2.2.3",
     "gatsby-source-filesystem": "^2.1.2",

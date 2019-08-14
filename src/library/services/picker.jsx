@@ -4,7 +4,8 @@ class _PickerStore {
       let storage_data;
 
       try {
-        storage_data = JSON.parse(localStorage.getItem('picker-data'));
+        if (typeof window !== 'undefined' && window.localStorage)
+          storage_data = JSON.parse(localStorage.getItem('picker-data'));
       } catch(ex) {
         console.log(ex);
       }
@@ -24,7 +25,9 @@ class _PickerStore {
       delete this.data[cellar_id][sku];
     else
       this.data[cellar_id][sku] = value;
-    localStorage.setItem('picker-data', JSON.stringify(this.data));
+
+    if (typeof window !== 'undefined' && window.localStorage)
+      localStorage.setItem('picker-data', JSON.stringify(this.data));
   }
 
   get = (cellar_id, sku) => {
@@ -42,7 +45,8 @@ class _PickerStore {
     if (!this.data || !this.data.hasOwnProperty(cellar_id)) return;
     this.data[cellar_id] = undefined;
     delete this.data[cellar_id];
-    localStorage.setItem('picker-data', JSON.stringify(this.data));
+    if (typeof window !== 'undefined' && window.localStorage)
+      localStorage.setItem('picker-data', JSON.stringify(this.data));
   }
 
 }

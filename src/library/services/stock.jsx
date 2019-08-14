@@ -1,7 +1,27 @@
-export const StockLoader = window.StockLoader;
+var Loader = function (access_token) {
+  this.access_token = access_token;
+  this.instances = 0;
+  this.max_instances = 15;
+};
 
-// fix loader for react compatibility
-window.Loader.prototype.performRequest = function (cellarid, skus_chunk) {
+Loader.prototype.load = function (cellar_id_list, sku_list) {
+  var loader = this;
+  cellar_id_list.forEach(function (cellar) {
+    loader.loadCellar(cellar, sku_list);
+  });
+  return this;
+};
+
+Loader.prototype.loadCellar = function (cellarid, sku_list) {
+  var i, j, temparray, chunk = 10;
+  for (i = 0, j = sku_list.length; i < j; i += chunk) {
+    temparray = sku_list.slice(i, i + chunk);
+    // do whatever
+    this.performRequest(cellarid, temparray);
+  }
+};
+
+Loader.prototype.performRequest = function (cellarid, skus_chunk) {
   var loader = this;
   if (loader.instances > loader.max_instances) {
     setTimeout(function () {
@@ -21,4 +41,13 @@ window.Loader.prototype.performRequest = function (cellarid, skus_chunk) {
     loader.instances -= 1;
     loader.callback(cellarid, response.products);
   });
+};
+
+
+Loader.prototype.done = function (callback) {
+  this.callback = callback
+};
+
+export function StockLoader(access_token) {
+  return new Loader(access_token);
 };
