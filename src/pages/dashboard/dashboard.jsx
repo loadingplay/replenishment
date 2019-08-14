@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 
 import ReactPaginate from 'react-paginate';
 
-import { Stores } from './stores';
-import { Stock } from './stock';
-import { PickerClearButton, LogoutButton } from '../../library/components';
+import { PickerClearButton, LogoutButton, Stock, Stores } from '../../library/components';
 import { GenerateOrderButton } from '../../library/components/order';
 
 export default class dashboard extends Component {

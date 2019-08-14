@@ -24,7 +24,6 @@ export default function HTML(props) {
           id="___gatsby"
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
-        <script src="https://cdn.loadingplay.com/js/connect/stockloader.js"></script>
         {props.postBodyComponents}
       </body>
     </html>
