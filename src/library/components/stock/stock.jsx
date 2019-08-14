@@ -41,6 +41,7 @@ export class Stock extends Component {
     json_data = await store_loader.loadProducts(page, cellar_id);
 
     this.handleNewStatus(json_data);
+    this.props.onPageCountLoaded(Math.ceil(json_data.metadata.count / 100));
 
     // load current inventory
     if (json_data.replenishments)
@@ -76,9 +77,11 @@ export class Stock extends Component {
 
   }
 
-  componentWillReceiveProps = (newProps) => {
-    if (newProps.selectedCellar !== 0) {
-      this.loadInventory(newProps.selectedCellar, newProps.currentPage + 1);
+  componentDidUpdate = (oldProps) => {
+    if (oldProps.selectedCellar !== this.props.selectedCellar
+      || oldProps.currentPage !== this.props.currentPage
+      || oldProps.loadKey !== this.props.loadKey) {
+      this.loadInventory(this.props.selectedCellar, this.props.currentPage + 1);
     }
   }
 

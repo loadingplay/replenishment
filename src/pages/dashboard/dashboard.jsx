@@ -12,7 +12,9 @@ export default class dashboard extends Component {
     this.state = {
       "access_token": "",
       "selected_cellar_id": 0,
-      "current_page": 0
+      "current_page": 0,
+      "page_count": 1,
+      "load_key": 1
     };
   }
 
@@ -30,8 +32,13 @@ export default class dashboard extends Component {
 
   handlePickerClear = () => {
     this.setState({
-      selected_cellar_id: this.state.selected_cellar_id,
-      current_page: 0
+      "load_key": this.state.load_key + 1
+    });
+  }
+
+  handlePageCountLoaded = (page_count) => {
+    this.setState({
+      page_count
     });
   }
 
@@ -68,7 +75,9 @@ export default class dashboard extends Component {
             <Stock
               currentPage={this.state.current_page}
               selectedCellar={this.state.selected_cellar_id}
+              loadKey={this.state.load_key}
               accessToken={this.state.access_token}
+              onPageCountLoaded={this.handlePageCountLoaded}
             />
 
             {/* Controls */}
@@ -79,7 +88,7 @@ export default class dashboard extends Component {
                   nextLabel={'siguiente'}
                   breakLabel={'...'}
                   breakClassName={'break-me'}
-                  pageCount={3}
+                  pageCount={this.state.page_count}
                   forcePage={this.state.current_page}
                   marginPagesDisplayed={2}
                   pageRangeDisplayed={5}
