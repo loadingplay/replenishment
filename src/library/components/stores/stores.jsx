@@ -10,18 +10,23 @@ export class Stores extends Component {
       cellars: null,
       selected_id: 0
     };
+
+    this.store_api = new StoreLoader("");
   }
 
   loadCellars = async (token) => {
-    let store_api,
-      json_data;
+    let json_data;
 
-    store_api = new StoreLoader(token);
-    json_data = await store_api.loadCellars();
+    this.store_api.access_token = token
+    json_data = await this.store_api.loadCellars();
 
     this.setState({
       "cellars": json_data.cellars
     });
+  }
+
+  saveSelectedCellar = (cellar) => {
+    this.store_api.setSelectedCellar(cellar);
   }
 
   componentWillReceiveProps(newProps) {
@@ -39,6 +44,7 @@ export class Stores extends Component {
           <td
             onClick={() => {
               this.setState({ selected_id: item.id });
+              this.saveSelectedCellar(item);
               this.props.cellarSelected(item.id);
             }}
           >

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import ReactPaginate from 'react-paginate';
 
-import { PickerClearButton, LogoutButton, Stock, Stores } from '../../library/components';
-import { GenerateOrderButton } from '../../library/components/order';
+import { PickerClearButton, LogoutButton, Stock, Stores } from '../library/components';
+import { GenerateOrderButton } from '../library/components/order';
 
 export default class dashboard extends Component {
 
@@ -121,9 +121,9 @@ export default class dashboard extends Component {
                   selected_cellar_id={this.state.selected_cellar_id}
                   onPickerClear={this.handlePickerClear}
                 ></PickerClearButton>
-                <button type="button" className="btn btn-success btn-block float-right">
+                <a type="button" className="btn btn-success btn-block float-right" href="/print">
                   imprimir
-                </button>
+                </a>
                 <GenerateOrderButton
                   selectedCellar={this.state.selected_cellar_id}
                   accessToken={this.state.access_token}

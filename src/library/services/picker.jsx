@@ -49,6 +49,10 @@ class _PickerStore {
       localStorage.setItem('picker-data', JSON.stringify(this.data));
   }
 
+  getAll = () => {
+    return this.data;
+  }
+
 }
 
 export const PickerStore = new _PickerStore();
