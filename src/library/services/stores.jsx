@@ -30,4 +30,12 @@ export class StoreLoader {
     json_data = await response.json();
     return json_data;
   }
+
+  setSelectedCellar = (cellar) => {
+    localStorage.setItem("selected-cellar", JSON.stringify(cellar));
+  }
+
+  getSelectedCellar = () => {
+    return JSON.parse(localStorage.getItem("selected-cellar"));
+  }
 }
