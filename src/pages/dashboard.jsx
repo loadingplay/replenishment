@@ -47,6 +47,12 @@ export default class dashboard extends Component {
     this.setState({access_token});
   }
 
+  handleHQCellar = (hq_cellar_id) => {
+    this.setState({
+      hq_cellar_id: hq_cellar_id
+    })
+  }
+
   render() {
     return (
       <div className="container dashboard_wrapper">
@@ -61,6 +67,7 @@ export default class dashboard extends Component {
             <Stores
               access_token={this.state.access_token}
               cellarSelected={this.handleSelectedCellar}
+              onHQCellarLoaded={this.handleHQCellar}
             />
           </div>
 
@@ -75,6 +82,7 @@ export default class dashboard extends Component {
             <Stock
               currentPage={this.state.current_page}
               selectedCellar={this.state.selected_cellar_id}
+              hqCellar={this.state.hq_cellar_id}
               loadKey={this.state.load_key}
               accessToken={this.state.access_token}
               onPageCountLoaded={this.handlePageCountLoaded}

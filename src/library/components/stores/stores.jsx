@@ -20,6 +20,13 @@ export class Stores extends Component {
     this.store_api.access_token = token
     json_data = await this.store_api.loadCellars();
 
+    // trigger hq store event
+    json_data.cellars.map((item) => {
+      if (item.for_sale) {
+        this.props.onHQCellarLoaded(item.id);
+      }
+    });
+
     this.setState({
       "cellars": json_data.cellars
     });
