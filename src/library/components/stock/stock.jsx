@@ -31,7 +31,7 @@ export class Stock extends Component {
     }
   }
 
-  loadInventory = async (cellar_id, page) => {
+  loadInventory = async (cellar_id, hq_cellar, page) => {
     let store_loader,
       json_data;
 
@@ -45,27 +45,44 @@ export class Stock extends Component {
 
     // load current inventory
     if (json_data.replenishments)
-      this.loadStoreInventory(cellar_id, json_data.replenishments);
+      this.loadStoreInventory(cellar_id, hq_cellar, json_data.replenishments);
   }
 
-  loadStoreInventory = (cellar_id, products) => {
+  loadStoreInventory = (cellar_id, hq_cellar, products) => {
+
+    let skus,
+      cellars,
+      new_products,
+      inventory;
+
     // early termination
     if (products === undefined) return;
 
-    let skus = products.map((item) => {
+    skus = products.map((item) => {
       return item.sku;
     });
+    cellars = cellar_id === hq_cellar ? [cellar_id]:[cellar_id, hq_cellar];
 
     StockLoader(this.props.accessToken)
-    .load([cellar_id], skus)
-    .done((cellar_id, products) => {
+    .load(cellars, skus)
+    .done((loaded_cellar, products) => {
       if (!this.state.products) return;
-      let new_products = this.state.products.map((item, index) => {
-        let inventory = products.find((element) => {
+
+      new_products = this.state.products.map((item) => {
+        inventory = products.find((element) => {
           return item.sku === element.product_sku;
         });
-        if (item.current_inventory === undefined) {
-          item.current_inventory = inventory !== undefined ? inventory.balance_units:undefined;
+
+        if (loaded_cellar === cellar_id) {
+          if (item.current_inventory === undefined) {
+            item.current_inventory = inventory !== undefined ? inventory.balance_units:undefined;
+          }
+        }
+
+        if (loaded_cellar === hq_cellar) {
+          if (item.hq_inventory === undefined) {
+            item.hq_inventory = inventory !== undefined ? inventory.balance_units:undefined;
+          }
         }
         return item;
       });
@@ -81,7 +98,7 @@ export class Stock extends Component {
     if (oldProps.selectedCellar !== this.props.selectedCellar
       || oldProps.currentPage !== this.props.currentPage
       || oldProps.loadKey !== this.props.loadKey) {
-      this.loadInventory(this.props.selectedCellar, this.props.currentPage + 1);
+      this.loadInventory(this.props.selectedCellar, this.props.hqCellar, this.props.currentPage + 1);
     }
   }
 
@@ -111,7 +128,12 @@ export class Stock extends Component {
           <tr key={index} >
             <th scope="row">{item.sku}</th>
             <td></td>
-            <td></td>
+            <td>
+              {
+                item.hq_inventory === undefined ?
+                'cargando...':item.hq_inventory
+              }
+            </td>
             <td>
               {
                 item.current_inventory === undefined ?
