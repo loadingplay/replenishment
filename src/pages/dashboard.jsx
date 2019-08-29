@@ -129,7 +129,7 @@ export default class dashboard extends Component {
                   selected_cellar_id={this.state.selected_cellar_id}
                   onPickerClear={this.handlePickerClear}
                 ></PickerClearButton>
-                <a type="button" className="btn btn-success btn-block float-right" href="/print">
+                <a type="button" className="btn btn-success btn-block float-right" href="/print" target="_blank" >
                   imprimir
                 </a>
                 <GenerateOrderButton

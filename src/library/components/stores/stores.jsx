@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { StoreLoader } from '../../services';
 import './stores.css'
 
+const LoadStoreStatus = {
+  IDLE: "idle",
+  LOADING: "loading",
+  LOADED: "loaded"
+}
+
 export class Stores extends Component {
 
   constructor(props) {
@@ -12,24 +18,34 @@ export class Stores extends Component {
     };
 
     this.store_api = new StoreLoader("");
+    this.load_status = LoadStoreStatus.IDLE;
   }
 
   loadCellars = async (token) => {
     let json_data;
 
+    this.load_status = LoadStoreStatus.LOADING
+
     this.store_api.access_token = token
-    json_data = await this.store_api.loadCellars();
 
-    // trigger hq store event
-    json_data.cellars.map((item) => {
-      if (item.for_sale) {
-        this.props.onHQCellarLoaded(item.id);
-      }
-    });
+    try {
+      json_data = await this.store_api.loadCellars();
 
-    this.setState({
-      "cellars": json_data.cellars
-    });
+      // trigger hq store event
+      json_data.cellars.map((item) => {
+        if (item.for_sale) {
+          this.props.onHQCellarLoaded(item.id);
+        }
+      });
+
+      this.setState({
+        "cellars": json_data.cellars
+      }, () => {
+        this.load_status = LoadStoreStatus.LOADED;
+      });
+    } catch (ex) {
+      this.load_status = LoadStoreStatus.IDLE;
+    }
   }
 
   saveSelectedCellar = (cellar) => {
@@ -37,7 +53,7 @@ export class Stores extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.access_token !== "")
+    if (newProps.access_token !== "" && this.load_status === LoadStoreStatus.IDLE)
       this.loadCellars(newProps.access_token);
   }
 
