@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import ReactPaginate from 'react-paginate';
 
-import { PickerClearButton, LogoutButton, Stock, Stores } from '../library/components';
+import { PickerClearButton, LogoutButton, Stock, Stores, SearchInput } from '../library/components';
 import { GenerateOrderButton } from '../library/components/order';
 
 export default class dashboard extends Component {
@@ -17,6 +17,7 @@ export default class dashboard extends Component {
       "load_key": 1
     };
   }
+  /* products */
 
   handleSelectedCellar = (cellar_id) => {
     this.setState({
@@ -51,6 +52,10 @@ export default class dashboard extends Component {
     this.setState({
       hq_cellar_id: hq_cellar_id
     })
+  }
+
+  handleSearch = (term) => {
+    console.log("aaaa", term);
   }
 
   render() {
@@ -117,12 +122,9 @@ export default class dashboard extends Component {
                 />
               </div>
               <div className="col-4" >
-                <div className="form-group row">
-                  <label htmlFor="search" className="col-sm-2 col-form-label">SKU</label>
-                  <div className="col-sm-10">
-                    <input type="text" placeholder="ingrese sku" className="form-control" id="search" />
-                  </div>
-                </div>
+                <SearchInput
+                  onSearch={this.handleSearch}
+                ></SearchInput>
               </div>
               <div className="col-4 offset-md-4 row">
                 <PickerClearButton
