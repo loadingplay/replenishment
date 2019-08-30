@@ -36,6 +36,7 @@ export class Stores extends Component {
         if (item.for_sale) {
           this.props.onHQCellarLoaded(item.id);
         }
+        return 0;
       });
 
       this.setState({

@@ -6,10 +6,6 @@ import "./stock.css";
 // implement stock class
 export class Stock extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   renderProductList = () => {
     let products;
 

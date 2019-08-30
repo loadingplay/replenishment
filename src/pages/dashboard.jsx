@@ -56,8 +56,6 @@ function withInventoryLoader(WrappedComponent) {
     }
 
     handleInventoryRequest = async (hq_cellar_id, selected_cellar_id, page, search_term) => {
-      console.log("inventory reload", hq_cellar_id, selected_cellar_id, page, search_term);
-
       let store_loader,
       json_data;
 

@@ -27,7 +27,6 @@ export class DashboardControls extends Component {
             previousLabel={'anterior'}
             nextLabel={'siguiente'}
             breakLabel={'...'}
-            breakClassName={'break-me'}
             pageCount={this.props.pageCount}
             forcePage={this.props.currentPage}
             marginPagesDisplayed={2}

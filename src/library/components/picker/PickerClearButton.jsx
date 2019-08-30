@@ -6,10 +6,6 @@ export class PickerClearButton extends React.Component {
     onPickerClear: () => {}
   }
 
-  constructor(props) {
-    super(props);
-  }
-
   handleClear = () => {
     PickerStore.clear(this.props.selected_cellar_id);
     this.props.onPickerClear();
