@@ -53,8 +53,8 @@ export class Stores extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.access_token !== "" && this.load_status === LoadStoreStatus.IDLE)
-      this.loadCellars(newProps.access_token);
+    if (newProps.accessToken !== "" && this.load_status === LoadStoreStatus.IDLE)
+      this.loadCellars(newProps.accessToken);
   }
 
   render() {
