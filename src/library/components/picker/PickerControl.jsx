@@ -1,5 +1,6 @@
 import React from 'react';
 import { PickerStore } from '../../services';
+import "./picker.css";
 
 export class PickerControl extends React.Component {
   constructor(props) {
@@ -28,10 +29,10 @@ export class PickerControl extends React.Component {
 
   render = () => {
     return (
-      <div className="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-        <div className="btn-group mr-2" role="group" aria-label="First group">
+      <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div className="btn-group" role="group" aria-label="First group">
           <button type="button" onClick={this.handleMinus} className="btn btn-outline-secondary">-</button>
-          <input type="text" className="form-control text-center" onChange={this.handleChange} value={this.state.q} />
+          <input type="text" className="form-control text-center picker-input" onChange={this.handleChange} value={this.state.q} />
           <button type="button" onClick={this.handlePlus} className="btn btn-outline-secondary">+</button>
         </div>
       </div>

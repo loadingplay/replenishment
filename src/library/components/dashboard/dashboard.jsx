@@ -19,7 +19,7 @@ export class Dashboard extends Component {
     this.props.onInventoryRequest(
       this.state.hq_cellar_id,
       this.state.selected_cellar_id,
-      this.state.current_page,
+      this.state.current_page + 1,
       this.state.search_term
     );
   }
@@ -34,7 +34,7 @@ export class Dashboard extends Component {
 
   handlePageClick = (e) => {
     this.setState({
-      current_page: e.selected + 1
+      current_page: e.selected
     }, () => {
       this.reloadInventory();
     });
