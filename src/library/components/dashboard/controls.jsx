@@ -13,7 +13,6 @@ export class DashboardControls extends Component {
     currentPage: PropTypes.number,
     selectedCellarID: PropTypes.number,
     accessToken: PropTypes.string,
-
     onPageChange: PropTypes.func,
     onSearchTermChange: PropTypes.func,
     onPickerCleared: PropTypes.func
@@ -33,17 +32,14 @@ export class DashboardControls extends Component {
             pageRangeDisplayed={5}
             onPageChange={this.props.onPageChange}
             containerClassName={'pagination'}
-
             previousClassName="page-item"
             previousLinkClassName="page-link"
             nextClassName="page-item"
             nextLinkClassName="page-link"
-
             pageClassName="page-item"
             pageLinkClassName="page-link"
             breakClassName="page-item"
             breakLinkClassName="page-link"
-
             activeClassName={'active'}
           />
         </div>

@@ -64,7 +64,6 @@ export class Dashboard extends Component {
     return (
       <DashboardLayout
         title="Reposición de inventario."
-
         menuTitle="1. Seleccion de tienda"
         menu={
           <Stores
@@ -79,7 +78,6 @@ export class Dashboard extends Component {
           <Stock
             loadKey={this.state.load_key}
             selectedCellar={this.state.selected_cellar_id}
-
             products={this.props.products}
             isLoading={this.props.isLoading}
             hasError={this.props.hasError}

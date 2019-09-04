@@ -10,6 +10,6 @@ export class LogoutButton extends React.Component {
         className="float-right" >
         Salir
       </a>
-      );
+    );
   }
 }
