@@ -45,7 +45,14 @@ export class Stock extends Component {
               }
             </td>
             <td>{item.suggested}</td>
-            <td><PickerControl key={this.props.loadKey} cellar_id={this.props.selectedCellar} sku={item.sku} ></PickerControl></td>
+            <td>
+              <PickerControl
+                key={this.props.loadKey}
+                cellar_id={this.props.selectedCellar}
+                item={item}
+              >
+              </PickerControl>
+            </td>
           </tr>
         );
       });

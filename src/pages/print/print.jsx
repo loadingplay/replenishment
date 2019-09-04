@@ -14,7 +14,7 @@ export default class print extends React.Component {
   componentDidMount = () => {
     const picker_data = PickerStore.getAll();
     const selected_cellar = this.store_api.getSelectedCellar();
-    const items = picker_data[selected_cellar.id];
+    const items = picker_data[selected_cellar.id] === undefined ? []:picker_data[selected_cellar.id];
     const data = {
       metadata: {
         numero: "29.614",
@@ -34,13 +34,13 @@ export default class print extends React.Component {
       items: Object.keys(items).map((i) => {
         return {
           codigo: i,
-          insumo: "",
+          insumo: "...",
           existencia: {
-            casaMatriz: "",
-            local: ""
+            casaMatriz: items[i].hq_inventory,
+            local: items[i].current_inventory
           },
-          hecho: items[i],
-          falta: ""
+          hecho: items[i].value,
+          falta: items[i].suggested - items[i].value
         }
       })
     };

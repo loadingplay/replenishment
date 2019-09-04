@@ -57,7 +57,7 @@ export class DashboardControls extends Component {
             selected_cellar_id={this.props.selectedCellarID}
             onPickerClear={this.props.onPickerCleared}
           ></PickerClearButton>
-          <a type="button" className="btn btn-success btn-block float-right" href="/print" target="_blank" >
+          <a className="btn btn-success btn-block float-right" href="/print" target="_blank" >
             imprimir
           </a>
           <GenerateOrderButton

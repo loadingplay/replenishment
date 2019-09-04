@@ -6,7 +6,6 @@ export class LogoutButton extends React.Component {
   render = () => {
     return (
       <a
-        type="button"
         href={`https://accounts.loadingplay.com/auth/logout?next=${process.env.PROJECT_URL}`}
         className="float-right" >
         Salir
