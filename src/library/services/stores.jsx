@@ -16,11 +16,11 @@ export class StoreLoader {
     return json_data;
   }
 
-  loadProducts = async (page, cellar_id) => {
+  loadProducts = async (page, cellar_id, sku_filter) => {
     let response, json_data;
 
     response = await fetch(
-      `https://replenishments.loadingplay.com/replenishment?items=100&page=${page}&cellar_id=${cellar_id}`,
+      `https://replenishments.loadingplay.com/replenishment?items=100&page=${page}&cellar_id=${cellar_id}&sku=${sku_filter}`,
       {
         "headers": {
           "Authorization": `Bearer ${this.access_token}`

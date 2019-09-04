@@ -1,14 +1,37 @@
 import React from 'react';
 import { PickerStore } from '../../services';
+import "./picker.css";
 
 export class PickerControl extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {q: PickerStore.get(this.props.cellar_id, this.props.sku)};
+    this.state = {
+      q: PickerStore.get(this.props.cellar_id, this.props.item.sku),
+      options: {}
+    };
+
+    if (this.props.item.hq_inventory === undefined || this.props.item.current_inventory === undefined)
+      this.state.options.disabled = 'disabled';
+  }
+
+  componentDidUpdate = () => {
+    if (this.state.options.disabled !== undefined
+      && this.props.item.hq_inventory !== undefined
+      && this.props.item.current_inventory !== undefined
+    ) {
+      this.setState({ options: {} });
+    }
   }
 
   handleUpdate = () => {
-    PickerStore.set(this.props.cellar_id, this.props.sku, this.state.q);
+    PickerStore.set(
+      this.props.cellar_id,
+      this.props.item.sku,
+      this.state.q,
+      this.props.item.hq_inventory,
+      this.props.item.current_inventory,
+      this.props.item.suggested
+    );
   }
 
   handlePlus = () => {
@@ -28,11 +51,11 @@ export class PickerControl extends React.Component {
 
   render = () => {
     return (
-      <div className="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-        <div className="btn-group mr-2" role="group" aria-label="First group">
-          <button type="button" onClick={this.handleMinus} className="btn btn-outline-secondary">-</button>
-          <input type="text" className="form-control text-center" onChange={this.handleChange} value={this.state.q} />
-          <button type="button" onClick={this.handlePlus} className="btn btn-outline-secondary">+</button>
+      <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div className="btn-group" role="group" aria-label="First group">
+          <button {...this.state.options} type="button" onClick={this.handleMinus} className="btn btn-outline-secondary">-</button>
+          <input {...this.state.options} type="text" className="form-control text-center picker-input" onChange={this.handleChange} value={this.state.q} />
+          <button {...this.state.options} type="button" onClick={this.handlePlus} className="btn btn-outline-secondary">+</button>
         </div>
       </div>
     )

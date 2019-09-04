@@ -1,39 +1,51 @@
 import React, { Component } from 'react';
+import { StockLoader, StoreLoader } from "../library/services";
+import { Dashboard } from "../library/components/dashboard";
 
-import ReactPaginate from 'react-paginate';
-
-import { PickerClearButton, LogoutButton, Stock, Stores } from '../library/components';
-import { GenerateOrderButton } from '../library/components/order';
-
-export default class dashboard extends Component {
-
+export default class DashboardPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      "access_token": "",
-      "selected_cellar_id": 0,
-      "current_page": 0,
-      "page_count": 1,
-      "load_key": 1
+      access_token: "",
+      page_count: 0,
+      products: null,
+      is_loading: false,
+      has_error: false,
+      stock_error_message: ""
     };
   }
 
-  handleSelectedCellar = (cellar_id) => {
+  componentDidMount = () => {
+    let access_token = window.localStorage.getItem("access_token");
+    this.setState({ access_token });
+  }
+
+  setLoadingState = () => {
     this.setState({
-      "selected_cellar_id": cellar_id
+      is_loading: true,
+      has_error: false,
+      stock_error_message: ""
     });
   }
 
-  handlePageClick = (e) => {
-    this.setState({
-      current_page: e.selected
-    });
-  }
-
-  handlePickerClear = () => {
-    this.setState({
-      "load_key": this.state.load_key + 1
-    });
+  handleLoadedState = (json_data) => {
+    // handle status
+    if (json_data.status === "error") {
+      this.setState({
+        stock_error_message: json_data.message,
+        is_loading: false,
+        has_error: true
+      });
+    }
+    else {
+      this.setState({
+        products: json_data.replenishments,
+        is_loading: false,
+        has_error: false,
+        stock_error_message: ""
+      });
+    }
   }
 
   handlePageCountLoaded = (page_count) => {
@@ -42,106 +54,81 @@ export default class dashboard extends Component {
     });
   }
 
-  componentDidMount = () => {
-    let access_token = window.localStorage.getItem("access_token");
-    this.setState({access_token});
+  handleInventoryRequest = async (hq_cellar_id, selected_cellar_id, page, search_term) => {
+    let store_loader,
+    json_data;
+
+    this.setLoadingState();
+
+    store_loader = new StoreLoader(this.state.access_token);
+    json_data = await store_loader.loadProducts(page, selected_cellar_id, search_term);
+
+    this.handleLoadedState(json_data);
+    this.handlePageCountLoaded(Math.ceil(json_data.metadata.count / 100));
+
+    // load current inventory
+    if (json_data.replenishments)
+      this.loadStoreInventory(hq_cellar_id, selected_cellar_id, json_data.replenishments);
   }
 
-  handleHQCellar = (hq_cellar_id) => {
-    this.setState({
-      hq_cellar_id: hq_cellar_id
-    })
+
+  loadStoreInventory = (hq_cellar_id, selected_cellar_id, products) => {
+
+    let skus,
+      cellars,
+      new_products,
+      inventory;
+
+    // early termination
+    if (products === undefined) return;
+
+    skus = products.map((item) => {
+      return item.sku;
+    });
+    cellars = selected_cellar_id === hq_cellar_id ? [selected_cellar_id] : [selected_cellar_id, hq_cellar_id];
+
+    StockLoader(this.state.access_token)
+      .load(cellars, skus)
+      .done((loaded_cellar, products) => {
+        if (!this.state.products) return;
+
+        new_products = this.state.products.map((item) => {
+          inventory = products.find((element) => {
+            return item.sku === element.product_sku;
+          });
+
+          if (loaded_cellar === selected_cellar_id) {
+            if (item.current_inventory === undefined) {
+              item.current_inventory = inventory !== undefined ? inventory.balance_units : undefined;
+            }
+          }
+
+          if (loaded_cellar === hq_cellar_id) {
+            if (item.hq_inventory === undefined) {
+              item.hq_inventory = inventory !== undefined ? inventory.balance_units : undefined;
+            }
+          }
+          return item;
+        });
+
+        this.setState({ products: new_products });
+      });
   }
 
-  render() {
+  render = () => {
     return (
-      <div className="container dashboard_wrapper">
-        <div className="dashboard_elements row">
-          <h3 className="dashboard_title col-12">
-            Reposición de inventario.
-          </h3>
+      <Dashboard
+        accessToken={this.state.access_token}
+        onInventoryRequest={this.handleInventoryRequest}
+        pageCount={this.state.page_count}
 
-          {/* Stores */}
-          <div className="col-2" >
-            <div className="subtitle">1. Seleccion de tienda</div>
-            <Stores
-              access_token={this.state.access_token}
-              cellarSelected={this.handleSelectedCellar}
-              onHQCellarLoaded={this.handleHQCellar}
-            />
-          </div>
+        products={this.state.products}
+        isLoading={this.state.is_loading}
+        hasError={this.state.has_error}
+        stockErrorMessage={this.state.stock_error_message}
 
-          {/* Inventory table */}
-          <div className="col-10 row" >
-            <div className="subtitle col-6">
-              2. Pedidos
-            </div>
-            <div className="col-6">
-              <LogoutButton></LogoutButton>
-            </div>
-            <Stock
-              currentPage={this.state.current_page}
-              selectedCellar={this.state.selected_cellar_id}
-              hqCellar={this.state.hq_cellar_id}
-              loadKey={this.state.load_key}
-              accessToken={this.state.access_token}
-              onPageCountLoaded={this.handlePageCountLoaded}
-            />
-
-            {/* Controls */}
-            <section className="controls col-12 row">
-              <div className="col-12" >
-                <ReactPaginate
-                  previousLabel={'anterior'}
-                  nextLabel={'siguiente'}
-                  breakLabel={'...'}
-                  breakClassName={'break-me'}
-                  pageCount={this.state.page_count}
-                  forcePage={this.state.current_page}
-                  marginPagesDisplayed={2}
-                  pageRangeDisplayed={5}
-                  onPageChange={this.handlePageClick}
-                  containerClassName={'pagination'}
-
-                  previousClassName="page-item"
-                  previousLinkClassName="page-link"
-                  nextClassName="page-item"
-                  nextLinkClassName="page-link"
-
-                  pageClassName="page-item"
-                  pageLinkClassName="page-link"
-                  breakClassName="page-item"
-                  breakLinkClassName="page-link"
-
-                  activeClassName={'active'}
-                />
-              </div>
-              <div className="col-4" >
-                <div className="form-group row">
-                  <label htmlFor="search" className="col-sm-2 col-form-label">SKU</label>
-                  <div className="col-sm-10">
-                    <input type="text" placeholder="ingrese sku" className="form-control" id="search" />
-                  </div>
-                </div>
-              </div>
-              <div className="col-4 offset-md-4 row">
-                <PickerClearButton
-                  selected_cellar_id={this.state.selected_cellar_id}
-                  onPickerClear={this.handlePickerClear}
-                ></PickerClearButton>
-                <a type="button" className="btn btn-success btn-block float-right" href="/print">
-                  imprimir
-                </a>
-                <GenerateOrderButton
-                  selectedCellar={this.state.selected_cellar_id}
-                  accessToken={this.state.access_token}
-                  onOrderGenerated={this.handlePickerClear}
-                ></GenerateOrderButton>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    )
+        {...this.props}
+      ></Dashboard>
+    );
   }
 }

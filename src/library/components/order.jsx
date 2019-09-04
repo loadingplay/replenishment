@@ -32,7 +32,7 @@ export class GenerateOrderButton extends React.Component {
         "price": 0,
         "name": "",
         "combination": "",
-        "quantity": picker_data[item]
+        "quantity": picker_data[item].value
       };
     });
 
