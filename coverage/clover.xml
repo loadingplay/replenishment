@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1567787302369" clover="3.2.0">
+  <project timestamp="1567787302369" name="All files">
+    <metrics statements="12" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="2" elements="17" coveredelements="8" complexity="0" loc="12" ncloc="12" packages="1" files="1" classes="1"/>
+    <file name="orders.jsx" path="/Users/ricardo/git/loadingplay/replenishment/src/library/services/orders.jsx">
+      <metrics statements="12" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="2"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+      <line num="10" count="2" type="stmt"/>
+      <line num="14" count="0" type="stmt"/>
+      <line num="26" count="0" type="stmt"/>
+      <line num="27" count="0" type="stmt"/>
+      <line num="30" count="2" type="stmt"/>
+      <line num="34" count="0" type="stmt"/>
+      <line num="46" count="0" type="stmt"/>
+      <line num="47" count="0" type="stmt"/>
+      <line num="50" count="2" type="stmt"/>
+      <line num="51" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
