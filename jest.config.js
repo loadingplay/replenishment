@@ -13,4 +13,5 @@ module.exports = {
   },
   testURL: `http://localhost`,
   setupFiles: [`<rootDir>/loadershim.js`],
+  snapshotSerializers: ['enzyme-to-json/serializer']
 }

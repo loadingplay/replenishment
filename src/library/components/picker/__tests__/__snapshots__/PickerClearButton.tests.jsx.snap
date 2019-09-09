@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PickerClearButton it should render properly: detault 1`] = `
+<button
+  className="btn btn-danger btn-block float-right"
+  onClick={[Function]}
+  type="button"
+>
+  limpiar picker
+</button>
+`;

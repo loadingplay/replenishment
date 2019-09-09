@@ -28,16 +28,24 @@
     "@types/jest": "^24.0.18",
     "babel-jest": "^24.9.0",
     "babel-preset-gatsby": "^0.2.12",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "react-test-renderer": "^16.9.0"
+    "prettier": "^1.18.2"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/phanorcoll/replenishment"
+    "url": "https://github.com/loadingplay/replenishment"
   },
   "bugs": {
-    "url": "https://github.com/phanorcoll/replenishment/issues"
+    "url": "https://github.com/loadingplay/replenishment/issues"
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/"
+    ]
   }
 }

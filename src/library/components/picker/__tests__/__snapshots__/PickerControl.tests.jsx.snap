@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PickerControl it should render properly: detault 1`] = `
+<div
+  aria-label="Toolbar with button groups"
+  className="btn-toolbar"
+  role="toolbar"
+>
+  <div
+    aria-label="First group"
+    className="btn-group"
+    role="group"
+  >
+    <button
+      className="btn btn-outline-secondary"
+      disabled="disabled"
+      onClick={[Function]}
+      type="button"
+    >
+      -
+    </button>
+    <input
+      className="form-control text-center picker-input"
+      disabled="disabled"
+      onChange={[Function]}
+      type="text"
+      value={0}
+    />
+    <button
+      className="btn btn-outline-secondary"
+      disabled="disabled"
+      onClick={[Function]}
+      type="button"
+    >
+      +
+    </button>
+  </div>
+</div>
+`;

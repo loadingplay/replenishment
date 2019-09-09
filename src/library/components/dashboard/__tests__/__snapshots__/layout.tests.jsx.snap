@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashboardLayout it should render properly: detault 1`] = `
+<div
+  className="container dashboard_wrapper"
+>
+  <div
+    className="dashboard_elements row"
+  >
+    <h3
+      className="dashboard_title col-12"
+    />
+    <div
+      className="col-2"
+    >
+      <div
+        className="subtitle"
+      />
+    </div>
+    <div
+      className="col-10 row"
+    >
+      <div
+        className="subtitle col-6"
+      />
+      <div
+        className="col-6"
+      >
+        <LogoutButton />
+      </div>
+      <section
+        className="controls col-12 row"
+      />
+    </div>
+  </div>
+</div>
+`;

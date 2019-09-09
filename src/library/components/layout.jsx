@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-export default class layout extends Component {
+export default class Layout extends PureComponent {
   render() {
     let { children } = this.props
     return (

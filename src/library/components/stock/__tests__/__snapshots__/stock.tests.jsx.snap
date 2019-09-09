@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stock it should render empty: empty 1`] = `
+<section
+  className="stores_wrapper col-12"
+>
+  <table
+    className="table table-sm"
+  >
+    <thead>
+      <tr
+        className="table-info"
+      >
+        <th
+          scope="col"
+        >
+          sku
+        </th>
+        <th
+          scope="col"
+        >
+          nombre
+        </th>
+        <th
+          scope="col"
+        >
+          stock bodega
+        </th>
+        <th
+          scope="col"
+        >
+          stock tienda
+        </th>
+        <th
+          scope="col"
+        >
+          sugerido
+        </th>
+        <th
+          scope="col"
+        >
+          picker
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+  </table>
+</section>
+`;
+
+exports[`Stock it should render with error message: error message 1`] = `
+<section
+  className="stores_wrapper col-12"
+>
+  <table
+    className="table table-sm"
+  >
+    <thead>
+      <tr
+        className="table-info"
+      >
+        <th
+          scope="col"
+        >
+          sku
+        </th>
+        <th
+          scope="col"
+        >
+          nombre
+        </th>
+        <th
+          scope="col"
+        >
+          stock bodega
+        </th>
+        <th
+          scope="col"
+        >
+          stock tienda
+        </th>
+        <th
+          scope="col"
+        >
+          sugerido
+        </th>
+        <th
+          scope="col"
+        >
+          picker
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          className="stock-message"
+          colSpan="6"
+        >
+          error message
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+`;
+
+exports[`Stock it should render with loading message: loading message 1`] = `
+<section
+  className="stores_wrapper col-12"
+>
+  <table
+    className="table table-sm"
+  >
+    <thead>
+      <tr
+        className="table-info"
+      >
+        <th
+          scope="col"
+        >
+          sku
+        </th>
+        <th
+          scope="col"
+        >
+          nombre
+        </th>
+        <th
+          scope="col"
+        >
+          stock bodega
+        </th>
+        <th
+          scope="col"
+        >
+          stock tienda
+        </th>
+        <th
+          scope="col"
+        >
+          sugerido
+        </th>
+        <th
+          scope="col"
+        >
+          picker
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          className="stock-message"
+          colSpan="6"
+        >
+          Cargando...
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+`;
+
+exports[`Stock it should render with products: with products 1`] = `
+<section
+  className="stores_wrapper col-12"
+>
+  <table
+    className="table table-sm"
+  >
+    <thead>
+      <tr
+        className="table-info"
+      >
+        <th
+          scope="col"
+        >
+          sku
+        </th>
+        <th
+          scope="col"
+        >
+          nombre
+        </th>
+        <th
+          scope="col"
+        >
+          stock bodega
+        </th>
+        <th
+          scope="col"
+        >
+          stock tienda
+        </th>
+        <th
+          scope="col"
+        >
+          sugerido
+        </th>
+        <th
+          scope="col"
+        >
+          picker
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="0"
+      >
+        <th
+          scope="row"
+        />
+        <td />
+        <td>
+          cargando...
+        </td>
+        <td>
+          cargando...
+        </td>
+        <td />
+        <td>
+          <PickerControl
+            cellar_id="1"
+            item={Object {}}
+            key="1"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+`;
