@@ -59,7 +59,7 @@ describe("StoreLoader", () => {
       json_data;
 
     store_loader = new StoreLoader(test_token);
-    json_data = { test_data: 'test_data' };
+    json_data = { test_data: 'test_data' };
 
     store_loader.setSelectedCellar(json_data);
     expect(localStorage.getItem('selected-cellar')).toEqual(JSON.stringify(json_data));

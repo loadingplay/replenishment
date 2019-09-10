@@ -5,18 +5,14 @@ import { shallow } from "enzyme";
 
 describe("Stores", () => {
   test("it should reder", () => {
-    const wrapper = shallow(
-      <Stores></Stores>
-    );
+    const wrapper = shallow(<Stores />);
 
     expect(wrapper.instance().load_status).toEqual("idle");
     expect(wrapper).toMatchSnapshot("default");
   });
 
   test("it should try to load cellars", () => {
-    const wrapper = shallow(
-      <Stores />
-    );
+    const wrapper = shallow(<Stores />);
 
     wrapper.instance().loadCellars = jest.fn().mockResolvedValue({});
     wrapper.setProps({

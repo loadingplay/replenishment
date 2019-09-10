@@ -51,4 +51,4 @@ Loader.prototype.done = function (callback) {
 
 export function StockLoader(access_token) {
   return new Loader(access_token);
-};
+}

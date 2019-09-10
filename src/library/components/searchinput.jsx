@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 function debounce(func, wait, immediate) {
@@ -14,10 +15,14 @@ function debounce(func, wait, immediate) {
     timeout = setTimeout(later, wait);
     if (callNow) func.apply(context, args);
   };
-};
+}
 
 
 export class SearchInput extends React.Component {
+
+  propTypes = {
+    onSearch: PropTypes.func
+  };
 
   constructor(props) {
     super(props);

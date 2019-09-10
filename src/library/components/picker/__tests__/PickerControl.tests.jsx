@@ -10,7 +10,7 @@ describe("PickerControl", () => {
         item={{
           sku: "test-sku"
         }}
-      ></PickerControl>
+      />
     );
     expect(wrapper).toMatchSnapshot("detault");
     expect(wrapper.instance().state.options.disabled).toEqual('disabled');
@@ -24,8 +24,7 @@ describe("PickerControl", () => {
           hq_inventory: 10,
           current_inventory: 5
         }}
-      >
-      </PickerControl>
+      />
     );
 
     expect(wrapper.instance().state.options).toEqual({})
@@ -39,7 +38,7 @@ describe("PickerControl", () => {
           hq_inventory: 10,
           current_inventory: 5
         }}
-      ></PickerControl>
+      />
     );
 
     expect(wrapper.instance().state.q).toEqual(0);

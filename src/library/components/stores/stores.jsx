@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import  PropTypes from "prop-types";
 import { StoreLoader } from '../../services';
 import './stores.css'
 
@@ -9,6 +10,11 @@ const LoadStoreStatus = {
 }
 
 export class Stores extends Component {
+
+  propTypes = {
+    onHQCellarLoaded: PropTypes.func,
+    cellarSelected: PropTypes.func
+  };
 
   constructor(props) {
     super(props);
@@ -66,7 +72,7 @@ export class Stores extends Component {
           className={this.state.selected_id === item.id ? "stores_selected" : ""}
         >
           <td
-            onClick={() => {
+            onClick={() => {
               this.setState({ selected_id: item.id });
               this.saveSelectedCellar(item);
               this.props.cellarSelected(item.id);

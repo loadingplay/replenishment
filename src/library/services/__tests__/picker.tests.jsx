@@ -17,7 +17,10 @@ describe("PickerStore", () => {
     "suggested": 10
   };
 
-  beforeEach(jest.clearAllMocks);
+  beforeEach(() => {
+    PickerStore.clear(1);
+    jest.clearAllMocks();
+  });
 
   test("it should set a item in local storage", () => {
 
@@ -36,17 +39,16 @@ describe("PickerStore", () => {
 
   test("it should read from local storage", () => {
 
-    localStorage.setItem('picker-data', JSON.stringify({
-      "1": { first_sku, second_sku }
-    }));
+    PickerStore.set(1, "first_sku", 10, 5, 3, 20);
+    PickerStore.set(1, "second_sku", 5, 10, 30, 10);
+
     expect(PickerStore.get(1, "first_sku")).toEqual(10);
     expect(PickerStore.get(1, "second_sku")).toEqual(5);
   });
 
   test("it should clear all elements in cellar", () => {
-    localStorage.setItem('picker-data', JSON.stringify({
-      "1": { first_sku, second_sku }
-    }));
+    PickerStore.set(1, "first_sku", 10, 5, 3, 20);
+    PickerStore.set(1, "second_sku", 5, 10, 30, 10);
 
     expect(JSON.parse(localStorage.getItem('picker-data'))).toEqual({
       "1": { first_sku, second_sku }

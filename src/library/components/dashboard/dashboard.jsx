@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Stock, Stores, DashboardLayout, DashboardControls } from '../../components';
 
 export class Dashboard extends Component {
+
+  propTypes = {
+    onInventoryRequest: PropTypes.func,
+    accessToken: PropTypes.string,
+    products: PropTypes.object,
+    isLoading: PropTypes.bool,
+    hasError: PropTypes.bool,
+    stockErrorMessage: PropTypes.string,
+    pageCount: PropTypes.number
+  };
 
   constructor(props) {
     super(props);

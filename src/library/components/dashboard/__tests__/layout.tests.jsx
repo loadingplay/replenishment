@@ -5,7 +5,7 @@ import { DashboardLayout } from "../layout";
 
 describe("DashboardLayout", () => {
   test("it should render properly", () => {
-    const wrapper = shallow(<DashboardLayout></DashboardLayout>);
+    const wrapper = shallow(<DashboardLayout />);
     expect(wrapper).toMatchSnapshot("detault");
   });
 });

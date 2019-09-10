@@ -4,9 +4,7 @@ import { SearchInput } from "../searchinput";
 
 describe("SearchInput", () => {
   test("it should render a seach box", () => {
-    const wrapper = shallow(
-      <SearchInput></SearchInput>
-    );
+    const wrapper = shallow(<SearchInput />);
 
     expect(wrapper).toMatchSnapshot("default");
   });

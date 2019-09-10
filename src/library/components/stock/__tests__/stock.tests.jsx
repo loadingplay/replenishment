@@ -46,7 +46,7 @@ describe("Stock", () => {
         isLoading={false}
         products={[{}]}
         loadKey="1"
-      ></Stock>
+      />
     );
     expect(wrapper).toMatchSnapshot("with products");
   });

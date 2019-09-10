@@ -5,7 +5,7 @@ import { Dashboard } from "../dashboard";
 
 describe("Dashboard", () => {
   test("it should render properly", () => {
-    const wrapper = shallow(<Dashboard></Dashboard>);
+    const wrapper = shallow(<Dashboard />);
     expect(wrapper).toMatchSnapshot("detault");
   });
 });

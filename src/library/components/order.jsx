@@ -1,7 +1,14 @@
 import React from 'react';
-import { PickerStore, Orders } from '../services';
+import PropTypes from 'prop-types';
+import { PickerStore, Orders } from '../services';
 
 export class GenerateOrderButton extends React.Component {
+
+  propTypes = {
+    selectedCellar: PropTypes.number,
+    accessToken: PropTypes.string,
+    onOrderGenerated: PropTypes.func
+  }
 
   static Statusses = {
     IDLE: 0,

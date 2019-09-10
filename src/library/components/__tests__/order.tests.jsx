@@ -9,12 +9,13 @@ import { Orders } from "../../services/orders";
 
 describe("GenerateOrderButton", () => {
 
-  beforeEach(jest.clearAllMocks);
+  beforeEach(() => {
+    PickerStore.clear(2);
+    jest.clearAllMocks();
+  });
 
   test("it should render the button from status", async () => {
-    const wrapper = shallow(
-      <GenerateOrderButton></GenerateOrderButton>
-    );
+    const wrapper = shallow(<GenerateOrderButton />);
 
     expect(wrapper).toMatchSnapshot("default");
     expect(wrapper.prop("disabled")).toBeFalsy();
@@ -33,9 +34,7 @@ describe("GenerateOrderButton", () => {
   });
 
   test("it should generate order data", () => {
-    const wrapper = shallow(
-      <GenerateOrderButton selectedCellar="2" ></GenerateOrderButton>
-    );
+    const wrapper = shallow(<GenerateOrderButton selectedCellar="2" />);
 
     expect(
       wrapper.instance()._generateOrderData()
@@ -48,9 +47,7 @@ describe("GenerateOrderButton", () => {
   });
 
   test("it should send shipped order to api", async () => {
-    const wrapper = shallow(
-      <GenerateOrderButton selectedCellar="2" ></GenerateOrderButton>
-    );
+    const wrapper = shallow(<GenerateOrderButton selectedCellar="2" />);
 
     PickerStore.clear(2);
     Orders.prototype.create = jest.fn().mockReturnValue({});
@@ -87,7 +84,7 @@ describe("GenerateOrderButton", () => {
     const wrapper = shallow(
       <GenerateOrderButton
         onOrderGenerated={jest.fn().mockReturnValue(1)}
-      ></GenerateOrderButton>
+      />
     );
 
     wrapper.instance()._sendShippedOrder = jest.fn().mockResolvedValue({});
