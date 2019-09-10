@@ -22,6 +22,6 @@ deploy:
   provider: pages
   skup-cleanup: true
   github-token: $GITHUB_TOKEN
-  local_dir: public
+  local-dir: public
   on:
     branch: deploy
