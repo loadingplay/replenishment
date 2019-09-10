@@ -11,17 +11,19 @@ install:
 script:
   - npm run lint
   - npm test
-  - npm run build
 notifications:
   slack:
     rooms:
     - loadingplay:CQg5lsp4Hi9OdB79EZndUnOX#bug
     on_success: never
     on_failure: always
+before_deploy:
+  - npm run build
+  - pwd && cd $TRAVIS_BUILD_DIR && pwd && cd public && ls && cd $TRAVIS_BUILD_DIR
 deploy:
   provider: pages
-  skup-cleanup: true
+  skip_cleanup: true
   github-token: $GITHUB_TOKEN
-  local_dir: public
+  local-dir: public
   on:
     branch: master
