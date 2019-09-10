@@ -11,9 +11,17 @@ install:
 script:
   - npm run lint
   - npm test
+  - npm run build
 notifications:
   slack:
     rooms:
     - loadingplay:CQg5lsp4Hi9OdB79EZndUnOX#bug
     on_success: never
     on_failure: always
+deploy:
+  provider: pages
+  skup-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local_dir: public
+  on:
+    branch: master
