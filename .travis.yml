@@ -18,6 +18,8 @@ notifications:
     - loadingplay:CQg5lsp4Hi9OdB79EZndUnOX#bug
     on_success: never
     on_failure: always
+before_deploy:
+  - cd $TRAVIS_BUILD_DIR
 deploy:
   provider: pages
   skup-cleanup: true
