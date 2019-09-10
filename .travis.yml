@@ -22,7 +22,7 @@ before_deploy:
   - pwd && cd $TRAVIS_BUILD_DIR && pwd && cd public && ls && cd $TRAVIS_BUILD_DIR
 deploy:
   provider: pages
-  skup_cleanup: true
+  skip_cleanup: true
   github-token: $GITHUB_TOKEN
   local-dir: public
   on:
