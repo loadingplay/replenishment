@@ -11,7 +11,6 @@ install:
 script:
   - npm run lint
   - npm test
-  - npm run build
 notifications:
   slack:
     rooms:
@@ -19,7 +18,8 @@ notifications:
     on_success: never
     on_failure: always
 before_deploy:
-  - pwd && cd $TRAVIS_BUILD_DIR && pwd && cd public && ls
+  - npm run build
+  - pwd && cd $TRAVIS_BUILD_DIR && pwd && cd public && ls && cd $TRAVIS_BUILD_DIR
 deploy:
   provider: pages
   skup-cleanup: true
