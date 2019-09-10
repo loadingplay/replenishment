@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard it should render properly: detault 1`] = `
+<DashboardLayout
+  menu={
+    <Stores
+      cellarSelected={[Function]}
+      onHQCellarLoaded={[Function]}
+    />
+  }
+  menuTitle="1. Seleccion de tienda"
+  table={
+    <Stock
+      loadKey={1}
+      selectedCellar={0}
+    />
+  }
+  tableControls={
+    <DashboardControls
+      currentPage={0}
+      onPageChange={[Function]}
+      onPickerCleared={[Function]}
+      onSearchTermChange={[Function]}
+      selectedCellarID={0}
+    />
+  }
+  tableTitle="2. Pedidos"
+  title="Reposición de inventario."
+/>
+`;

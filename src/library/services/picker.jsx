@@ -18,7 +18,7 @@ class _PickerStore {
   }
 
   set = (cellar_id, sku, value, hq_inventory, current_inventory, suggested) => {
-    if (!this.data || !this.data.hasOwnProperty(cellar_id) || this.data[cellar_id] === "") {
+    if (!this.data || !(cellar_id in this.data) || this.data.cellar_id === "") {
       this.data[cellar_id] = {};
     }
     if (value === 0)
@@ -36,7 +36,7 @@ class _PickerStore {
   }
 
   get = (cellar_id, sku) => {
-    if (!this.data || !this.data.hasOwnProperty(cellar_id)) return 0;
+    if (!this.data || !(cellar_id in this.data)) return 0;
 
     if (sku === undefined) return this.data[cellar_id];
     if (this.data[cellar_id][sku] === undefined) return 0;
@@ -48,7 +48,7 @@ class _PickerStore {
   }
 
   clear = (cellar_id) => {
-    if (!this.data || !this.data.hasOwnProperty(cellar_id)) return;
+    if (!this.data || !(cellar_id in this.data)) return;
     this.data[cellar_id] = undefined;
     delete this.data[cellar_id];
     if (typeof window !== 'undefined' && window.localStorage)

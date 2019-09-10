@@ -37,7 +37,7 @@ export default class dashboard extends Component {
       .then((response) => response.json())
       .then((json_data) => {
 
-        if (json_data.hasOwnProperty("error")) {
+        if (json_data.error !== undefined) {
           document.location.href = "/"
           return;
         }

@@ -1,6 +1,12 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from "prop-types";
 
-export default class layout extends Component {
+export default class Layout extends PureComponent {
+
+  propTypes = {
+    children: PropTypes.object
+  }
+
   render() {
     let { children } = this.props
     return (

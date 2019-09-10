@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-export class LogoutButton extends React.Component {
+export class LogoutButton extends React.PureComponent {
 
   render = () => {
     return (

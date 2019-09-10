@@ -2,6 +2,7 @@ var Loader = function (access_token) {
   this.access_token = access_token;
   this.instances = 0;
   this.max_instances = 15;
+  this.chunk_size = 10;
 };
 
 Loader.prototype.load = function (cellar_id_list, sku_list) {
@@ -13,9 +14,9 @@ Loader.prototype.load = function (cellar_id_list, sku_list) {
 };
 
 Loader.prototype.loadCellar = function (cellarid, sku_list) {
-  var i, j, temparray, chunk = 10;
-  for (i = 0, j = sku_list.length; i < j; i += chunk) {
-    temparray = sku_list.slice(i, i + chunk);
+  var i, j, temparray;
+  for (i = 0, j = sku_list.length; i < j; i += this.chunk_size) {
+    temparray = sku_list.slice(i, i + this.chunk_size);
     // do whatever
     this.performRequest(cellarid, temparray);
   }
@@ -50,4 +51,4 @@ Loader.prototype.done = function (callback) {
 
 export function StockLoader(access_token) {
   return new Loader(access_token);
-};
+}

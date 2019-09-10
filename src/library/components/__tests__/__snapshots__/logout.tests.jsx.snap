@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logout it should render logout button: default 1`] = `
+<a
+  className="float-right"
+  href="https://accounts.loadingplay.com/auth/logout?next=http://test-url"
+>
+  Salir
+</a>
+`;

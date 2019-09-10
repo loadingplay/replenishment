@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { PickerControl } from '..';
 import "./stock.css";
 
 // implement stock class
 export class Stock extends Component {
+
+  propTypes = {
+    selectedCellar: PropTypes.number,
+    hasError: PropTypes.bool,
+    errorMessage: PropTypes.string,
+    isLoading: PropTypes.bool,
+    products: PropTypes.object,
+    loadKey: PropTypes.number
+  };
 
   renderProductList = () => {
     let products;

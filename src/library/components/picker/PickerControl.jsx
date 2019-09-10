@@ -1,8 +1,15 @@
 import React from 'react';
-import { PickerStore } from '../../services';
+import PropTypes from "prop-types";
+import { PickerStore } from '../../services';
 import "./picker.css";
 
 export class PickerControl extends React.Component {
+
+  propTypes = {
+    cellar_id: PropTypes.number,
+    item: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +24,7 @@ export class PickerControl extends React.Component {
   componentDidUpdate = () => {
     if (this.state.options.disabled !== undefined
       && this.props.item.hq_inventory !== undefined
-      && this.props.item.current_inventory !== undefined
+      && this.props.item.current_inventory !== undefined
     ) {
       this.setState({ options: {} });
     }

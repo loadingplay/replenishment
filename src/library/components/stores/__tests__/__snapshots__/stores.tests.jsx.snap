@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stores it should reder: default 1`] = `
+<section
+  className="stores_wrapper"
+>
+  <table
+    className="table table-hover table-borderless table-sm"
+  >
+    <thead>
+      <tr
+        className="table-info"
+      >
+        <th
+          scope="col"
+        >
+          tiendas
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Cargando...
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+`;

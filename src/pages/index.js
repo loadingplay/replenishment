@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import { graphql, navigate } from 'gatsby'
+import { PropTypes } from "prop-types";
 import Img from 'gatsby-image'
 import Layout from '../library/components/layout';
 
 export default class index extends Component {
-  _checkCredentials = e => {
+
+  propTypes = {
+    data: PropTypes.object
+  };
+
+  _checkCredentials = (e) => {
     e.preventDefault()
     navigate(`/dashboard/`)
   }
