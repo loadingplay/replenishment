@@ -19,7 +19,7 @@ notifications:
     on_failure: always
 before_deploy:
   - npm run build
-  - pwd && cd $TRAVIS_BUILD_DIR && pwd && cd public && ls && cd $TRAVIS_BUILD_DIR
+  - echo "rep.loadingplay.com" > public/CNAME
 deploy:
   provider: pages
   skip_cleanup: true
