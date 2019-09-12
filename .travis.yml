@@ -26,4 +26,4 @@ deploy:
   github-token: $GITHUB_TOKEN
   local-dir: public
   on:
-    branch: deploy
+    branch: master
