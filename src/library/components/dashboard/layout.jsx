@@ -18,12 +18,14 @@ export class DashboardLayout extends Component {
 
   render = () => {
     return (
-      <div className="container dashboard_wrapper">
-        <div className="dashboard_elements row">
+      <div className="container">
+        <div className="row">
           <h3 className="dashboard_title col-12">
             {this.props.title}
           </h3>
+        </div>
 
+        <div className="row" >
           {/* Stores */}
           <div className="col-2" >
             <div className="subtitle">{this.props.menuTitle}</div>
@@ -31,13 +33,16 @@ export class DashboardLayout extends Component {
           </div>
 
           {/* Inventory table */}
-          <div className="col-10 row" >
-            <div className="subtitle col-6">
-              {this.props.tableTitle}
+          <div className="col-10" >
+            <div className="row col-12" >
+              <div className="subtitle col-6">
+                {this.props.tableTitle}
+              </div>
+              <div className="col-6">
+                <LogoutButton></LogoutButton>
+              </div>
             </div>
-            <div className="col-6">
-              <LogoutButton></LogoutButton>
-            </div>
+
             {this.props.table}
 
             {/* Controls */}
