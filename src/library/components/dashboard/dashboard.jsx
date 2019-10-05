@@ -5,10 +5,10 @@ import { Stock, Stores, DashboardLayout, DashboardControls } from '../../compone
 
 export class Dashboard extends Component {
 
-  propTypes = {
+  static propTypes = {
     onInventoryRequest: PropTypes.func,
     accessToken: PropTypes.string,
-    products: PropTypes.object,
+    products: PropTypes.array,
     isLoading: PropTypes.bool,
     hasError: PropTypes.bool,
     stockErrorMessage: PropTypes.string,

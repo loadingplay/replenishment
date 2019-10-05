@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import  PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { StoreLoader } from '../../services';
 import './stores.css'
 
@@ -11,7 +11,7 @@ const LoadStoreStatus = {
 
 export class Stores extends Component {
 
-  propTypes = {
+  static propTypes = {
     onHQCellarLoaded: PropTypes.func,
     cellarSelected: PropTypes.func
   };
@@ -59,7 +59,7 @@ export class Stores extends Component {
     this.store_api.setSelectedCellar(cellar);
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.accessToken !== "" && this.load_status === LoadStoreStatus.IDLE)
       this.loadCellars(newProps.accessToken);
   }

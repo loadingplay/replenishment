@@ -5,7 +5,7 @@ import "./picker.css";
 
 export class PickerControl extends React.Component {
 
-  propTypes = {
+  static propTypes = {
     cellar_id: PropTypes.number,
     item: PropTypes.object
   }

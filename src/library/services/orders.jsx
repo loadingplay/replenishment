@@ -47,6 +47,24 @@ export class Orders {
     return json_data;
   }
 
+  get = async (order_id) => {
+    let response,
+      json_data;
+
+    response = await fetch(
+      Orders.API_URL + '/v1/order/' + order_id,
+      {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${this.access_token}`
+        }
+      }
+    );
+
+    json_data = await response.json();
+    return json_data
+  }
+
   _convertToQueryString = (json_data) => {
     return Object.keys(json_data).map(key => key + '=' + json_data[key]).join('&')
   }

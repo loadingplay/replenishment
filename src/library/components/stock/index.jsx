@@ -1,2 +1,2 @@
 export * from "./stock";
-export * from "../picker/PickerControl"
+export * from "../picker/PickerControl";
