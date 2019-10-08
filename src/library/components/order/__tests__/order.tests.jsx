@@ -1,10 +1,10 @@
-jest.mock("../../services/orders");
+jest.mock("../../../services/orders");
 
 import React from "react";
-import { GenerateOrderButton } from "../order";
+import { GenerateOrderButton } from "..";
 import { shallow } from "enzyme";
-import { PickerStore } from "../../services";
-import { Orders } from "../../services/orders";
+import { PickerStore } from "../../../services";
+import { Orders } from "../../../services/orders";
 
 
 describe("GenerateOrderButton", () => {
