@@ -222,7 +222,7 @@ exports[`Stock it should render with products: with products 1`] = `
         <td />
         <td>
           <PickerControl
-            cellar_id="1"
+            cellar_id={1}
             item={Object {}}
             key="1"
           />

@@ -17,34 +17,55 @@ Object {
 `;
 
 exports[`GenerateOrderButton it should render the button from status: default 1`] = `
-<button
-  className="btn btn-primary btn-block float-right"
-  disabled={false}
-  onClick={[Function]}
-  type="button"
->
-  generar guía
-</button>
+<Fragment>
+  <button
+    className="btn btn-primary btn-block float-right"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    generar guía
+  </button>
+  <OrderModal
+    isOpen={false}
+    onClose={[Function]}
+    orderId={-1}
+  />
+</Fragment>
 `;
 
 exports[`GenerateOrderButton it should render the button from status: done 1`] = `
-<button
-  className="btn btn-primary btn-block float-right"
-  disabled={true}
-  onClick={[Function]}
-  type="button"
->
-  guía enviada
-</button>
+<Fragment>
+  <button
+    className="btn btn-primary btn-block float-right"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    guía enviada
+  </button>
+  <OrderModal
+    isOpen={false}
+    onClose={[Function]}
+    orderId={-1}
+  />
+</Fragment>
 `;
 
 exports[`GenerateOrderButton it should render the button from status: loading 1`] = `
-<button
-  className="btn btn-primary btn-block float-right"
-  disabled={true}
-  onClick={[Function]}
-  type="button"
->
-  generando...
-</button>
+<Fragment>
+  <button
+    className="btn btn-primary btn-block float-right"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    generando...
+  </button>
+  <OrderModal
+    isOpen={false}
+    onClose={[Function]}
+    orderId={-1}
+  />
+</Fragment>
 `;
