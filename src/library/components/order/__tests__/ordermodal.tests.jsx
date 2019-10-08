@@ -9,7 +9,7 @@ describe("OrderModal", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("should load document", async () => {
+  it("should load document", async (done) => {
     const wrapper = shallow(<OrderModal />, {disableLifecycleMethods: true});
     wrapper.instance().order_service.get = jest.fn().mockReturnValue({
       order: {
@@ -20,5 +20,11 @@ describe("OrderModal", () => {
     await wrapper.instance().loadDocument();
     expect(wrapper.instance().state.show_guide).toBeTruthy();
     expect(wrapper.instance().state.guide_url).toEqual("test");
+
+    wrapper.instance().componentDidUpdate({ orderId: 1 });
+    setTimeout(() => {
+      expect(wrapper.instance().state.loading).toEqual('.');
+      done();
+    }, 2000);
   });
 });
