@@ -74,7 +74,7 @@ export class Stock extends Component {
   render() {
 
     return (
-      <section className="stores_wrapper col-12">
+      <section className="stores_wrapper">
         <table className="table table-sm">
           <thead>
             <tr className="table-info">

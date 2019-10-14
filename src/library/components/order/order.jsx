@@ -100,11 +100,11 @@ export class GenerateOrderButton extends React.Component {
   getMessage = () => {
     let message;
     if (this.state.button_status === GenerateOrderButton.Statusses.IDLE)
-      message = "generar guía";
+      message = "Generar guía";
     else if (this.state.button_status === GenerateOrderButton.Statusses.GENERATING)
-      message = "generando...";
+      message = "Generando...";
     else if (this.state.button_status === GenerateOrderButton.Statusses.DONE)
-      message = "guía enviada";
+      message = "Guía enviada";
 
     return message;
   }
@@ -116,7 +116,7 @@ export class GenerateOrderButton extends React.Component {
           type="button"
           disabled={this.state.button_status !== GenerateOrderButton.Statusses.IDLE}
           onClick={this.handleClick}
-          className="btn btn-primary btn-block float-right"
+          className="btn btn-primary ml-1"
         >
           {this.getMessage()}
         </button>
