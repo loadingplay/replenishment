@@ -5,11 +5,18 @@ exports[`DashboardLayout it should render properly: detault 1`] = `
   className="container"
 >
   <div
-    className="row"
+    className="row mt-2"
   >
     <h3
-      className="dashboard_title col-12"
+      className="col-auto"
     />
+    <section
+      className="col"
+    >
+      <div
+        className="row"
+      />
+    </section>
   </div>
   <div
     className="row"
@@ -25,20 +32,12 @@ exports[`DashboardLayout it should render properly: detault 1`] = `
       className="col-10"
     >
       <div
-        className="row col-12"
+        className="row"
       >
         <div
           className="subtitle col-6"
         />
-        <div
-          className="col-6"
-        >
-          <LogoutButton />
-        </div>
       </div>
-      <section
-        className="controls col-12 row"
-      />
     </div>
   </div>
 </div>

@@ -19,12 +19,12 @@ Object {
 exports[`GenerateOrderButton it should render the button from status: default 1`] = `
 <Fragment>
   <button
-    className="btn btn-primary btn-block float-right"
+    className="btn btn-primary ml-1"
     disabled={false}
     onClick={[Function]}
     type="button"
   >
-    generar guía
+    Generar guía
   </button>
   <OrderModal
     isOpen={false}
@@ -37,12 +37,12 @@ exports[`GenerateOrderButton it should render the button from status: default 1`
 exports[`GenerateOrderButton it should render the button from status: done 1`] = `
 <Fragment>
   <button
-    className="btn btn-primary btn-block float-right"
+    className="btn btn-primary ml-1"
     disabled={true}
     onClick={[Function]}
     type="button"
   >
-    guía enviada
+    Guía enviada
   </button>
   <OrderModal
     isOpen={false}
@@ -55,12 +55,12 @@ exports[`GenerateOrderButton it should render the button from status: done 1`] =
 exports[`GenerateOrderButton it should render the button from status: loading 1`] = `
 <Fragment>
   <button
-    className="btn btn-primary btn-block float-right"
+    className="btn btn-primary ml-1"
     disabled={true}
     onClick={[Function]}
     type="button"
   >
-    generando...
+    Generando...
   </button>
   <OrderModal
     isOpen={false}

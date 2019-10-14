@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-import { LogoutButton } from '../../components';
-
 export class DashboardLayout extends Component {
 
   static propTypes = {
@@ -13,16 +11,24 @@ export class DashboardLayout extends Component {
 
     tableTitle: PropTypes.string,
     table: PropTypes.object,
-    tableControls: PropTypes.object
+    tableControls: PropTypes.object,
+    tableDownControls: PropTypes.object
   }
 
   render = () => {
     return (
       <div className="container">
-        <div className="row">
-          <h3 className="dashboard_title col-12">
+        <div className="row mt-2">
+          <h3 className="col-auto">
             {this.props.title}
           </h3>
+
+          {/* Controls */}
+          <section className="col">
+            <div className="row" >
+              {this.props.tableControls}
+            </div>
+          </section>
         </div>
 
         <div className="row" >
@@ -34,21 +40,14 @@ export class DashboardLayout extends Component {
 
           {/* Inventory table */}
           <div className="col-10" >
-            <div className="row col-12" >
+            <div className="row" >
               <div className="subtitle col-6">
                 {this.props.tableTitle}
-              </div>
-              <div className="col-6">
-                <LogoutButton></LogoutButton>
               </div>
             </div>
 
             {this.props.table}
-
-            {/* Controls */}
-            <section className="controls col-12 row">
-              {this.props.tableControls}
-            </section>
+            {this.props.tableDownControls}
           </div>
         </div>
       </div>

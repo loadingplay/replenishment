@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
 
 import { Stock, Stores, DashboardLayout, DashboardControls } from '../../components';
 
@@ -97,15 +98,34 @@ export class Dashboard extends Component {
         }
         tableControls={
           <DashboardControls
-            pageCount={this.props.pageCount}
-            currentPage={this.state.current_page}
             selectedCellarID={this.state.selected_cellar_id}
             accessToken={this.props.accessToken}
 
-            onPageChange={this.handlePageClick}
             onSearchTermChange={this.handleSearch}
             onPickerCleared={this.handlePickerClear}
           ></DashboardControls>
+        }
+        tableDownControls={
+          <ReactPaginate
+            previousLabel={'anterior'}
+            nextLabel={'siguiente'}
+            breakLabel={'...'}
+            pageCount={this.props.pageCount}
+            forcePage={this.state.current_page}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={'pagination'}
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            activeClassName={'active'}
+          />
         }
       ></DashboardLayout>
     );

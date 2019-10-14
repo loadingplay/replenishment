@@ -2,7 +2,7 @@
 
 exports[`Stock it should render empty: empty 1`] = `
 <section
-  className="stores_wrapper col-12"
+  className="stores_wrapper"
 >
   <table
     className="table table-sm"
@@ -50,7 +50,7 @@ exports[`Stock it should render empty: empty 1`] = `
 
 exports[`Stock it should render with error message: error message 1`] = `
 <section
-  className="stores_wrapper col-12"
+  className="stores_wrapper"
 >
   <table
     className="table table-sm"
@@ -107,7 +107,7 @@ exports[`Stock it should render with error message: error message 1`] = `
 
 exports[`Stock it should render with loading message: loading message 1`] = `
 <section
-  className="stores_wrapper col-12"
+  className="stores_wrapper"
 >
   <table
     className="table table-sm"
@@ -164,7 +164,7 @@ exports[`Stock it should render with loading message: loading message 1`] = `
 
 exports[`Stock it should render with products: with products 1`] = `
 <section
-  className="stores_wrapper col-12"
+  className="stores_wrapper"
 >
   <table
     className="table table-sm"

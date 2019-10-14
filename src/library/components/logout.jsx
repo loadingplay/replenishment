@@ -7,7 +7,8 @@ export class LogoutButton extends React.PureComponent {
     return (
       <a
         href={`https://accounts.loadingplay.com/auth/logout?next=${process.env.PROJECT_URL}`}
-        className="float-right" >
+        role="button"
+        className="btn btn-link ml-1" >
         Salir
       </a>
     );

@@ -2,8 +2,9 @@
 
 exports[`Logout it should render logout button: default 1`] = `
 <a
-  className="float-right"
+  className="btn btn-link ml-1"
   href="https://accounts.loadingplay.com/auth/logout?next=http://test-url"
+  role="button"
 >
   Salir
 </a>

@@ -20,8 +20,8 @@ export class PickerClearButton extends React.Component {
 
   render = () => {
     return (
-      <button type="button" onClick={this.handleClear} className="btn btn-danger btn-block float-right" >
-        limpiar picker
+      <button type="button" onClick={this.handleClear} className="btn btn-danger" >
+        Limpiar
       </button>
     );
   }

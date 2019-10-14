@@ -17,11 +17,33 @@ exports[`Dashboard it should render properly: detault 1`] = `
   }
   tableControls={
     <DashboardControls
-      currentPage={0}
-      onPageChange={[Function]}
       onPickerCleared={[Function]}
       onSearchTermChange={[Function]}
       selectedCellarID={0}
+    />
+  }
+  tableDownControls={
+    <PaginationBoxView
+      activeClassName="active"
+      breakClassName="page-item"
+      breakLabel="..."
+      breakLinkClassName="page-link"
+      containerClassName="pagination"
+      disableInitialCallback={false}
+      disabledClassName="disabled"
+      forcePage={0}
+      marginPagesDisplayed={2}
+      nextClassName="page-item"
+      nextLabel="siguiente"
+      nextLinkClassName="page-link"
+      onPageChange={[Function]}
+      pageClassName="page-item"
+      pageCount={10}
+      pageLinkClassName="page-link"
+      pageRangeDisplayed={5}
+      previousClassName="page-item"
+      previousLabel="anterior"
+      previousLinkClassName="page-link"
     />
   }
   tableTitle="2. Pedidos"

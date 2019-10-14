@@ -37,14 +37,17 @@ export default class DashboardPage extends Component {
         is_loading: false,
         has_error: true
       });
-    }
-    else {
+
+      return false;
+    } else {
       this.setState({
         products: json_data.replenishments,
         is_loading: false,
         has_error: false,
         stock_error_message: ""
       });
+
+      return true;
     }
   }
 
@@ -63,7 +66,7 @@ export default class DashboardPage extends Component {
     store_loader = new StoreLoader(this.state.access_token);
     json_data = await store_loader.loadProducts(page, selected_cellar_id, search_term);
 
-    this.handleLoadedState(json_data);
+    if (!this.handleLoadedState(json_data)) return;  // handle errors
     this.handlePageCountLoaded(Math.ceil(json_data.metadata.count / 100));
 
     // load current inventory
