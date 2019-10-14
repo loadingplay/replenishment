@@ -3,50 +3,21 @@
 exports[`DashboardControls it should render properly: detault 1`] = `
 <Fragment>
   <div
-    className="col-12"
-  >
-    <PaginationBoxView
-      activeClassName="active"
-      breakClassName="page-item"
-      breakLabel="..."
-      breakLinkClassName="page-link"
-      containerClassName="pagination"
-      disableInitialCallback={false}
-      disabledClassName="disabled"
-      marginPagesDisplayed={2}
-      nextClassName="page-item"
-      nextLabel="siguiente"
-      nextLinkClassName="page-link"
-      pageClassName="page-item"
-      pageCount={10}
-      pageLinkClassName="page-link"
-      pageRangeDisplayed={5}
-      previousClassName="page-item"
-      previousLabel="anterior"
-      previousLinkClassName="page-link"
-    />
-  </div>
-  <div
     className="col-4"
   >
     <SearchInput />
   </div>
   <div
-    className="col-4 offset-md-4 row"
+    className="col-8 text-right"
   >
     <PickerClearButton
       onPickerClear={[Function]}
     />
-    <a
-      className="btn btn-success btn-block float-right"
-      href="/print"
-      target="_blank"
-    >
-      imprimir
-    </a>
+    <PrintButton />
     <GenerateOrderButton
       onOrderGenerated={[Function]}
     />
+    <LogoutButton />
   </div>
 </Fragment>
 `;

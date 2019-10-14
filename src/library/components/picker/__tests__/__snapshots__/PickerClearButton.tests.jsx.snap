@@ -2,10 +2,10 @@
 
 exports[`PickerClearButton it should render properly: detault 1`] = `
 <button
-  className="btn btn-danger btn-block float-right"
+  className="btn btn-danger"
   onClick={[Function]}
   type="button"
 >
-  limpiar picker
+  Limpiar
 </button>
 `;

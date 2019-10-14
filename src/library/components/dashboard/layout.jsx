@@ -11,7 +11,8 @@ export class DashboardLayout extends Component {
 
     tableTitle: PropTypes.string,
     table: PropTypes.object,
-    tableControls: PropTypes.object
+    tableControls: PropTypes.object,
+    tableDownControls: PropTypes.object
   }
 
   render = () => {
