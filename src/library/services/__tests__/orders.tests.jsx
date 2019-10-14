@@ -71,4 +71,20 @@ describe("Orders", () => {
     expect(orders._convertToQueryString({ "test": "test" })).toEqual("test=test");
     expect(orders._convertToQueryString({ "test1": "aaa", "test2": "bbb" })).toEqual("test1=aaa&test2=bbb");
   });
+
+  test("it should get order from API", async () => {
+    let
+      json_data,
+      orders = new Orders("test_token");
+
+    global.fetch = jest.fn().mockResolvedValue({ json: () => {return { "test": "test" } }});
+    json_data = await orders.get(100);
+
+    expect(json_data).toEqual({ "test": "test" });
+    expect(global.fetch).toHaveBeenCalledWith(
+      "https://apibodegas.loadingplay.com/v1/order/100",
+      {"headers": {"Authorization": "Bearer test_token"}, "method": "GET"}
+    );
+  });
+
 });

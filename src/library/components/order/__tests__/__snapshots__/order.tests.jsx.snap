@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GenerateOrderButton it should generate order data: order-data-empty 1`] = `
+Object {
+  "origin": "replenishments",
+  "payment_type": "guia",
+  "products": "[]",
+}
+`;
+
+exports[`GenerateOrderButton it should generate order data: order-data-with-one-product 1`] = `
+Object {
+  "origin": "replenishments",
+  "payment_type": "guia",
+  "products": "[{\\"sku\\":\\"test-sku\\",\\"price\\":0,\\"name\\":\\"\\",\\"combination\\":\\"\\",\\"quantity\\":1}]",
+}
+`;
+
+exports[`GenerateOrderButton it should render the button from status: default 1`] = `
+<Fragment>
+  <button
+    className="btn btn-primary btn-block float-right"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    generar guía
+  </button>
+  <OrderModal
+    isOpen={false}
+    onClose={[Function]}
+    orderId={-1}
+  />
+</Fragment>
+`;
+
+exports[`GenerateOrderButton it should render the button from status: done 1`] = `
+<Fragment>
+  <button
+    className="btn btn-primary btn-block float-right"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    guía enviada
+  </button>
+  <OrderModal
+    isOpen={false}
+    onClose={[Function]}
+    orderId={-1}
+  />
+</Fragment>
+`;
+
+exports[`GenerateOrderButton it should render the button from status: loading 1`] = `
+<Fragment>
+  <button
+    className="btn btn-primary btn-block float-right"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    generando...
+  </button>
+  <OrderModal
+    isOpen={false}
+    onClose={[Function]}
+    orderId={-1}
+  />
+</Fragment>
+`;

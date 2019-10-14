@@ -1,10 +1,10 @@
-jest.mock("../../services/orders");
+jest.mock("../../../services/orders");
 
 import React from "react";
-import { GenerateOrderButton } from "../order";
+import { GenerateOrderButton } from "..";
 import { shallow } from "enzyme";
-import { PickerStore } from "../../services";
-import { Orders } from "../../services/orders";
+import { PickerStore } from "../../../services";
+import { Orders } from "../../../services/orders";
 
 
 describe("GenerateOrderButton", () => {
@@ -18,23 +18,23 @@ describe("GenerateOrderButton", () => {
     const wrapper = shallow(<GenerateOrderButton />);
 
     expect(wrapper).toMatchSnapshot("default");
-    expect(wrapper.prop("disabled")).toBeFalsy();
+    expect(wrapper.childAt(0).prop("disabled")).toBeFalsy();
 
     wrapper.setState({
       button_status: GenerateOrderButton.Statusses.GENERATING
     });
-    expect(wrapper.prop('disabled')).toBeTruthy();
+    expect(wrapper.childAt(0).prop('disabled')).toBeTruthy();
     expect(wrapper).toMatchSnapshot("loading");
 
     wrapper.setState({
       button_status: GenerateOrderButton.Statusses.DONE
     });
-    expect(wrapper.prop('disabled')).toBeTruthy();
+    expect(wrapper.childAt(0).prop('disabled')).toBeTruthy();
     expect(wrapper).toMatchSnapshot("done");
   });
 
   test("it should generate order data", () => {
-    const wrapper = shallow(<GenerateOrderButton selectedCellar="2" />);
+    const wrapper = shallow(<GenerateOrderButton selectedCellar={2} />);
 
     expect(
       wrapper.instance()._generateOrderData()
@@ -47,7 +47,7 @@ describe("GenerateOrderButton", () => {
   });
 
   test("it should send shipped order to api", async () => {
-    const wrapper = shallow(<GenerateOrderButton selectedCellar="2" />);
+    const wrapper = shallow(<GenerateOrderButton selectedCellar={2} />);
 
     PickerStore.clear(2);
     Orders.prototype.create = jest.fn().mockReturnValue({});
@@ -55,6 +55,7 @@ describe("GenerateOrderButton", () => {
 
     await wrapper.instance()._sendShippedOrder();
     expect(Orders.prototype.create).toHaveBeenCalledWith({
+      "extra_info": "{}",
       "origin": "replenishments",
       "payment_type": "guia",
       "products": "[]"
@@ -71,6 +72,7 @@ describe("GenerateOrderButton", () => {
     PickerStore.set(2, "test-sku", 1, 10, 10, 10);
     await wrapper.instance()._sendShippedOrder();
     expect(Orders.prototype.create).toHaveBeenCalledWith({
+      "extra_info": "{}",
       "origin": "replenishments",
       "payment_type": "guia",
       "products": "[{\"sku\":\"test-sku\",\"price\":0,\"name\":\"\",\"combination\":\"\",\"quantity\":1}]"
@@ -87,14 +89,14 @@ describe("GenerateOrderButton", () => {
       />
     );
 
-    wrapper.instance()._sendShippedOrder = jest.fn().mockResolvedValue({});
+    wrapper.instance()._sendShippedOrder = jest.fn().mockResolvedValue(1);
 
     let promise = wrapper.instance().handleClick();
-    expect(wrapper.instance().state).toEqual({"button_status": GenerateOrderButton.Statusses.GENERATING});
+    expect(wrapper.instance().state.button_status).toEqual(GenerateOrderButton.Statusses.GENERATING);
     expect(wrapper.instance()._sendShippedOrder).toHaveBeenCalledTimes(1);
 
     await promise;
     expect(wrapper.instance().props.onOrderGenerated).toHaveBeenCalledTimes(1);
-    expect(wrapper.instance().state).toEqual({"button_status": GenerateOrderButton.Statusses.DONE});
+    expect(wrapper.instance().state.button_status).toEqual(GenerateOrderButton.Statusses.DONE);
   });
 });

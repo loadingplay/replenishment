@@ -4,7 +4,7 @@ import { PickerStore } from '../../services';
 
 export class PickerClearButton extends React.Component {
 
-  propTypes = {
+  static propTypes = {
     selected_cellar_id: PropTypes.number,
     onPickerClear: PropTypes.func
   }

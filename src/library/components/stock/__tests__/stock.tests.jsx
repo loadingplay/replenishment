@@ -12,12 +12,12 @@ describe("Stock", () => {
   test("it should render with loading message", () => {
     const wrapper = shallow(
       <Stock
-        selectedCellar="1"
+        selectedCellar={1}
         hasError={false}
         errorMessage=""
         isLoading={true}
         products={[]}
-        loadKey="1"
+        loadKey={1}
       ></Stock>
     );
     expect(wrapper).toMatchSnapshot("loading message");
@@ -26,12 +26,12 @@ describe("Stock", () => {
   test("it should render with error message", () => {
     const wrapper = shallow(
       <Stock
-        selectedCellar="1"
+        selectedCellar={1}
         hasError={true}
         errorMessage="error message"
         isLoading={false}
         products={[]}
-        loadKey="1"
+        loadKey={1}
       ></Stock>
     );
     expect(wrapper).toMatchSnapshot("error message");
@@ -40,12 +40,12 @@ describe("Stock", () => {
   test("it should render with products", () => {
     const wrapper = shallow(
       <Stock
-        selectedCellar="1"
+        selectedCellar={1}
         hasError={false}
         errorMessage=""
         isLoading={false}
         products={[{}]}
-        loadKey="1"
+        loadKey={1}
       />
     );
     expect(wrapper).toMatchSnapshot("with products");

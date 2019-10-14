@@ -7,12 +7,12 @@ import "./stock.css";
 // implement stock class
 export class Stock extends Component {
 
-  propTypes = {
+  static propTypes = {
     selectedCellar: PropTypes.number,
     hasError: PropTypes.bool,
     errorMessage: PropTypes.string,
     isLoading: PropTypes.bool,
-    products: PropTypes.object,
+    products: PropTypes.array,
     loadKey: PropTypes.number
   };
 

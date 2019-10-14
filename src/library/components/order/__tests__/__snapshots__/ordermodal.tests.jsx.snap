@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderModal should match snap shot 1`] = `
+<Modal
+  ariaHideApp={false}
+  bodyOpenClassName="ReactModal__Body--open"
+  closeTimeoutMS={0}
+  contentLabel="Example Modal"
+  isOpen={false}
+  parentSelector={[Function]}
+  portalClassName="ReactModalPortal"
+  role="dialog"
+  shouldCloseOnEsc={true}
+  shouldCloseOnOverlayClick={true}
+  shouldFocusAfterRender={true}
+  shouldReturnFocusAfterClose={true}
+  style={
+    Object {
+      "content": Object {
+        "bottom": "auto",
+        "left": "50%",
+        "marginRight": "-50%",
+        "right": "auto",
+        "top": "50%",
+        "transform": "translate(-50%, -50%)",
+        "width": "400px",
+        "zIndex": "10",
+      },
+      "overlay": Object {
+        "zIndex": "10",
+      },
+    }
+  }
+>
+  <button
+    className="order-modal-close"
+    onClick={[Function]}
+  >
+    X
+  </button>
+  <div>
+    Esperando documento 
+  </div>
+</Modal>
+`;

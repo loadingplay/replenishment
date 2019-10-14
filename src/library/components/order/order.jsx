@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PickerStore, Orders } from '../services';
+import { OrderModal } from "./ordermodal";
+import { PickerStore, Orders } from '../../services';
+import "./order.css";
+
 
 export class GenerateOrderButton extends React.Component {
 
-  propTypes = {
+  static propTypes = {
     selectedCellar: PropTypes.number,
     accessToken: PropTypes.string,
     onOrderGenerated: PropTypes.func
@@ -17,14 +20,16 @@ export class GenerateOrderButton extends React.Component {
   }
 
   static defaultProps = {
-    onOrderGenerated: () => {}
+    onOrderGenerated: () => { }
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      button_status: GenerateOrderButton.Statusses.IDLE
+      button_status: GenerateOrderButton.Statusses.IDLE,
+      is_modal_open: false,
+      order_id: -1
     }
   }
 
@@ -59,25 +64,34 @@ export class GenerateOrderButton extends React.Component {
 
     // create order in hype
     post_data = this._generateOrderData();
+    post_data.extra_info = "{}";
     json_data = await order_service.create(post_data);
 
     // update order in hype
     if (json_data.status === "success") {
       order_id = json_data.order.id;
-      await order_service.update(order_id, {status: "despachado"});
+      await order_service.update(order_id, { status: "despachado" });
+      return order_id;
     }
   }
 
   handleClick = async () => {
+    let order_id;
+
     // change status
     this.setState({ button_status: GenerateOrderButton.Statusses.GENERATING });
 
     // generate order
-    await this._sendShippedOrder();
+    order_id = await this._sendShippedOrder();
+    this.setState({
+      is_modal_open: true,
+      order_id
+    });
 
     PickerStore.clear(this.props.selectedCellar);
     this.props.onOrderGenerated();
     this.setState({ button_status: GenerateOrderButton.Statusses.DONE });
+
     setTimeout(() => {
       this.setState({ button_status: GenerateOrderButton.Statusses.IDLE });
     }, 5000);
@@ -97,14 +111,22 @@ export class GenerateOrderButton extends React.Component {
 
   render = () => {
     return (
-      <button
-        type="button"
-        disabled={this.state.button_status !== GenerateOrderButton.Statusses.IDLE}
-        onClick={this.handleClick}
-        className="btn btn-primary btn-block float-right"
-      >
-        {this.getMessage()}
-      </button>
+      <>
+        <button
+          type="button"
+          disabled={this.state.button_status !== GenerateOrderButton.Statusses.IDLE}
+          onClick={this.handleClick}
+          className="btn btn-primary btn-block float-right"
+        >
+          {this.getMessage()}
+        </button>
+        <OrderModal
+          accessToken={this.props.accessToken}
+          isOpen={this.state.is_modal_open}
+          orderId={this.state.order_id}
+          onClose={() => { this.setState({ is_modal_open: false }) }}
+        />
+      </>
     );
   }
 }

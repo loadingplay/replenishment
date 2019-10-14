@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 export default class Layout extends PureComponent {
 
-  propTypes = {
-    children: PropTypes.object
+  static propTypes = {
+    children: PropTypes.any
   }
 
   render() {

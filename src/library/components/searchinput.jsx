@@ -20,7 +20,7 @@ function debounce(func, wait, immediate) {
 
 export class SearchInput extends React.Component {
 
-  propTypes = {
+  static propTypes = {
     onSearch: PropTypes.func
   };
 
