@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import "./layout.css";
 
 export class DashboardLayout extends Component {
 
@@ -18,17 +19,21 @@ export class DashboardLayout extends Component {
   render = () => {
     return (
       <div className="container">
-        <div className="row mt-2">
-          <h3 className="col-auto">
-            {this.props.title}
-          </h3>
+        <div className="fixed-top bg-light">
+          <div className="container" >
+            <div className="row mt-2">
+              <h3 className="col-auto">
+                {this.props.title}
+              </h3>
 
-          {/* Controls */}
-          <section className="col">
-            <div className="row" >
-              {this.props.tableControls}
+              {/* Controls */}
+              <section className="col">
+                <div className="row" >
+                  {this.props.tableControls}
+                </div>
+              </section>
             </div>
-          </section>
+          </div>
         </div>
 
         <div className="row" >
