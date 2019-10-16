@@ -3,12 +3,12 @@
 exports[`DashboardControls it should render properly: detault 1`] = `
 <Fragment>
   <div
-    className="col-4"
+    className="col-6"
   >
     <SearchInput />
   </div>
   <div
-    className="col-8 text-right"
+    className="col-6 text-right"
   >
     <PickerClearButton
       onPickerClear={[Function]}

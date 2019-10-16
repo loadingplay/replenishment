@@ -1,52 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DashboardLayout it should render properly: detault 1`] = `
-<div
-  className="container"
->
+<Fragment>
   <div
-    className="fixed-top bg-light"
+    className="container"
   >
     <div
-      className="container"
+      className="fixed-top bg-light"
     >
       <div
-        className="row mt-2"
-      >
-        <h3
-          className="col-auto"
-        />
-        <section
-          className="col"
-        >
-          <div
-            className="row"
-          />
-        </section>
-      </div>
-    </div>
-  </div>
-  <div
-    className="row"
-  >
-    <div
-      className="col-2"
-    >
-      <div
-        className="subtitle"
-      />
-    </div>
-    <div
-      className="col-10"
-    >
-      <div
-        className="row"
+        className="container"
       >
         <div
-          className="subtitle col-6"
+          className="row mt-2"
+        >
+          <h3
+            className="col-auto"
+          />
+          <section
+            className="col"
+          >
+            <div
+              className="row"
+            />
+          </section>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-2"
+      >
+        <div
+          className="subtitle"
         />
+      </div>
+      <div
+        className="col-10"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="subtitle col-6"
+          />
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <div
+    className="toast-container"
+  >
+    <div
+      className="toast-content"
+    />
+  </div>
+</Fragment>
 `;

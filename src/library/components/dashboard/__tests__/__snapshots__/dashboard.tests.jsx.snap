@@ -17,6 +17,7 @@ exports[`Dashboard it should render properly: detault 1`] = `
   tableControls={
     <DashboardControls
       onSearchTermChange={[Function]}
+      onSearchTypeChange={[Function]}
       selectedCellarID={0}
     />
   }
@@ -46,5 +47,6 @@ exports[`Dashboard it should render properly: detault 1`] = `
   }
   tableTitle="2. Pedidos"
   title="Reposición de inventario."
+  toastMessage=""
 />
 `;
