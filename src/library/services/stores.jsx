@@ -20,7 +20,7 @@ export class StoreLoader {
     let response, json_data;
 
     response = await fetch(
-      `https://replenishments.loadingplay.com/replenishment?items=100&page=${page}&cellar_id=${cellar_id}&sku=${sku_filter}`,
+      `https://replenishments.loadingplay.com/replenishment?items=100&page=${page}&cellar_id=${cellar_id}&search_word=${sku_filter}`,
       {
         "headers": {
           "Authorization": `Bearer ${this.access_token}`

@@ -26,7 +26,7 @@ export class SearchInput extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { value: '' }
+    this.state = { value: '' };
     this.textInput = React.createRef();
 
     this.handleSearch = debounce(props.onSearch, 500);
@@ -56,13 +56,17 @@ export class SearchInput extends React.Component {
     ) {
       this.textInput.current.focus();
     }
+
+    if (e.key === "Enter") {
+      e.target.select();
+    }
   }
 
   render = () => {
     return (
       <div className="form-group row">
-        <label htmlFor="search" className="col-sm-2 col-form-label">SKU</label>
-        <div className="col-sm-10">
+        <label htmlFor="search" className="col-sm-3 col-form-label">Código</label>
+        <div className="col-sm-9">
           <input
             type="text"
             ref={this.textInput}

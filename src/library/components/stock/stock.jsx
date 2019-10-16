@@ -40,8 +40,8 @@ export class Stock extends Component {
       products = this.props.products.map((item, index) => {
         return (
           <tr key={index} >
-            <th scope="row">{item.sku}</th>
-            <td></td>
+            <th scope="row">{item.barcode}</th>
+            <td>{item.product_name}</td>
             <td>
               {
                 item.hq_inventory === undefined ?
@@ -78,7 +78,7 @@ export class Stock extends Component {
         <table className="table table-sm">
           <thead>
             <tr className="table-info">
-              <th scope="col">sku</th>
+              <th scope="col">cod. barras</th>
               <th scope="col">nombre</th>
               <th scope="col">stock bodega</th>
               <th scope="col">stock tienda</th>
