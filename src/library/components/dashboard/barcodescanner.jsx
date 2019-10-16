@@ -36,6 +36,7 @@ export function withBarcodeScanner(WrappedComponent) {
     }
 
     handleScannerRead = (input_string) => {
+      console.log(input_string)
       if (!this.wrapped.handleScannerRead) {
         console.log("implement handleScannerRead method");
         return;

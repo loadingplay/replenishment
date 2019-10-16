@@ -18,7 +18,8 @@ export class Dashboard extends React.Component {
     pageCount: PropTypes.number,
     onScannerRead: PropTypes.func,
     onPickerClear: PropTypes.func,
-    loadKey: PropTypes.number
+    loadKey: PropTypes.number,
+    isScannerLoading: PropTypes.bool
   };
 
   constructor(props) {
