@@ -26,7 +26,8 @@ export class Dashboard extends React.Component {
     this.state = {
       selected_cellar_id: 0,
       current_page: 0,
-      search_term: ""
+      search_term: "",
+      search_type: 'search'
     };
   }
 
@@ -36,7 +37,8 @@ export class Dashboard extends React.Component {
       this.state.hq_cellar_id,
       this.state.selected_cellar_id,
       this.state.current_page + 1,
-      this.state.search_term
+      this.state.search_term,
+      this.state.search_type
     );
   }
 
@@ -72,13 +74,24 @@ export class Dashboard extends React.Component {
     });
   }
 
+  handleSearchType = (type) => {
+    this.setState({
+      search_type: type,
+      search_term: ''
+    }, () => {
+      this.reloadInventory();
+    });
+  }
+
   handleScannerRead = (input_string) => {
-    this.props.onScannerRead(this.state.hq_cellar_id, this.state.selected_cellar_id, input_string);
+    if (this.state.search_type === "barcode")
+      this.props.onScannerRead(this.state.hq_cellar_id, this.state.selected_cellar_id, input_string);
   }
 
   render() {
     return (
       <DashboardLayout
+        toastMessage={this.props.isScannerLoading ? `Procesando cola de scanner quedan ${this.props.isScannerLoading} ...`:''}
         title="Reposición de inventario."
         menuTitle="1. Seleccion de tienda"
         menu={
@@ -106,6 +119,7 @@ export class Dashboard extends React.Component {
             accessToken={this.props.accessToken}
 
             onSearchTermChange={this.handleSearch}
+            onSearchTypeChange={this.handleSearchType}
             onPickerCleared={this.props.onPickerClear}
           ></DashboardControls>
         }
@@ -131,7 +145,7 @@ export class Dashboard extends React.Component {
             activeClassName={'active'}
           />
         }
-      ></DashboardLayout>
+      />
     );
   }
 }

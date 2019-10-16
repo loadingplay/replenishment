@@ -20,13 +20,18 @@ function debounce(func, wait, immediate) {
 
 export class SearchInput extends React.Component {
 
+  static Type = {
+    barcode: 'barcode',
+    search: 'search'
+  }
+
   static propTypes = {
     onSearch: PropTypes.func
   };
 
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: '', type: SearchInput.Type.search };
     this.textInput = React.createRef();
 
     this.handleSearch = debounce(props.onSearch, 500);
@@ -62,20 +67,37 @@ export class SearchInput extends React.Component {
     }
   }
 
+  changeType = () => {
+    let other = this.state.type === SearchInput.Type.search ? SearchInput.Type.barcode:SearchInput.Type.search;
+    this.setState({ type: other, value: '' });
+    this.props.onTypeChange(other);
+  }
+
   render = () => {
     return (
-      <div className="form-group row">
-        <label htmlFor="search" className="col-sm-3 col-form-label">Código</label>
-        <div className="col-sm-9">
-          <input
-            type="text"
-            ref={this.textInput}
-            placeholder="ingrese sku"
-            className="form-control"
-            id="search"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
+      <div className="form-group row no-gutters">
+        <div className="col">
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              ref={this.textInput}
+              placeholder={this.state.type === SearchInput.Type.barcode ?'leer código':'ingresar búsqueda'}
+              className="form-control"
+              id="search"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text" >
+                <i className={`fas ${this.state.type === SearchInput.Type.search ? 'fa-search':'fa-barcode'}`}/>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="col-auto" >
+          <button type="button" className="btn btn-link" onClick={this.changeType} >
+            <i className="fas fa-sync"></i>
+          </button>
         </div>
       </div>
     );
