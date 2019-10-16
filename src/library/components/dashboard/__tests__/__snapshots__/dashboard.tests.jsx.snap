@@ -11,13 +11,11 @@ exports[`Dashboard it should render properly: detault 1`] = `
   menuTitle="1. Seleccion de tienda"
   table={
     <Stock
-      loadKey={1}
       selectedCellar={0}
     />
   }
   tableControls={
     <DashboardControls
-      onPickerCleared={[Function]}
       onSearchTermChange={[Function]}
       selectedCellarID={0}
     />

@@ -5,13 +5,13 @@ exports[`SearchInput it should render a seach box: default 1`] = `
   className="form-group row"
 >
   <label
-    className="col-sm-2 col-form-label"
+    className="col-sm-3 col-form-label"
     htmlFor="search"
   >
-    SKU
+    Código
   </label>
   <div
-    className="col-sm-10"
+    className="col-sm-9"
   >
     <input
       className="form-control"

@@ -45,7 +45,7 @@ describe("StoreLoader", () => {
 
     expect(products).toEqual({ test_data: 'test_data' });
     expect(global.fetch).toHaveBeenCalledWith(
-      "https://replenishments.loadingplay.com/replenishment?items=100&page=1&cellar_id=2&sku=test-sku",
+      "https://replenishments.loadingplay.com/replenishment?items=100&page=1&cellar_id=2&search_word=test-sku",
       {
         "headers": {
           "Authorization": "Bearer test_token"
