@@ -13,7 +13,8 @@ export function withBarcodeScanner(WrappedComponent) {
     }
 
     initListener = () => {
-      document.addEventListener('keyup', this.handleKeyUp);
+      if (typeof window !== `undefined`)
+        document.addEventListener('keyup', this.handleKeyUp);
     }
 
     handleKeyUp = (e) => {
