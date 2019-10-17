@@ -33,7 +33,7 @@ export function withBarcodeScanner(WrappedComponent) {
       if (this.timer) clearTimeout(this.timer);
       if (e.key.length <= 1) this.input_string += e.key;
 
-      this.timer = setTimeout(timeoutCallback, 20);
+      this.timer = setTimeout(timeoutCallback, 100);
     }
 
     handleScannerRead = (input_string) => {
@@ -46,7 +46,7 @@ export function withBarcodeScanner(WrappedComponent) {
     }
 
     render = () => {
-      return <WrappedComponent {...this.props} ref={this.wrapped} />;
+      return <WrappedComponent {...this.props} ref={e => this.wrapped = e} />;
     }
   }
 }

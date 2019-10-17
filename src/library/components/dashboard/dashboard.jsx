@@ -19,7 +19,7 @@ export class Dashboard extends React.Component {
     onScannerRead: PropTypes.func,
     onPickerClear: PropTypes.func,
     loadKey: PropTypes.number,
-    isScannerLoading: PropTypes.bool
+    isScannerLoading: PropTypes.number
   };
 
   constructor(props) {
