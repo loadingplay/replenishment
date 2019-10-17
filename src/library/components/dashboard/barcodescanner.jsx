@@ -36,8 +36,7 @@ export function withBarcodeScanner(WrappedComponent) {
     }
 
     handleScannerRead = (input_string) => {
-      console.log(input_string)
-      if (!this.wrapped.handleScannerRead) {
+      if (!this.wrapped || !this.wrapped.handleScannerRead) {
         console.log("implement handleScannerRead method");
         return;
       }
@@ -46,7 +45,7 @@ export function withBarcodeScanner(WrappedComponent) {
     }
 
     render = () => {
-      return <WrappedComponent {...this.props} ref={(c) => this.wrapped = c} />;
+      return <WrappedComponent {...this.props} ref={this.wrapped} />;
     }
   }
 }

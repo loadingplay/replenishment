@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BarcodeScanner it should render properly: detault 1`] = `<t />`;
+exports[`BarcodeScanner it should render properly: detault 1`] = `<Wrapped />`;
