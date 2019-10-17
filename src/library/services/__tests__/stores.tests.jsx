@@ -41,11 +41,11 @@ describe("StoreLoader", () => {
     });
 
     store_loader = new StoreLoader(test_token);
-    products = await store_loader.loadProducts(1, 2, "test-sku");
+    products = await store_loader.searchProducts(1, 2, "test-sku");
 
     expect(products).toEqual({ test_data: 'test_data' });
     expect(global.fetch).toHaveBeenCalledWith(
-      "https://replenishments.loadingplay.com/replenishment?items=100&page=1&cellar_id=2&sku=test-sku",
+      "https://replenishments.loadingplay.com/replenishment?items=100&page=1&cellar_id=2&search_word=test-sku",
       {
         "headers": {
           "Authorization": "Bearer test_token"

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StockLoader, StoreLoader } from "../library/services";
-import { Dashboard } from "../library/components/dashboard";
+import { PickerStore } from '../library/services';
+import { DashboardWithScanner } from "../library/components/dashboard";
 
 export default class DashboardPage extends Component {
   constructor(props) {
@@ -12,7 +13,9 @@ export default class DashboardPage extends Component {
       products: null,
       is_loading: false,
       has_error: false,
-      stock_error_message: ""
+      stock_error_message: "",
+      load_key: 1,
+      is_scanner_loading: 0
     };
   }
 
@@ -57,14 +60,14 @@ export default class DashboardPage extends Component {
     });
   }
 
-  handleInventoryRequest = async (hq_cellar_id, selected_cellar_id, page, search_term) => {
+  handleInventoryRequest = async (hq_cellar_id, selected_cellar_id, page, search_term, search_type) => {
     let store_loader,
     json_data;
 
     this.setLoadingState();
 
     store_loader = new StoreLoader(this.state.access_token);
-    json_data = await store_loader.loadProducts(page, selected_cellar_id, search_term);
+    json_data = await store_loader.loadProducts(page, selected_cellar_id, search_term, search_type);
 
     if (!this.handleLoadedState(json_data)) return;  // handle errors
     this.handlePageCountLoaded(Math.ceil(json_data.metadata.count / 100));
@@ -118,12 +121,59 @@ export default class DashboardPage extends Component {
       });
   }
 
+  handleScannerRead = async (hq_cellar_id, selected_cellar_id, input_string) => {
+    let store_loader, json_data, product, cellars, q, inventories = {}, to;
+
+    this.setState({ is_scanner_loading: this.state.is_scanner_loading + 1 });
+    to = setTimeout(() => {
+      this.setState({ is_scanner_loading: this.state.is_scanner_loading - 1 });
+    }, 5000);
+
+    // search product
+    store_loader = new StoreLoader(this.state.access_token);
+    json_data = await store_loader.loadProducts(1, selected_cellar_id, input_string);
+    if (!json_data.replenishments || json_data.replenishments.length === 0) return;
+
+    product = json_data.replenishments[0];
+    cellars = selected_cellar_id === hq_cellar_id ? [selected_cellar_id] : [selected_cellar_id, hq_cellar_id];
+
+    StockLoader(this.state.access_token)
+    .load(cellars, [product.sku])
+    .done((cellar_id, products) => {
+      inventories[cellar_id] = products[0].balance_units;
+
+      if (Object.keys(inventories).length === cellars.length)
+      {
+        q = PickerStore.get(selected_cellar_id, product.sku);
+        PickerStore.set(
+          selected_cellar_id,
+          product.sku,
+          q + 1,
+          inventories[hq_cellar_id],
+          inventories[selected_cellar_id],
+          product.suggested
+        );
+        clearTimeout(to);
+        this.setState({ load_key: this.state.load_key + 1, is_scanner_loading: this.state.is_scanner_loading - 1 });
+      }
+    });
+  }
+
+  handlePickerClear = () => {
+    this.setState({ load_key: this.state.load_key + 1 });
+  }
+
   render = () => {
     return (
-      <Dashboard
+      <DashboardWithScanner
+        loadKey={this.state.load_key}
         accessToken={this.state.access_token}
         onInventoryRequest={this.handleInventoryRequest}
         pageCount={this.state.page_count}
+
+        isScannerLoading={this.state.is_scanner_loading}
+        onScannerRead={this.handleScannerRead}
+        onPickerClear={this.handlePickerClear}
 
         products={this.state.products}
         isLoading={this.state.is_loading}
@@ -131,7 +181,7 @@ export default class DashboardPage extends Component {
         stockErrorMessage={this.state.stock_error_message}
 
         {...this.props}
-      ></Dashboard>
+      ></DashboardWithScanner>
     );
   }
 }

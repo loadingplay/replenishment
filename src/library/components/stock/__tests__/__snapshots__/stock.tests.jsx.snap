@@ -14,7 +14,7 @@ exports[`Stock it should render empty: empty 1`] = `
         <th
           scope="col"
         >
-          sku
+          cod. barras
         </th>
         <th
           scope="col"
@@ -62,7 +62,7 @@ exports[`Stock it should render with error message: error message 1`] = `
         <th
           scope="col"
         >
-          sku
+          cod. barras
         </th>
         <th
           scope="col"
@@ -119,7 +119,7 @@ exports[`Stock it should render with loading message: loading message 1`] = `
         <th
           scope="col"
         >
-          sku
+          cod. barras
         </th>
         <th
           scope="col"
@@ -176,7 +176,7 @@ exports[`Stock it should render with products: with products 1`] = `
         <th
           scope="col"
         >
-          sku
+          cod. barras
         </th>
         <th
           scope="col"

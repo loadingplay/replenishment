@@ -2,25 +2,47 @@
 
 exports[`SearchInput it should render a seach box: default 1`] = `
 <div
-  className="form-group row"
+  className="form-group row no-gutters"
 >
-  <label
-    className="col-sm-2 col-form-label"
-    htmlFor="search"
-  >
-    SKU
-  </label>
   <div
-    className="col-sm-10"
+    className="col"
   >
-    <input
-      className="form-control"
-      id="search"
-      onChange={[Function]}
-      placeholder="ingrese sku"
-      type="text"
-      value=""
-    />
+    <div
+      className="input-group mb-3"
+    >
+      <input
+        className="form-control"
+        id="search"
+        onChange={[Function]}
+        placeholder="ingresar búsqueda"
+        type="text"
+        value=""
+      />
+      <div
+        className="input-group-append"
+      >
+        <span
+          className="input-group-text"
+        >
+          <i
+            className="fas fa-search"
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-auto"
+  >
+    <button
+      className="btn btn-link"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fas fa-sync"
+      />
+    </button>
   </div>
 </div>
 `;

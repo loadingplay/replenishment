@@ -22,12 +22,13 @@ export class DashboardControls extends Component {
   render = () => {
     return (
       <React.Fragment>
-        <div className="col-4" >
+        <div className="col-6" >
           <SearchInput
             onSearch={this.props.onSearchTermChange}
+            onTypeChange={this.props.onSearchTypeChange}
           ></SearchInput>
         </div>
-        <div className="col-8 text-right">
+        <div className="col-6 text-right">
           <PickerClearButton
             selected_cellar_id={this.props.selectedCellarID}
             onPickerClear={this.props.onPickerCleared}

@@ -11,14 +11,13 @@ exports[`Dashboard it should render properly: detault 1`] = `
   menuTitle="1. Seleccion de tienda"
   table={
     <Stock
-      loadKey={1}
       selectedCellar={0}
     />
   }
   tableControls={
     <DashboardControls
-      onPickerCleared={[Function]}
       onSearchTermChange={[Function]}
+      onSearchTypeChange={[Function]}
       selectedCellarID={0}
     />
   }
@@ -48,5 +47,6 @@ exports[`Dashboard it should render properly: detault 1`] = `
   }
   tableTitle="2. Pedidos"
   title="Reposición de inventario."
+  toastMessage=""
 />
 `;

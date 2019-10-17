@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 
 import { Stock, Stores, DashboardLayout, DashboardControls } from '../../components';
+import { withBarcodeScanner } from "./barcodescanner";
 
-export class Dashboard extends Component {
+
+export class Dashboard extends React.Component {
 
   static propTypes = {
     onInventoryRequest: PropTypes.func,
@@ -13,7 +15,11 @@ export class Dashboard extends Component {
     isLoading: PropTypes.bool,
     hasError: PropTypes.bool,
     stockErrorMessage: PropTypes.string,
-    pageCount: PropTypes.number
+    pageCount: PropTypes.number,
+    onScannerRead: PropTypes.func,
+    onPickerClear: PropTypes.func,
+    loadKey: PropTypes.number,
+    isScannerLoading: PropTypes.bool
   };
 
   constructor(props) {
@@ -21,22 +27,24 @@ export class Dashboard extends Component {
     this.state = {
       selected_cellar_id: 0,
       current_page: 0,
-      load_key: 1,
-      search_term: ""
+      search_term: "",
+      search_type: 'search'
     };
   }
 
-  reloadInventory = () => {
+  reloadInventory = async () => {
     // reset status
-    this.props.onInventoryRequest(
+    await this.props.onInventoryRequest(
       this.state.hq_cellar_id,
       this.state.selected_cellar_id,
       this.state.current_page + 1,
-      this.state.search_term
+      this.state.search_term,
+      this.state.search_type
     );
   }
 
   handleSelectedCellar = (cellar_id) => {
+    if (this.state.selected_cellar_id === cellar_id) return;
     this.setState({
       selected_cellar_id: cellar_id
     }, () => {
@@ -59,6 +67,7 @@ export class Dashboard extends Component {
   }
 
   handleSearch = (search_term) => {
+    if (this.state.search_term === search_term) return;
     this.setState({
       search_term
     }, () => {
@@ -66,15 +75,24 @@ export class Dashboard extends Component {
     });
   }
 
-  handlePickerClear = () => {
+  handleSearchType = (type) => {
     this.setState({
-      load_key: this.state.load_key + 1
+      search_type: type,
+      search_term: ''
+    }, () => {
+      this.reloadInventory();
     });
+  }
+
+  handleScannerRead = (input_string) => {
+    if (this.state.search_type === "barcode")
+      this.props.onScannerRead(this.state.hq_cellar_id, this.state.selected_cellar_id, input_string);
   }
 
   render() {
     return (
       <DashboardLayout
+        toastMessage={this.props.isScannerLoading ? `Procesando cola de scanner quedan ${this.props.isScannerLoading} ...`:''}
         title="Reposición de inventario."
         menuTitle="1. Seleccion de tienda"
         menu={
@@ -88,7 +106,7 @@ export class Dashboard extends Component {
         tableTitle="2. Pedidos"
         table={
           <Stock
-            loadKey={this.state.load_key}
+            loadKey={this.props.loadKey}
             selectedCellar={this.state.selected_cellar_id}
             products={this.props.products}
             isLoading={this.props.isLoading}
@@ -102,7 +120,8 @@ export class Dashboard extends Component {
             accessToken={this.props.accessToken}
 
             onSearchTermChange={this.handleSearch}
-            onPickerCleared={this.handlePickerClear}
+            onSearchTypeChange={this.handleSearchType}
+            onPickerCleared={this.props.onPickerClear}
           ></DashboardControls>
         }
         tableDownControls={
@@ -127,7 +146,9 @@ export class Dashboard extends Component {
             activeClassName={'active'}
           />
         }
-      ></DashboardLayout>
+      />
     );
   }
 }
+
+export const DashboardWithScanner = withBarcodeScanner(Dashboard);

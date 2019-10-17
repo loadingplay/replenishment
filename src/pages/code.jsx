@@ -54,7 +54,7 @@ export default class dashboard extends Component {
   render() {
     return (
       <Fragment>
-        <div>Generate access token....</div>
+        <div>Generando llave de acceso....</div>
       </Fragment>
     )
   }
