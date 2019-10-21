@@ -17,7 +17,7 @@ export default class print extends React.Component {
     const items = picker_data[selected_cellar.id] === undefined ? []:picker_data[selected_cellar.id];
     const data = {
       metadata: {
-        numero: "29.614",
+        numero: "-",
         fecha: new Date().toISOString(),
         usuario: "ADMIN",
       },
@@ -72,7 +72,11 @@ export default class print extends React.Component {
     $DOM.hastaUsuario.innerHTML = data.transporte.hasta.usuario;
 
     // Añadir todos los items
-    data.items.forEach(item => {
+    data.items.sort((a, b) => {
+      if (a.codigo > b.codigo) return 1;
+      if (a.codigo < b.codigo) return -1;
+      return 0;
+    }).forEach(item => {
       const template = `
         <tr>
             <td>${item.codigo}</td>
