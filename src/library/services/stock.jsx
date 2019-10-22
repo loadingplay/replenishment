@@ -3,6 +3,7 @@ var Loader = function (access_token) {
   this.instances = 0;
   this.max_instances = 15;
   this.chunk_size = 10;
+  this.promises = [];
 };
 
 Loader.prototype.load = function (cellar_id_list, sku_list) {
@@ -31,22 +32,25 @@ Loader.prototype.performRequest = function (cellarid, skus_chunk) {
     return
   }
   this.instances += 1;
-  fetch("https://apibodegas.loadingplay.com/v1/cellar/" + cellarid + "/product/?sku_list=" + skus_chunk.join(","),
-  {
-    headers: {
-      "Authorization": "Bearer " + this.access_token
-    }
-  })
-  .then((response) => response.json())
-  .then((response) => {
-    loader.instances -= 1;
-    loader.callback(cellarid, response.products);
-  });
+  this.promises.push(
+    fetch("https://apibodegas.loadingplay.com/v1/cellar/" + cellarid + "/product/?sku_list=" + skus_chunk.join(","),
+    {
+      headers: {
+        "Authorization": "Bearer " + this.access_token
+      }
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      loader.instances -= 1;
+      loader.callback(cellarid, response.products);
+    })
+  );
 };
 
 
 Loader.prototype.done = function (callback) {
   this.callback = callback
+  return this.promises;
 };
 
 export function StockLoader(access_token) {

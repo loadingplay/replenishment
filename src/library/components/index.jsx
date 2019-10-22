@@ -5,4 +5,5 @@ export * from './stock';
 export * from './stores';
 export * from './searchinput';
 export * from './dashboard';
-export * from './order'
+export * from './order';
+export * from './dataloader';

@@ -40,6 +40,7 @@ export class Stores extends Component {
       // trigger hq store event
       json_data.cellars.map((item) => {
         if (item.for_sale) {
+          this.store_api.setHQCellar(item);
           this.props.onHQCellarLoaded(item.id);
         }
         return 0;
