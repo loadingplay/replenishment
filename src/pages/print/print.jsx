@@ -56,8 +56,8 @@ export class Print extends React.Component {
 
     // Añadir todos los items
     data.items.sort((a, b) => {
-      if (a.codigo > b.codigo) return 1;
-      if (a.codigo < b.codigo) return -1;
+      if (a.insumo > b.insumo) return 1;
+      if (a.insumo < b.insumo) return -1;
       return 0;
     }).forEach(item => {
       const template = `
