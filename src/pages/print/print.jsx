@@ -1,52 +1,35 @@
 import React from 'react';
-import { StoreLoader, PickerStore } from '../../library/services';
+import { withDataLoader } from '../../library/components';
 
 import './print.css';
 
-
-export default class print extends React.Component {
+export class Print extends React.Component {
 
   constructor(props) {
     super(props);
-    this.store_api = new StoreLoader("");
   }
 
-  componentDidMount = () => {
-    const picker_data = PickerStore.getAll();
-    const selected_cellar = this.store_api.getSelectedCellar();
-    const items = picker_data[selected_cellar.id] === undefined ? []:picker_data[selected_cellar.id];
-    const data = {
-      metadata: {
-        numero: "-",
-        fecha: new Date().toISOString(),
-        usuario: "ADMIN",
-      },
-      transporte: {
-        desde: {
-          lugar: "BODEGA CENTRAL",
-          usuario: "ADMIN"
+  componentDidUpdate = (oldProps) => {
+    if (oldProps.loadingMessage !== this.props.loadingMessage && this.props.loadingMessage === "") {
+      this.convert2PDF({
+        metadata: {
+          numero: "-",
+          fecha: new Date().toISOString(),
+          usuario: "ADMIN",
         },
-        hasta: {
-          lugar: selected_cellar.name,
-          usuario: "ADMIN"
-        },
-      },
-      items: Object.keys(items).map((i) => {
-        return {
-          codigo: i,
-          insumo: "...",
-          existencia: {
-            casaMatriz: items[i].hq_inventory,
-            local: items[i].current_inventory
+        transporte: {
+          desde: {
+            lugar: "BODEGA CENTRAL",
+            usuario: "ADMIN"
           },
-          hecho: items[i].value,
-          falta: items[i].suggested - items[i].value
-        }
-      })
-    };
-
-    this.convert2PDF(data);
-
+          hasta: {
+            lugar: this.props.selectedCellar.name,
+            usuario: "ADMIN"
+          },
+        },
+        items: this.props.items
+      });
+    }
   }
 
   convert2PDF = (data) => {
@@ -100,7 +83,12 @@ export default class print extends React.Component {
   render() {
     return (
       <main>
-        <button onClick={this.handleClick} className="btn btn-success btn-block print-page-button" >Imprimir</button>
+        <button
+          disabled={this.props.loadingMessage !== ""}
+          onClick={this.handleClick}
+          className="btn btn-success btn-block print-page-button" >
+            { this.props.loadingMessage === "" ? "Imprimir":this.props.loadingMessage }
+        </button>
         <header className="header">
           <div className="header__group">
             <h1>TRASPASO AUTOMÁTICO</h1>
@@ -178,3 +166,6 @@ export default class print extends React.Component {
     )
   }
 }
+
+
+export default withDataLoader(Print);

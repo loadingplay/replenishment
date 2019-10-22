@@ -63,11 +63,25 @@ export class StoreLoader {
       return await this.findProduct(cellar_id, sku_filter_or_search);
   }
 
+  setHQCellar = (cellar) => {
+    if (typeof window !== 'undefined' && window.localStorage)
+      localStorage.setItem("hq-cellar", JSON.stringify(cellar));
+  }
+
+  getHQCellar = () => {
+    if (typeof window !== 'undefined' && window.localStorage)
+      return JSON.parse(localStorage.getItem("hq-cellar"));
+    return {};
+  }
+
   setSelectedCellar = (cellar) => {
-    localStorage.setItem("selected-cellar", JSON.stringify(cellar));
+    if (typeof window !== 'undefined' && window.localStorage)
+      localStorage.setItem("selected-cellar", JSON.stringify(cellar));
   }
 
   getSelectedCellar = () => {
-    return JSON.parse(localStorage.getItem("selected-cellar"));
+    if (typeof window !== 'undefined' && window.localStorage)
+      return JSON.parse(localStorage.getItem("selected-cellar"));
+    return {};
   }
 }
