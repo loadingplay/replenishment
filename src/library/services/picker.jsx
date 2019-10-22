@@ -62,4 +62,3 @@ class _PickerStore {
 }
 
 export const PickerStore = new _PickerStore();
-Object.freeze(PickerStore);

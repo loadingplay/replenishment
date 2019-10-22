@@ -15,10 +15,10 @@ export function withDataLoader(WrappedComponent) {
         this.picker_items = [];
         this.store_api = new StoreLoader(this.access_token);
         this.state = { api_items: [], loading_message: "Cargando..." };
-        this.getDataFromPicker();
       };
 
       componentDidMount = async () => {
+        this.getDataFromPicker();
         await this.getDataFromAPI();
         await this.populateFromKardex();
         this.populateWithPicker();
