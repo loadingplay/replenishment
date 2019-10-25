@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Logout it should render logout button: default 1`] = `
-<a
+<button
   className="btn btn-link ml-1"
-  href="https://accounts.loadingplay.com/auth/logout?next=http://test-url"
+  onClick={[Function]}
   role="button"
 >
   Salir
-</a>
+</button>
 `;

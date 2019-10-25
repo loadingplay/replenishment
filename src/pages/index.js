@@ -15,6 +15,13 @@ export default class index extends Component {
   }
 
   handleLoginClick = () => {
+    let access_token = localStorage.getItem("access_token");
+
+    if (access_token && access_token != "") {
+      document.location.href = "/dashboard";
+      return
+    }
+
     document.location.href = "https://accounts.loadingplay.com/oauth2/auth?" +
       "redirect_uri=" + process.env.PROJECT_URL + "/code&" +
       "site_name=replenishment-local&" +
