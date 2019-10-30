@@ -45,7 +45,7 @@ exports[`Dashboard it should render properly: detault 1`] = `
       previousLinkClassName="page-link"
     />
   }
-  tableTitle="2. Pedidos"
+  tableTitle="2. Productos"
   title="Reposición de inventario."
   toastMessage=""
 />
