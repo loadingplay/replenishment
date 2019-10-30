@@ -37,7 +37,9 @@ export class PickerControl extends React.Component {
       this.state.q,
       this.props.item.hq_inventory,
       this.props.item.current_inventory,
-      this.props.item.suggested
+      this.props.item.suggested,
+      this.props.item.is_extra,
+      this.props.item
     );
   }
 

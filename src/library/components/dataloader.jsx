@@ -106,6 +106,21 @@ export function withDataLoader(WrappedComponent) {
           item.falta = this.picker_items[item.sku].suggested - this.picker_items[item.sku].value
         });
 
+        // populate with picker extras
+        let extras = PickerStore.getAllExtras(this.selected_cellar.id);
+        extras.map((value) => {
+          this.state.api_items.push({
+            codigo: value.product_data.barcode,
+            insumo: value.product_data.name,
+            hecho: value.value,
+            falta: 0,
+            existencia: {
+              casaMatriz: 0,
+              local: 0
+            }
+          });
+        });
+
         // update api items
         this.setState({ api_items: this.state.api_items, loading_message: "" });
       }

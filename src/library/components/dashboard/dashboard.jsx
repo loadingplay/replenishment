@@ -11,6 +11,7 @@ export class Dashboard extends React.Component {
   static propTypes = {
     onInventoryRequest: PropTypes.func,
     accessToken: PropTypes.string,
+    extraProducts: PropTypes.array,
     products: PropTypes.array,
     isLoading: PropTypes.bool,
     hasError: PropTypes.bool,
@@ -103,11 +104,12 @@ export class Dashboard extends React.Component {
           />
         }
 
-        tableTitle="2. Pedidos"
+        tableTitle="2. Productos"
         table={
           <Stock
             loadKey={this.props.loadKey}
             selectedCellar={this.state.selected_cellar_id}
+            extraProducts={this.props.extraProducts}
             products={this.props.products}
             isLoading={this.props.isLoading}
             hasError={this.props.hasError}

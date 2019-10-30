@@ -10,6 +10,7 @@ export default class DashboardPage extends Component {
     this.state = {
       access_token: "",
       page_count: 0,
+      extra_products: null,
       products: null,
       is_loading: false,
       has_error: false,
@@ -64,6 +65,7 @@ export default class DashboardPage extends Component {
     let store_loader,
     json_data;
 
+    this.setState({ extra_products: PickerStore.getAllExtras(selected_cellar_id) });
     this.setLoadingState();
 
     store_loader = new StoreLoader(this.state.access_token);
@@ -121,18 +123,35 @@ export default class DashboardPage extends Component {
       });
   }
 
+  addNewSKU = async (selected_cellar_id, barcode) => {
+    // buscar sku en la api
+    let product = { sku: barcode, name: "test", barcode: barcode, is_extra: true };
+    // agregar +1 en picker
+    PickerStore.set(
+      selected_cellar_id,
+      product.sku,
+      PickerStore.get(selected_cellar_id, product.sku) + 1,
+      0, 0, 0, true, product
+    );
+  }
+
   handleScannerRead = async (hq_cellar_id, selected_cellar_id, input_string) => {
     let store_loader, json_data, product, cellars, q, inventories = {}, to;
 
     this.setState({ is_scanner_loading: this.state.is_scanner_loading + 1 });
-    to = setTimeout(() => {
-      this.setState({ is_scanner_loading: this.state.is_scanner_loading - 1 });
-    }, 5000);
 
     // search product
     store_loader = new StoreLoader(this.state.access_token);
     json_data = await store_loader.loadProducts(1, selected_cellar_id, input_string);
-    if (!json_data.replenishments || json_data.replenishments.length === 0) return;
+    if (!json_data.replenishments || json_data.replenishments.length === 0) {
+      await this.addNewSKU(selected_cellar_id, input_string);
+      this.setState({
+        is_scanner_loading: this.state.is_scanner_loading - 1,
+        extra_products: PickerStore.getAllExtras(selected_cellar_id),
+        load_key: this.state.load_key + 1
+      });
+      return;
+    }
 
     product = json_data.replenishments[0];
     cellars = selected_cellar_id === hq_cellar_id ? [selected_cellar_id] : [selected_cellar_id, hq_cellar_id];
@@ -175,6 +194,7 @@ export default class DashboardPage extends Component {
         onScannerRead={this.handleScannerRead}
         onPickerClear={this.handlePickerClear}
 
+        extraProducts={this.state.extra_products}
         products={this.state.products}
         isLoading={this.state.is_loading}
         hasError={this.state.has_error}

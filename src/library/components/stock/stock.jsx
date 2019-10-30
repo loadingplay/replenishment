@@ -12,9 +12,29 @@ export class Stock extends Component {
     hasError: PropTypes.bool,
     errorMessage: PropTypes.string,
     isLoading: PropTypes.bool,
+    extraProducts: PropTypes.array,
     products: PropTypes.array,
     loadKey: PropTypes.number
   };
+
+  renderExtraProductList = () => {
+    return this.props.extraProducts.map((item, index) => {
+      return (
+        <tr key={index} >
+          <td>{item.product_data.barcode}</td>
+          <td>{item.product_data.name}</td>
+          <td>
+            <PickerControl
+              key={this.props.loadKey}
+              cellar_id={this.props.selectedCellar}
+              item={{...item.product_data, hq_inventory: 0, current_inventory: 0}}
+            >
+            </PickerControl>
+          </td>
+        </tr>
+      );
+    });
+  }
 
   renderProductList = () => {
     let products;
@@ -72,9 +92,29 @@ export class Stock extends Component {
   }
 
   render() {
-
     return (
       <section className="stores_wrapper">
+        {
+          this.props.extraProducts && this.props.extraProducts.length > 0 ?
+            <>
+              <div className="subtitle">No sugeridos:</div>
+              <table className="table table-sm" >
+                <thead>
+                  <tr className="table-info" >
+                    <th>cod. barras</th>
+                    <th>nombre</th>
+                    <th>picker</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  { this.renderExtraProductList() }
+                </tbody>
+              </table>
+              <div className="subtitle">Sugeridos:</div>
+            </>
+            :
+            null
+        }
         <table className="table table-sm">
           <thead>
             <tr className="table-info">
