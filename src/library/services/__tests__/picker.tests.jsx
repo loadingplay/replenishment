@@ -66,4 +66,20 @@ describe("PickerStore", () => {
       "1": { first_sku, second_sku }
     });
   });
+
+  test("it should get all extra data", () => {
+    PickerStore.set(1, "first_sku", 10, 5, 3, 20);
+    PickerStore.set(1, "second_sku", 5, 10, 30, 10);
+    PickerStore.set(1, "third_sku", 5, 10, 30, 10, true);
+
+    expect(PickerStore.getAllExtras(1)).toEqual([
+      {
+        value: 5,
+        hq_inventory: 10,
+        current_inventory: 30,
+        suggested: 10,
+        is_extra: true
+      }
+    ]);
+  });
 });

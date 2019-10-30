@@ -16,6 +16,7 @@ describe("Stock", () => {
         hasError={false}
         errorMessage=""
         isLoading={true}
+        extraProducts={[]}
         products={[]}
         loadKey={1}
       ></Stock>
@@ -30,6 +31,7 @@ describe("Stock", () => {
         hasError={true}
         errorMessage="error message"
         isLoading={false}
+        extraProducts={[]}
         products={[]}
         loadKey={1}
       ></Stock>
@@ -44,6 +46,7 @@ describe("Stock", () => {
         hasError={false}
         errorMessage=""
         isLoading={false}
+        extraProducts={[]}
         products={[{}]}
         loadKey={1}
       />

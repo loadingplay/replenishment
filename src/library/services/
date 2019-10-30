@@ -17,7 +17,7 @@ class _PickerStore {
     return _PickerStore.instance;
   }
 
-  set = (cellar_id, sku, value, hq_inventory, current_inventory, suggested, is_extra, product_data) => {
+  set = (cellar_id, sku, value, hq_inventory, current_inventory, suggested, is_extra) => {
     if (!this.data || !(cellar_id in this.data) || this.data.cellar_id === "") {
       this.data[cellar_id] = {};
     }
@@ -29,8 +29,7 @@ class _PickerStore {
         hq_inventory,
         current_inventory,
         suggested,
-        is_extra,
-        product_data
+        is_extra
       };
 
     if (typeof window !== 'undefined' && window.localStorage)
@@ -62,14 +61,10 @@ class _PickerStore {
   }
 
   getAllExtras = (cellar_id) => {
-    let out = [];
-    for (let key in this.data[cellar_id]) {
-      if (this.data[cellar_id][key].is_extra) {
-        out.push(this.data[cellar_id][key]);
-      }
-    }
+    console.log(this.data[cellar_id]);
+    return Object.keys(this.data[cellar_id]).reduce((previous, current) => {
 
-    return out;
+    });
   }
 
 }
