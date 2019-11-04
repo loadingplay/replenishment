@@ -33,7 +33,7 @@ export function withBarcodeScanner(WrappedComponent) {
       if (this.timer) clearTimeout(this.timer);
       if (e.key.length <= 1) this.input_string += e.key;
 
-      this.timer = setTimeout(timeoutCallback, 1000);  // dont let this pass if this is 1000
+      this.timer = setTimeout(timeoutCallback, 100);
     }
 
     handleScannerRead = (input_string) => {
