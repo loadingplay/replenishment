@@ -128,7 +128,7 @@ export default class DashboardPage extends Component {
     let product = { sku: barcode, name: "test", barcode: barcode, is_extra: true };
     // find product in api
     let response = await fetch(
-      `https://apibodegas.loadingplay.com/v1/product/${barcode}?site_name=gizmobies`,
+      `https://apibodegas.loadingplay.com/v1/product/${barcode}`,
       {
         headers: {
           "Authorization": `Bearer ${this.state.access_token}`
