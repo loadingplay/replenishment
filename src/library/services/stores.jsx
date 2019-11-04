@@ -46,7 +46,7 @@ export class StoreLoader {
 
     // mimic normal response
     json_data.metadata = { count: 1 };
-    if (json_data.replenishment.length !== 0) {
+    if (json_data.replenishment && json_data.replenishment.length !== 0) {
       json_data.replenishments = [json_data.replenishment];
     } else {
       json_data.replenishments = [];
