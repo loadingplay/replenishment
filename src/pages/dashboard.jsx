@@ -124,8 +124,23 @@ export default class DashboardPage extends Component {
   }
 
   addNewSKU = async (selected_cellar_id, barcode) => {
-    // buscar sku en la api
+    // create product structure
     let product = { sku: barcode, name: "test", barcode: barcode, is_extra: true };
+    // find product in api
+    let response = await fetch(
+      `https://apibodegas.loadingplay.com/v1/product/${barcode}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${this.state.access_token}`
+        }
+      }
+    );
+    let json_data = await response.json();
+
+    if (response.status === 200 && json_data.status !== "error") {
+      product.sku = json_data.product.sku
+    }
+
     // agregar +1 en picker
     PickerStore.set(
       selected_cellar_id,
