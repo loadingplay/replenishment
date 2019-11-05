@@ -66,7 +66,7 @@ export class OrderModal extends React.Component {
   loadDocument = async () => {
     let json_data, extra_info;
 
-    json_data = this.order_service.get(this.props.orderId);
+    json_data = await this.order_service.get(this.props.orderId);
 
     // validate data
     if (json_data.order !== undefined && json_data.order.extra_info !== undefined) {
