@@ -95,7 +95,10 @@ export class OrderModal extends React.Component {
         style={OrderModal.customStyles}
         contentLabel="Example Modal"
       >
-        <button className="order-modal-close" onClick={() => { this.props.onClose() }}>X</button>
+        <button className="order-modal-close" onClick={() => {
+          this.setState({ show_guide: false, guide_url: '' });
+          this.props.onClose();
+        }}>X</button>
         {
           this.state.show_guide ?
           <div><a target="__blank" href={this.state.guide_url} >Descargar guía</a></div>
