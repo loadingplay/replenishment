@@ -55,7 +55,7 @@ describe("GenerateOrderButton", () => {
 
     await wrapper.instance()._sendShippedOrder();
     expect(Orders.prototype.create).toHaveBeenCalledWith({
-      "extra_info": "{}",
+      "extra_info": "{ destination_cellar: 2 }",
       "origin": "replenishments",
       "payment_type": "guia",
       "products": "[]"
@@ -72,7 +72,7 @@ describe("GenerateOrderButton", () => {
     PickerStore.set(2, "test-sku", 1, 10, 10, 10);
     await wrapper.instance()._sendShippedOrder();
     expect(Orders.prototype.create).toHaveBeenCalledWith({
-      "extra_info": "{}",
+      "extra_info": "{ destination_cellar: 2 }",
       "origin": "replenishments",
       "payment_type": "guia",
       "products": "[{\"sku\":\"test-sku\",\"price\":0,\"name\":\"\",\"combination\":\"\",\"quantity\":1}]"
