@@ -64,7 +64,7 @@ export class GenerateOrderButton extends React.Component {
 
     // create order in hype
     post_data = this._generateOrderData();
-    post_data.extra_info = `{ destination_cellar: ${this.props.selectedCellar} }`;
+    post_data.extra_info = JSON.stringify({ "destination_cellar": this.props.selectedCellar });
     json_data = await order_service.create(post_data);
 
     // update order in hype
