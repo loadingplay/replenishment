@@ -146,7 +146,7 @@ export default class DashboardPage extends Component {
       selected_cellar_id,
       product.sku,
       PickerStore.get(selected_cellar_id, product.sku) + 1,
-      0, 0, 0, true, product
+      1000000, 1000000, 1000000, true, product
     );
   }
 
