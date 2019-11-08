@@ -44,7 +44,8 @@ export class PickerControl extends React.Component {
   }
 
   handlePlus = () => {
-    this.setState({q: this.state.q + 1}, this.handleUpdate);
+    if (this.props.item.is_extra || this.state.q < this.props.item.hq_inventory)
+      this.setState({q: this.state.q + 1}, this.handleUpdate);
   }
 
   handleMinus = () => {
