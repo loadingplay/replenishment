@@ -16,6 +16,23 @@ export class StoreLoader {
     return json_data;
   }
 
+  resetSuggested = async (cellar_id) => {
+    let response, json_data;
+    response = await fetch(
+      `https://replenishments.loadingplay.com/replenishment/reset`,
+      {
+        "headers" : {
+          "Authorization": `Bearer ${this.access_token}`
+        },
+        "method": "PUT",
+        "body": JSON.stringify({ cellar_id })
+      }
+    )
+
+    json_data = await response.json();
+    return json_data;
+  }
+
   searchProducts = async (page, cellar_id, search) => {
     let response, json_data;
 
