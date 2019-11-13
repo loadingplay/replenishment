@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { OrderModal } from "./ordermodal";
-import { PickerStore, Orders } from '../../services';
+import { PickerStore, Orders, StoreLoader } from '../../services';
 import "./order.css";
 
 
@@ -75,6 +75,10 @@ export class GenerateOrderButton extends React.Component {
     }
   }
 
+  _resetSuggestions = async () => {
+    await (new StoreLoader(this.props.accessToken)).resetSuggested(this.props.selectedCellar)
+  }
+
   handleClick = async () => {
     let order_id;
 
@@ -88,7 +92,11 @@ export class GenerateOrderButton extends React.Component {
       order_id
     });
 
+    // clear picker
     PickerStore.clear(this.props.selectedCellar);
+    // clear suggested
+    this._resetSuggestions()
+
     this.props.onOrderGenerated();
     this.setState({ button_status: GenerateOrderButton.Statusses.DONE });
 
