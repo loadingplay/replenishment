@@ -90,6 +90,7 @@ describe("GenerateOrderButton", () => {
     );
 
     wrapper.instance()._sendShippedOrder = jest.fn().mockResolvedValue(1);
+    wrapper.instance()._resetSuggestions = jest.fn().mockResolvedValue(1);
 
     let promise = wrapper.instance().handleClick();
     expect(wrapper.instance().state.button_status).toEqual(GenerateOrderButton.Statusses.GENERATING);

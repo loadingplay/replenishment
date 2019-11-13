@@ -75,6 +75,10 @@ export class GenerateOrderButton extends React.Component {
     }
   }
 
+  _resetSuggestions = async () => {
+    await (new StoreLoader(this.props.accessToken)).resetSuggested(this.props.selectedCellar)
+  }
+
   handleClick = async () => {
     let order_id;
 
@@ -91,7 +95,7 @@ export class GenerateOrderButton extends React.Component {
     // clear picker
     PickerStore.clear(this.props.selectedCellar);
     // clear suggested
-    await (new StoreLoader(this.props.accessToken)).resetSuggested(this.props.selectedCellar)
+    this._resetSuggestions()
 
     this.props.onOrderGenerated();
     this.setState({ button_status: GenerateOrderButton.Statusses.DONE });
