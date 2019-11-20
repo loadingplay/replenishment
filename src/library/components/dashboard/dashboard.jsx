@@ -27,6 +27,7 @@ export class Dashboard extends React.Component {
     super(props);
     this.state = {
       selected_cellar_id: 0,
+      selected_cellar_name: "",
       current_page: 0,
       search_term: "",
       search_type: 'search'
@@ -44,10 +45,11 @@ export class Dashboard extends React.Component {
     );
   }
 
-  handleSelectedCellar = (cellar_id) => {
+  handleSelectedCellar = (cellar_id, cellar_name) => {
     if (this.state.selected_cellar_id === cellar_id) return;
     this.setState({
-      selected_cellar_id: cellar_id
+      selected_cellar_id: cellar_id,
+      selected_cellar_name: cellar_name
     }, () => {
       this.reloadInventory();
     });
@@ -104,7 +106,11 @@ export class Dashboard extends React.Component {
           />
         }
 
-        tableTitle="2. Productos"
+        tableTitle={
+          "2. Productos" + (this.state.selected_cellar_name !== "" ?
+          ` | usted esta reponiendo para la bodega ${this.state.selected_cellar_name}`:
+          "")
+        }
         table={
           <Stock
             loadKey={this.props.loadKey}

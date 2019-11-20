@@ -76,7 +76,7 @@ export class Stores extends Component {
             onClick={() => {
               this.setState({ selected_id: item.id });
               this.saveSelectedCellar(item);
-              this.props.cellarSelected(item.id);
+              this.props.cellarSelected(item.id, item.name);
             }}
           >
             {item.name}
