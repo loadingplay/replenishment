@@ -1,5 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`OrderModal should give an correct message in modal: modal-load-messge 1`] = `
+<div>
+  Esperando documento 
+  
+</div>
+`;
+
+exports[`OrderModal should give an error message on modal: modal-error-messag 1`] = `
+<div
+  style={
+    Object {
+      "flex": 1,
+      "flexDirection": "",
+      "fontSize": "12px",
+      "messageTable": Object {},
+      "textAlign": "center",
+    }
+  }
+>
+  <legend>
+    Fallo al generar guia
+  </legend>
+  <p>
+    Los siguientes productos superan el stock disponible en bodega: 
+  </p>
+  <table
+    border="1"
+    className="messageTable"
+    frame="void"
+    rules="rows"
+  >
+    <thead>
+      <tr>
+        <th>
+          Codigo de barra
+        </th>
+        <th>
+          Nombre
+        </th>
+        <th>
+          Max. a reponer
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          barcode
+        </td>
+        <td>
+          name
+        </td>
+        <td>
+          0
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
 exports[`OrderModal should match snap shot 1`] = `
 <Modal
   ariaHideApp={false}
