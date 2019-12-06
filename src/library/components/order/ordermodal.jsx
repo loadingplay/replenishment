@@ -108,7 +108,7 @@ export class OrderModal extends React.Component {
       }
       return (
         <div style={error_style}>
-          <legend>Fallo al generar guia</legend>
+          <legend>Falló al generar guía</legend>
           <p>Los siguientes productos superan el stock disponible en bodega: </p>
           <table className="messageTable" border='1' frame='void' rules='rows'>
             <thead>
