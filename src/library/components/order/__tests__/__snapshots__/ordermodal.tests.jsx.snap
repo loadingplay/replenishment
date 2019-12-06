@@ -20,7 +20,7 @@ exports[`OrderModal should give an error message on modal: modal-error-messag 1`
   }
 >
   <legend>
-    Fallo al generar guia
+    Falló al generar guía
   </legend>
   <p>
     Los siguientes productos superan el stock disponible en bodega: 
@@ -34,7 +34,7 @@ exports[`OrderModal should give an error message on modal: modal-error-messag 1`
     <thead>
       <tr>
         <th>
-          Codigo de barra
+          Código de barra
         </th>
         <th>
           Nombre
