@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GenerateOrderButton it should faild create on create shipping order to api: sku-over-quantity 1`] = `Promise {}`;
+
 exports[`GenerateOrderButton it should generate order data: order-data-empty 1`] = `
 Object {
   "origin": "replenishments",
@@ -12,7 +14,7 @@ exports[`GenerateOrderButton it should generate order data: order-data-with-one-
 Object {
   "origin": "replenishments",
   "payment_type": "guia",
-  "products": "[{\\"sku\\":\\"test-sku\\",\\"price\\":0,\\"name\\":\\"\\",\\"combination\\":\\"\\",\\"quantity\\":1}]",
+  "products": "[{\\"sku\\":\\"test-sku\\",\\"price\\":0,\\"name\\":\\"name\\",\\"barcode\\":\\"barcode\\",\\"combination\\":\\"\\",\\"quantity\\":1}]",
 }
 `;
 
@@ -27,6 +29,7 @@ exports[`GenerateOrderButton it should render the button from status: default 1`
     Generar guía
   </button>
   <OrderModal
+    error_message={Array []}
     isOpen={false}
     onClose={[Function]}
     orderId={-1}
@@ -45,6 +48,7 @@ exports[`GenerateOrderButton it should render the button from status: done 1`] =
     Guía enviada
   </button>
   <OrderModal
+    error_message={Array []}
     isOpen={false}
     onClose={[Function]}
     orderId={-1}
@@ -63,9 +67,14 @@ exports[`GenerateOrderButton it should render the button from status: loading 1`
     Generando...
   </button>
   <OrderModal
+    error_message={Array []}
     isOpen={false}
     onClose={[Function]}
     orderId={-1}
   />
 </Fragment>
 `;
+
+exports[`GenerateOrderButton it should validate order stock, and return empty list of sku over quantity: sku-over-quantity-empty 1`] = `Promise {}`;
+
+exports[`GenerateOrderButton it should validate order stock, and return list of sku over quantity: sku-over-quantity 1`] = `Promise {}`;
