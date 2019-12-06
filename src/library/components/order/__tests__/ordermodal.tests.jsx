@@ -5,12 +5,13 @@ import { shallow } from "enzyme";
 
 describe("OrderModal", () => {
   it("should match snap shot", () => {
-    const wrapper = shallow(<OrderModal />, {disableLifecycleMethods: true});
+    const wrapper = shallow(<OrderModal error_message={[]} />, { disableLifecycleMethods: true });
     expect(wrapper).toMatchSnapshot();
   });
-
+  
   it("should load document", async (done) => {
-    const wrapper = shallow(<OrderModal />, {disableLifecycleMethods: true});
+    
+    const wrapper = shallow(<OrderModal error_message={[]}/>, {disableLifecycleMethods: true});
     wrapper.instance().order_service.get = jest.fn().mockReturnValue({
       order: {
         extra_info: JSON.stringify({dispatch_guide: {url: "test"}})
@@ -27,4 +28,28 @@ describe("OrderModal", () => {
       done();
     }, 2000);
   });
+
+  it("should give an error message on modal", () => {
+    const wrapper = shallow(<OrderModal error_message={[
+      {
+        barcode: "barcode",
+        name: "name",
+        max_replenishment: 0
+      }
+    ]} />, { disableLifecycleMethods: true });
+
+    expect(wrapper.instance().modal_message()
+    ).toMatchSnapshot("modal-error-messag")
+
+  })
+
+  it("should give an correct message in modal", () => {
+    const wrapper = shallow(<OrderModal error_message={[
+    ]} />, { disableLifecycleMethods: true });
+
+    expect(wrapper.instance().modal_message()
+    ).toMatchSnapshot("modal-load-messge");
+
+  })
+
 });
