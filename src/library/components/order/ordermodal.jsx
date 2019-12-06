@@ -113,7 +113,7 @@ export class OrderModal extends React.Component {
           <table className="messageTable" border='1' frame='void' rules='rows'>
             <thead>
               <tr>
-                <th>Codigo de barra</th>
+                <th>Código de barra</th>
                 <th>Nombre</th>
                 <th>Max. a reponer</th>
               </tr>
