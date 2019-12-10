@@ -39,68 +39,11 @@ describe("GenerateOrderButton", () => {
     expect(
       wrapper.instance()._generateOrderData()
     ).toMatchSnapshot("order-data-empty");
-    
-    PickerStore.set(2, "test-sku", 1, 10, 10, 10, false, {product_name: "name", barcode: "barcode"});
+
+    PickerStore.set(2, "test-sku", 1, 10, 10, 10);
     expect(
       wrapper.instance()._generateOrderData()
     ).toMatchSnapshot("order-data-with-one-product");
-
-  });
-
-  test("it should validate order stock, and return empty list of sku over quantity", () => {
-    let order_data, verification_cellar;
-    const wrapper = shallow(<GenerateOrderButton selectedCellar={2} hqCellarId={1}/>);
-    verification_cellar = 2;
-    order_data = {
-      products: JSON.stringify([{
-        sku: "sku",
-        name: "name",
-        barcode: "barcode",
-        quantity: 1
-      }])
-    };
-    global.fetch = jest.fn().mockResolvedValue({ 
-      json: () => {
-         return { products: [{
-           product_sku: "sku",
-           balance_units: 1
-
-          }] 
-        } 
-      } 
-    });
-    expect(
-      wrapper.instance()._validateOrderStock(order_data, verification_cellar)
-    ).toMatchSnapshot("sku-over-quantity-empty");
-
-  });
-  
-  test("it should validate order stock, and return list of sku over quantity", () => {
-    let order_data, verification_cellar;
-    const wrapper = shallow(<GenerateOrderButton selectedCellar={2} hqCellarId={1}/>);
-    verification_cellar = 2;
-    order_data = {
-      products: JSON.stringify([{
-        sku: "sku",
-        name: "name",
-        barcode: "barcode",
-        quantity: 1
-      }])
-    };
-    global.fetch = jest.fn().mockResolvedValue({ 
-      json: () => {
-         return { products: [{
-           product_sku: "sku",
-           balance_units: 0
-
-          }] 
-        } 
-      } 
-    });
-    expect(
-      wrapper.instance()._validateOrderStock(order_data, verification_cellar)
-    ).toMatchSnapshot("sku-over-quantity");
-
   });
 
   test("it should send shipped order to api", async () => {
@@ -126,7 +69,7 @@ describe("GenerateOrderButton", () => {
         "id": 1
       }
     });
-    PickerStore.set(2, "test-sku", 1, 10, 10, 10, false, {product_name: "" });
+    PickerStore.set(2, "test-sku", 1, 10, 10, 10);
     await wrapper.instance()._sendShippedOrder();
     expect(Orders.prototype.create).toHaveBeenCalledWith({
       "extra_info": "{\"destination_cellar\":2}",
@@ -137,23 +80,6 @@ describe("GenerateOrderButton", () => {
     expect(Orders.prototype.update).toHaveBeenCalledWith(
       1, {"status": "despachado"}
     );
-  });
-
-
-  test("it should faild create on create shipping order to api", async () => {
-    const wrapper = shallow(<GenerateOrderButton selectedCellar={2} />);
-
-    // mock validate stock
-    wrapper.instance()._validateOrderStock = jest.fn().mockResolvedValue([
-      {
-        barcode: "barcode",
-        name: "name",
-        max_replenishment: 0
-      }
-    ])
-    expect(
-      wrapper.instance()._sendShippedOrder()
-    ).toMatchSnapshot("sku-over-quantity");
   });
 
   test("it should execute all sync within click", async () => {
@@ -174,29 +100,4 @@ describe("GenerateOrderButton", () => {
     expect(wrapper.instance().props.onOrderGenerated).toHaveBeenCalledTimes(1);
     expect(wrapper.instance().state.button_status).toEqual(GenerateOrderButton.Statusses.DONE);
   });
-
-  test("it should fail on execute all sync within click", async () => {
-    const wrapper = shallow(
-      <GenerateOrderButton
-        onOrderGenerated={jest.fn().mockReturnValue(1)}
-      />
-    );
-
-    wrapper.instance()._sendShippedOrder = jest.fn().mockResolvedValue([
-      {
-        barcode: "barcode",
-        name: "name",
-        max_replenishment: 0
-      }
-    ]);
-    wrapper.instance()._resetSuggestions = jest.fn().mockResolvedValue(1);
-    let promise = wrapper.instance().handleClick();
-    expect(wrapper.instance().state.button_status).toEqual(GenerateOrderButton.Statusses.GENERATING);
-    expect(wrapper.instance()._sendShippedOrder).toHaveBeenCalledTimes(1);
-    await promise;
-    expect(wrapper.instance().props.onOrderGenerated).toHaveBeenCalledTimes(0);
-    expect(wrapper.instance().props.onOrderGenerated).toHaveBeenCalledTimes(0);
-    expect(wrapper.state().order_id).toEqual(-1)
-  });
-
 });

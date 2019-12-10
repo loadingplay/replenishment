@@ -15,7 +15,6 @@ export class DashboardControls extends Component {
   static propTypes = {
     selectedCellarID: PropTypes.number,
     accessToken: PropTypes.string,
-    hqCellarId: PropTypes.number,
     onSearchTermChange: PropTypes.func,
     onPickerCleared: PropTypes.func
   }
@@ -38,7 +37,6 @@ export class DashboardControls extends Component {
           <GenerateOrderButton
             selectedCellar={this.props.selectedCellarID}
             accessToken={this.props.accessToken}
-            hqCellarId={this.props.hqCellarId}
             onOrderGenerated={this.props.onPickerCleared}
           ></GenerateOrderButton>
           <LogoutButton></LogoutButton>

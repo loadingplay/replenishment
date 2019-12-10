@@ -11,15 +11,14 @@ export class OrderModal extends React.Component {
     accessToken: PropTypes.string,
     isOpen: PropTypes.bool,
     onClose: PropTypes.func,
-    orderId: PropTypes.number,
-    error_message: PropTypes.array
+    orderId: PropTypes.number
   };
 
   static customStyles = {
     overlay: {
       zIndex: '10'
     },
-    content: {
+    content : {
       top: '50%',
       left: '50%',
       right: 'auto',
@@ -68,6 +67,7 @@ export class OrderModal extends React.Component {
     let json_data, extra_info;
 
     json_data = await this.order_service.get(this.props.orderId);
+
     // validate data
     if (json_data.order !== undefined && json_data.order.extra_info !== undefined) {
       if (json_data.order.extra_info !== '') {
@@ -87,54 +87,6 @@ export class OrderModal extends React.Component {
     }
   }
 
-  modal_message = () => {
-    let render;
-    let error_style;
-    if (this.props.error_message.length > 0) {
-      render = this.props.error_message.map(error => (
-        <tr key={error.barcode}>
-          <td>{error.barcode}</td>
-          <td>{error.name}</td>
-          <td>{error.max_replenishment}</td>
-          
-        </tr>));
-      error_style = {
-        flex: 1,
-        flexDirection: '',
-        fontSize: '12px',
-        textAlign: 'center',
-        messageTable:{}
-
-      }
-      return (
-        <div style={error_style}>
-          <legend>Falló al generar guía</legend>
-          <p>Los siguientes productos superan el stock disponible en bodega: </p>
-          <table className="messageTable" border='1' frame='void' rules='rows'>
-            <thead>
-              <tr>
-                <th>Código de barra</th>
-                <th>Nombre</th>
-                <th>Max. a reponer</th>
-              </tr>
-            </thead>
-            <tbody>
-              {render}
-            </tbody>
-          </table>
-        
-        </div>
-        
-      );
-    }
-    else {
-      return this.state.show_guide ?
-        <div><a target="__blank" href={this.state.guide_url} >Descargar guía</a></div> :
-        <div>Esperando documento {this.state.loading}</div>;
-    }
-  }
-
-
   render = () => {
     return (
       <Modal
@@ -147,7 +99,12 @@ export class OrderModal extends React.Component {
           this.setState({ show_guide: false, guide_url: '' });
           this.props.onClose();
         }}>X</button>
-        {this.modal_message()}
+        {
+          this.state.show_guide ?
+          <div><a target="__blank" href={this.state.guide_url} >Descargar guía</a></div>
+          :
+          <div>Esperando documento {this.state.loading}</div>
+        }
       </Modal>
     );
   }
