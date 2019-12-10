@@ -126,7 +126,7 @@ export class Dashboard extends React.Component {
           <DashboardControls
             selectedCellarID={this.state.selected_cellar_id}
             accessToken={this.props.accessToken}
-            hqCellarId={this.state.hq_cellar_id}
+
             onSearchTermChange={this.handleSearch}
             onSearchTypeChange={this.handleSearchType}
             onPickerCleared={this.props.onPickerClear}
