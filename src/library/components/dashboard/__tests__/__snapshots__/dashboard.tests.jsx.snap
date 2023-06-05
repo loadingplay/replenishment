@@ -24,6 +24,12 @@ exports[`Dashboard it should render properly: detault 1`] = `
   tableDownControls={
     <o
       activeClassName="active"
+      breakAriaLabels={
+        Object {
+          "backward": "Jump backward",
+          "forward": "Jump forward",
+        }
+      }
       breakClassName="page-item"
       breakLabel="..."
       breakLinkClassName="page-link"
@@ -32,20 +38,26 @@ exports[`Dashboard it should render properly: detault 1`] = `
       disabledClassName="disabled"
       eventListener="onClick"
       forcePage={0}
+      hrefAllControls={false}
       marginPagesDisplayed={2}
       nextAriaLabel="Next page"
       nextClassName="page-item"
       nextLabel="siguiente"
       nextLinkClassName="page-link"
+      nextPageRel="next"
+      nextRel="next"
       onPageChange={[Function]}
       pageClassName="page-item"
-      pageCount={10}
+      pageLabelBuilder={[Function]}
       pageLinkClassName="page-link"
       pageRangeDisplayed={5}
+      prevPageRel="prev"
+      prevRel="prev"
       previousAriaLabel="Previous page"
       previousClassName="page-item"
       previousLabel="anterior"
       previousLinkClassName="page-link"
+      selectedPageRel="canonical"
     />
   }
   tableTitle="2. Productos"
