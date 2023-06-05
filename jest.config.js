@@ -11,7 +11,13 @@ module.exports = {
   globals: {
     __PATH_PREFIX__: ``,
   },
-  testURL: `http://localhost`,
+  testEnvironmentOptions: {
+    url: `http://localhost`
+  },
   setupFiles: [`<rootDir>/loadershim.js`],
-  snapshotSerializers: ['enzyme-to-json/serializer']
+  snapshotSerializers: ['enzyme-to-json/serializer'],
+  unmockedModulePathPatterns: [
+    "node_modules/react/",
+    "node_modules/enzyme/"
+  ]
 }

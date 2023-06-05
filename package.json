@@ -19,24 +19,24 @@
     "@babel/plugin-transform-classes": "^7.21.0",
     "@babel/preset-env": "^7.22.4",
     "@babel/preset-react": "^7.22.3",
-    "gatsby": "^2.32.13",
+    "gatsby": "^5.10.0",
     "gatsby-image": "^2.11.0",
-    "gatsby-plugin-sharp": "^2.14.4",
-    "gatsby-source-filesystem": "^2.11.1",
-    "gatsby-transformer-sharp": "^2.12.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
+    "gatsby-plugin-sharp": "^5.10.0",
+    "gatsby-source-filesystem": "^5.10.0",
+    "gatsby-transformer-sharp": "^5.10.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-helmet": "^5.2.1",
     "react-modal": "^3.16.1",
-    "react-paginate": "^6.5.0",
+    "react-paginate": "^8.0.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@cfaester/enzyme-adapter-react-18": "0.7.0",
     "@types/jest": "^24.9.1",
     "babel-jest": "^24.9.0",
     "babel-preset-gatsby": "^0.2.36",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.7",
     "enzyme-to-json": "^3.6.2",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
@@ -47,7 +47,7 @@
     "eslint-plugin-react-native": "^3.11.0",
     "eslint-plugin-standard": "^4.1.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.9.0",
+    "jest": "^26.0.0",
     "prettier": "^1.19.1",
     "prop-types": "^15.8.1"
   },
@@ -57,11 +57,5 @@
   },
   "bugs": {
     "url": "https://github.com/loadingplay/replenishment/issues"
-  },
-  "jest": {
-    "unmockedModulePathPatterns": [
-      "node_modules/react/",
-      "node_modules/enzyme/"
-    ]
   }
 }
