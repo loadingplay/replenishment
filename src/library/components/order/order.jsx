@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import { OrderModal } from "./ordermodal";
 import { PickerStore, Orders, StoreLoader } from '../../services';
 import "./order.css";
@@ -51,7 +52,8 @@ export class GenerateOrderButton extends React.Component {
     return {
       origin: "replenishments",
       payment_type: "guia",
-      products: JSON.stringify(products)
+      products: JSON.stringify(products),
+      reference_code: uuidv4()
     };
   }
 

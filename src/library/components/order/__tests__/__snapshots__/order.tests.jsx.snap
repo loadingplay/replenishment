@@ -5,6 +5,7 @@ Object {
   "origin": "replenishments",
   "payment_type": "guia",
   "products": "[]",
+  "reference_code": "uuidv4",
 }
 `;
 
@@ -13,6 +14,7 @@ Object {
   "origin": "replenishments",
   "payment_type": "guia",
   "products": "[{\\"sku\\":\\"test-sku\\",\\"price\\":0,\\"name\\":\\"\\",\\"combination\\":\\"\\",\\"quantity\\":1}]",
+  "reference_code": "uuidv4",
 }
 `;
 
