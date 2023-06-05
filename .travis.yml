@@ -1,12 +1,13 @@
 dist: focal
 language: node_js
 node_js:
-  - '18'
+  - '16'
 install:
   - npm install
 script:
   - npm run lint
   - npm test
+  - npm run build
 notifications:
   slack:
     rooms:
