@@ -3,7 +3,8 @@ language: node_js
 node_js:
   - '18'
 install:
-  - npm install
+  - npm install --legacy-peer-deps
+  - npm run build
 script:
   - npm run lint
   - npm test
