@@ -22,7 +22,7 @@ exports[`Dashboard it should render properly: detault 1`] = `
     />
   }
   tableDownControls={
-    <PaginationBoxView
+    <o
       activeClassName="active"
       breakClassName="page-item"
       breakLabel="..."
@@ -30,8 +30,10 @@ exports[`Dashboard it should render properly: detault 1`] = `
       containerClassName="pagination"
       disableInitialCallback={false}
       disabledClassName="disabled"
+      eventListener="onClick"
       forcePage={0}
       marginPagesDisplayed={2}
+      nextAriaLabel="Next page"
       nextClassName="page-item"
       nextLabel="siguiente"
       nextLinkClassName="page-link"
@@ -40,6 +42,7 @@ exports[`Dashboard it should render properly: detault 1`] = `
       pageCount={10}
       pageLinkClassName="page-link"
       pageRangeDisplayed={5}
+      previousAriaLabel="Previous page"
       previousClassName="page-item"
       previousLabel="anterior"
       previousLinkClassName="page-link"

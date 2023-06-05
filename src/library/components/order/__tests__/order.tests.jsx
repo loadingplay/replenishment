@@ -1,4 +1,5 @@
 jest.mock("../../../services/orders");
+jest.mock("uuid", () => ({v4: jest.fn().mockReturnValue('uuidv4')}));
 
 import React from "react";
 import { GenerateOrderButton } from "..";
@@ -58,7 +59,8 @@ describe("GenerateOrderButton", () => {
       "extra_info": "{\"destination_cellar\":2}",
       "origin": "replenishments",
       "payment_type": "guia",
-      "products": "[]"
+      "products": "[]",
+      "reference_code": "uuidv4"
     });
     expect(Orders.prototype.update).toHaveBeenCalledTimes(0);
 
@@ -75,7 +77,8 @@ describe("GenerateOrderButton", () => {
       "extra_info": "{\"destination_cellar\":2}",
       "origin": "replenishments",
       "payment_type": "guia",
-      "products": "[{\"sku\":\"test-sku\",\"price\":0,\"name\":\"\",\"combination\":\"\",\"quantity\":1}]"
+      "products": "[{\"sku\":\"test-sku\",\"price\":0,\"name\":\"\",\"combination\":\"\",\"quantity\":1}]",
+      "reference_code": "uuidv4"
     });
     expect(Orders.prototype.update).toHaveBeenCalledWith(
       1, {"status": "despachado"}
